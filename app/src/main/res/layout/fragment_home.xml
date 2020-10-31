@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment">
+
+
+   <LinearLayout
+       android:id="@+id/linearLayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+      <SearchView
+          android:id="@+id/searchView"
+          android:layout_width="0dp"
+          android:layout_weight="85"
+          android:layout_height="wrap_content"
+          android:queryHint="By Name, Phone or Rec.Time"
+          android:iconifiedByDefault="false"/>
+
+      <ImageButton
+          android:id="@+id/filter"
+          android:layout_width="0dp"
+          android:layout_weight="15"
+          android:layout_height="wrap_content"
+          android:src="@drawable/filter_list"
+          android:layout_toEndOf="@+id/searchView"
+          />
+
+   </LinearLayout>
+
+   <TextView
+      android:id="@+id/currentDate"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+      android:layout_below="@+id/linearLayout"
+       android:textSize="25sp"
+       android:layout_centerHorizontal="true"/>
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/recViewNote"
+       android:layout_below="@+id/currentDate"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
+
+   <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/addNote"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentEnd="true"
+       android:layout_margin="25dp"
+       android:background="@android:color/transparent"
+       android:src="@drawable/add_button"/>
+
+
+
+
+
+</RelativeLayout>

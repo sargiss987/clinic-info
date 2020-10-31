@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="7dp"
+    android:layout_margin="5dp"
+    android:background="@color/cardview_shadow_end_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLightBlue"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="John Doe "
+            android:textSize="30sp"
+            android:textStyle="italic|bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: "
+            android:id="@+id/phone"
+            android:textSize="25sp"
+            android:layout_below="@+id/txtName"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPhone"
+            android:text="+37493093740 "
+            android:textSize="25sp"
+            android:layout_below="@+id/txtName"
+            android:layout_toEndOf="@+id/phone"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/date"
+            android:text="Date: "
+            android:textSize="25sp"
+            android:layout_below="@+id/txtPhone"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDate"
+            android:text="19/07/2020 "
+            android:textSize="25sp"
+            android:layout_toEndOf="@+id/date"
+            android:layout_below="@+id/txtPhone"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:text="Time: "
+            android:textSize="25sp"
+            android:layout_below="@+id/date"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtTime"
+            android:text="15 : 30 pm "
+            android:textSize="25sp"
+            android:layout_toEndOf="@+id/time"
+            android:layout_below="@+id/date"
+            android:layout_marginStart="10dp"/>
+
+        <ImageView
+            android:id="@+id/btnCall"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/call"
+            android:layout_toEndOf="@+id/txtPhone"
+            android:layout_below="@+id/txtDate"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/btnDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/delete"
+            android:layout_toEndOf="@+id/txtPhone"
+            android:layout_below="@+id/txtDate"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"/>
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
