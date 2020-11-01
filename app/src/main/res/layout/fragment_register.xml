@@ -10,8 +10,9 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent"
             android:layout_width="match_parent"
-            android:layout_height="804dp"
+            android:layout_height="wrap_content"
             android:padding="7dp">
 
             <TextView
@@ -62,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/fullNameLayout" />
 
             <Spinner
-                android:id="@+id/spinnerDays"
+                android:id="@+id/spinnerDaysTreatment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -71,23 +72,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
 
             <Spinner
-                android:id="@+id/spinnerMonths"
+                android:id="@+id/spinnerMonthsTreatment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:entries="@array/months"
-                app:layout_constraintStart_toEndOf="@+id/spinnerDays"
+                app:layout_constraintStart_toEndOf="@+id/spinnerDaysTreatment"
                 app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
 
             <Spinner
-                android:id="@+id/spinnerYears"
+                android:id="@+id/spinnerYearsTreatment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:entries="@array/Years"
-                app:layout_constraintStart_toEndOf="@+id/spinnerMonths"
+                app:layout_constraintStart_toEndOf="@+id/spinnerMonthsTreatment"
                 app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
 
             <TextView
@@ -99,7 +100,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerMonths" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
             <CheckBox
                 android:id="@+id/checkMale"
@@ -109,7 +110,7 @@
                 android:layout_marginTop="15dp"
                 android:text="արական"
                 app:layout_constraintStart_toEndOf="@+id/txtGender"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerMonths" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
             <CheckBox
                 android:id="@+id/checkFemale"
@@ -119,7 +120,7 @@
                 android:layout_marginTop="15dp"
                 android:text="իգական"
                 app:layout_constraintStart_toEndOf="@+id/checkMale"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerMonths" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addressLayout"
@@ -1134,14 +1135,42 @@
                 app:layout_constraintStart_toEndOf="@+id/checkNormally"
                 app:layout_constraintTop_toBottomOf="@+id/biteType" />
 
-              <Button
+              <com.google.android.material.button.MaterialButton
                   android:id="@+id/btnTeethDiagram"
-                  android:layout_width="wrap_content"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:text="Teeth Diagram"
+                  android:layout_marginTop="30dp"
+                  android:layout_marginStart="40dp"
+                  android:layout_marginEnd="40dp"
                   app:layout_constraintTop_toBottomOf="@+id/checkPathological"
-                  app:layout_constraintEnd_toStartOf="@+id/parent"/>
+                  app:layout_constraintStart_toStartOf="@+id/parent"
+                  app:layout_constraintEnd_toEndOf="@+id/parent"/>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTreatmentProcess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TREATMENT PROCESS"
+                android:focusable="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnTeethDiagram"
+                app:layout_constraintStart_toEndOf="@+id/parent"
+                app:layout_constraintEnd_toEndOf="@+id/parent"/>
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnTreatmentProcess"
+                app:layout_constraintEnd_toEndOf="@+id/parent"
+                app:layout_constraintStart_toStartOf="@+id/parent"
+                android:text="Register"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
