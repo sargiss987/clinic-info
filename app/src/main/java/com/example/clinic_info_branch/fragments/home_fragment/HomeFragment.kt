@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.fragments
+package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -29,7 +29,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.jar.Manifest
 
 const val REQUEST_CALL = 1
 
@@ -351,7 +350,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
             note = noteList[position]
         }
 
-        //delete note to database
+        //delete note from database
          GlobalScope.launch(Dispatchers.Default) {
 
             db?.notesDao()?.deleteNote(note)
@@ -374,7 +373,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         android.Manifest.permission.CALL_PHONE)
                 } != PackageManager.PERMISSION_GRANTED){
                  ActivityCompat.requestPermissions(context as Activity,arrayOf<String>(android.Manifest.permission.CALL_PHONE) ,
-                     REQUEST_CALL)
+                     REQUEST_CALL
+                 )
             }else{
                 val dial = "tel:$phoneNumber"
                 startActivity(Intent(Intent.ACTION_CALL,Uri.parse(dial)))

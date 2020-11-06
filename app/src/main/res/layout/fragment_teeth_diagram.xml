@@ -8,7 +8,7 @@
 
 
 
-    <com.example.clinic_info_branch.fragments.DentalDiagram
+    <com.example.clinic_info_branch.fragments.register_fragment.DentalDiagram
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

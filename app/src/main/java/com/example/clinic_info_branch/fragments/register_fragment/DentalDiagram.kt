@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.fragments
+package com.example.clinic_info_branch.fragments.register_fragment
 
 import android.app.AlertDialog
 import android.content.Context

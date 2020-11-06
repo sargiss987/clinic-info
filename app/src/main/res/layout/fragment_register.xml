@@ -153,13 +153,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/addressLayout">
 
                 <EditText
-                    android:id="@+id/Phone"
+
+                    android:id="@+id/phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:ems="10"
                     android:hint="Հեռախոսի համարը"
-                    android:inputType="phone"
+                    android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/address" />
@@ -176,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="ՏԵՂԵԿՈՒԹՅՈՒՆՆԵՐ ԱՌՈՂՋՈՒԹՅԱՆ ՎԵՐԱԲԵՐՅԱԼ"
+                android:text="@string/healthInfo"
                 android:textColor="@android:color/black"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"

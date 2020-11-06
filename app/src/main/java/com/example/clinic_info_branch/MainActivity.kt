@@ -1,17 +1,11 @@
 package com.example.clinic_info_branch
 
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.clinic_info_branch.fragments.DentalDiagram
-import com.example.clinic_info_branch.fragments.HomeFragment
-import com.example.clinic_info_branch.fragments.RegisterFragment
-import com.example.clinic_info_branch.fragments.SearchingFragment
+import com.example.clinic_info_branch.fragments.home_fragment.HomeFragment
+import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
+import com.example.clinic_info_branch.fragments.searching_fragment.SearchingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
