@@ -40,11 +40,18 @@ class DentalDiagram @JvmOverloads constructor(
         strokeWidth = 10f
     }
 
+    private val txtPaintOption = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.BLACK
+        textSize = 40f
+
+    }
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBoard(canvas)
         drawTeethNum(canvas)
+        drawOptions(canvas)
         var i = 0
         while (i < 16) {
             drawCell(canvas, cellsUp[i], cellsUpData[i])
@@ -100,7 +107,7 @@ class DentalDiagram @JvmOverloads constructor(
         }
 
     }
-
+    //draw teeth diagram numbers
     private fun drawTeethNum(canvas: Canvas){
         var i = 0
         var num1 = 18
@@ -125,11 +132,26 @@ class DentalDiagram @JvmOverloads constructor(
 
     }
 
+    //draw pathological abbreviation
+    private fun drawOptions(canvas: Canvas){
+        val x = 10f
+        val y = 50f
+        val str = resources.getStringArray(R.array.dentalDiagram)
 
+        var i = 0
+        var j = 1
+        while (i < 11){
+            canvas.drawText(str[i],x,y*j,txtPaintOption)
+            j++
+            i++
+        }
+    }
+
+    //Point damaged tooth
     private fun drawX(canvas: Canvas, rectF: RectF) {
 
-        canvas.drawLine(rectF.left, rectF.top, rectF.right, rectF.bottom, xPaint)
-        canvas.drawLine(rectF.left, rectF.bottom, rectF.right, rectF.top, xPaint)
+        canvas.drawLine(rectF.left+10f, rectF.top+10f, rectF.right-10f, rectF.bottom-10f, xPaint)
+        canvas.drawLine(rectF.left+10f, rectF.bottom-10f, rectF.right-10f, rectF.top+10f, xPaint)
     }
 
 
@@ -173,6 +195,7 @@ class DentalDiagram @JvmOverloads constructor(
         }
     }
 
+    //Receive teeth's state
     private fun createBuilder(){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.teeth_state, null)
         val mBuilder = AlertDialog.Builder(context)
@@ -186,5 +209,7 @@ class DentalDiagram @JvmOverloads constructor(
             }
         mBuilder.show()
     }
+
+
 
 }

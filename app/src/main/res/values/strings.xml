@@ -126,4 +126,19 @@
         <item>2020</item>
 
     </string-array>
+
+    <string-array name="dentalDiagram">
+        <item>Բացակայող ատամ – Օ</item>
+        <item>Ատամնափուտ – C</item>
+        <item>Կակղանաբորբ – P</item>
+        <item>Շուրջատամնաբորբ – Pt</item>
+        <item>Արմատ – R</item>
+        <item>Իմպլանտ – I</item>
+        <item>Ատամնալիցք – F</item>
+        <item>Ատամնափառ – DP </item>
+        <item>Ատամնաքար – DC </item>
+        <item>Արհեստական պսակ – Cr </item>
+        <item>Ատամների շարժունություն` I, II ,III
+</item>
+    </string-array>
 </resources>

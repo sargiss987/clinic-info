@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> makeCurrentFragment(homeFragment)
                 R.id.register -> makeCurrentFragment(registerFragment)
                 R.id.search -> makeCurrentFragment(searchFragment)
+
             }
             true
         }
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     //Navigate fragments
     private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.container, fragment)
+            replace(R.id.fragmentContainer, fragment)
             commit()
 
         }
