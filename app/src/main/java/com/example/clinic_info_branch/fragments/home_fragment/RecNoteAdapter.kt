@@ -1,9 +1,8 @@
-package com.example.clinic_info_branch.fragments
+package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView

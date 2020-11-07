@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SearchingFragment">
+    tools:context=".fragments.searching_fragment.SearchingFragment">
 
 
 
@@ -14,15 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Searching"
-                    android:textSize="35sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recViewPatient"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
