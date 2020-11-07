@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -42,16 +43,16 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber : String
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        db = ClinicInfo.getDatabase(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //build database
-        db = context?.let {
-            Room.databaseBuilder(
-                it,
-                ClinicInfo::class.java, "clinic_info"
-            ).build()
-        }
+
 
         //get notes list from database
         GlobalScope.launch(Dispatchers.Default) {
