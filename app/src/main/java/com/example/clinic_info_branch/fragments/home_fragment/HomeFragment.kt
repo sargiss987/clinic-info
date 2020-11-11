@@ -21,7 +21,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.Notes
@@ -58,7 +57,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                noteList = db!!.notesDao().getAllNotes() as MutableList<Notes>
+                noteList = db!!.notesDao().getAllNotes().toMutableList()
             }
         }
 
@@ -147,7 +146,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         searchingList = noteList.filter {
                             it.date.contains(month) and
                                     it.date.contains(year)
-                        } as MutableList<Notes>
+                        }.toMutableList()
 
                         viewAdapter.setList(searchingList)
 
@@ -162,7 +161,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                                 DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
                             searchingList.plusAssign(noteList.filter {
                                 it.date == dateText
-                            }as MutableList<Notes>)
+                            }.toMutableList())
                             calendar.add(Calendar.DAY_OF_YEAR, -1)
                             i++
                         }
@@ -182,7 +181,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         val dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
                         searchingList = noteList.filter {
                             it.date.contains(dateText)
-                        }as MutableList<Notes>
+                        }.toMutableList()
                         viewAdapter.setList(searchingList)
 
 
@@ -190,14 +189,14 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     R.id.custom -> {
 
                         searchingList.clear()
-                        val YEAR = calendar.get(Calendar.YEAR)
-                        val MONTH = calendar.get(Calendar.MONTH)
-                        val DATE = calendar.get(Calendar.DATE)
+                        val year = calendar.get(Calendar.YEAR)
+                        val month = calendar.get(Calendar.MONTH)
+                        val date = calendar.get(Calendar.DATE)
                         val datePickerDialog =
                             context?.let {
                                 DatePickerDialog(
                                     it,
-                                    { datePicker, i, i2, i3 ->
+                                    { _, i, i2, i3 ->
                                         val calendar1 = Calendar.getInstance()
                                         calendar1.set(Calendar.YEAR, i)
                                         calendar1.set(Calendar.MONTH, i2)
@@ -212,9 +211,9 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                                         viewAdapter.setList(searchingList)
 
                                     },
-                                    YEAR,
-                                    MONTH,
-                                    DATE
+                                    year,
+                                    month,
+                                    date
                                 )
                             }
 
