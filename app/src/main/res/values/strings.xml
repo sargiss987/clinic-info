@@ -28,7 +28,12 @@
     <string name="allergyTrue">Հիվանդի անամնեզում նշվում է ալերգիկ դրսևորւմներ մասնաորապես ՝</string>
     <string name="allergyFalse">Հիվանդի անամնեզում չի նշվում է ալերգիկ դրսևորւմներ</string>
     <string name="anemiaTrue">, նշվում է արյունահոսության դեպքեր</string>
-    <string name="anemiaFalse">, չի նշվում է արյունահոսության դեպքեր</string>
+    <string name="anemiaFalse">, չի նշվում արյունահոսության դեպքեր</string>
+
+    <string name="rheumatism">Ռևմատիզմ</string>
+    <string name="arthritis">Բորբոքային հոդաբորբ (արթրիտ)</string>
+    <string name="heartDefect">Սրտի արատ</string>
+    <string name="heartAttack">Սրտամկանի ինֆարկտ</string>
 
     <string-array name="days">
         <item>01</item>
