@@ -87,6 +87,5 @@ data class TreatmentProcess(
    val objReasonVisit: String,
    val diagnosis: String,
    val treatmentPlan: String
-
 ): Parcelable
 

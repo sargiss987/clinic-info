@@ -39,7 +39,7 @@ class RegisterFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                patientList = db!!.patientDao().getAllPatients() as MutableList<Patient>
+                patientList = db!!.patientDao().getAllPatients().toMutableList()
             }
         }
     }
