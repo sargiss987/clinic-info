@@ -23,6 +23,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 const val PATIENT_PERSONAL_PAGE = "patient_personal_page"
+const val PATIENT_INFO = "patient_info"
 
 class SearchingFragment : Fragment(),RecPatientAdapter.RecViewClickListener {
 
@@ -91,7 +92,7 @@ class SearchingFragment : Fragment(),RecPatientAdapter.RecViewClickListener {
     override fun onClick(position: Int) {
 
         val bundle = Bundle()
-        bundle.putParcelable("message",patientList[position])
+        bundle.putParcelable(PATIENT_INFO,patientList[position])
 
         fragmentManager?.beginTransaction()?.apply {
 

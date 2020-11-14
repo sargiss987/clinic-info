@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Ա․Ա․Հ `"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
@@ -58,7 +58,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Ծ․Ամսաթիվը ` "
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtFullName" />
@@ -82,7 +82,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Սեռը ՝ "
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDate" />
@@ -106,7 +106,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Բ․Վայրը ՝ "
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtGender" />
@@ -130,7 +130,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Հ․Համարը ՝ "
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPlace" />
@@ -153,9 +153,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/healthInfo"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPhone"/>
 
@@ -165,7 +164,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@+id/HealthInfo"/>
 
 
