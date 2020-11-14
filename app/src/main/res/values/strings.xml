@@ -34,6 +34,7 @@
     <string name="arthritis">Բորբոքային հոդաբորբ (արթրիտ)</string>
     <string name="heartDefect">Սրտի արատ</string>
     <string name="heartAttack">Սրտամկանի ինֆարկտ</string>
+    <string name="heartSurgery">Սրտի վիրահատություն</string>
 
     <string-array name="days">
         <item>01</item>

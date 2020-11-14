@@ -32,7 +32,7 @@ data class HealthInfo(
     val arthritis: String,
     val heartDefect: String,
     val heartAttack: String,
-    val heartSurgery: Boolean,
+    val heartSurgery: String,
     val stenocardia: Boolean,
     val kidneyDisease: Boolean,
     val bloodDisease: Boolean,
