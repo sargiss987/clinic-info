@@ -26,15 +26,34 @@
     <string name="healthInfo">ՏԵՂԵԿՈՒԹՅՈՒՆՆԵՐ ԱՌՈՂՋՈՒԹՅԱՆ ՎԵՐԱԲԵՐՅԱԼ</string>
 
     <string name="allergyTrue">Հիվանդի անամնեզում նշվում է ալերգիկ դրսևորւմներ մասնաորապես ՝</string>
-    <string name="allergyFalse">Հիվանդի անամնեզում չի նշվում է ալերգիկ դրսևորւմներ</string>
-    <string name="anemiaTrue">, նշվում է արյունահոսության դեպքեր</string>
-    <string name="anemiaFalse">, չի նշվում արյունահոսության դեպքեր</string>
+    <string name="allergyFalse">Հիվանդի անամնեզում չի նշվում ալերգիկ դրսևորւմներ</string>
+    <string name="anemiaTrue">, նշվում է արյունահոսության դեպքեր:</string>
+    <string name="anemiaFalse">, չի նշվում արյունահոսության դեպքեր:</string>
 
-    <string name="rheumatism">Ռևմատիզմ</string>
-    <string name="arthritis">Բորբոքային հոդաբորբ (արթրիտ)</string>
-    <string name="heartDefect">Սրտի արատ</string>
-    <string name="heartAttack">Սրտամկանի ինֆարկտ</string>
-    <string name="heartSurgery">Սրտի վիրահատություն</string>
+    <string name="healthInfoTxtInitial"> Առկա են հետևյալ հիվանդությունները `</string>
+    <string name="rheumatism">ռևմատիզմ</string>
+    <string name="arthritis">բորբոքային հոդաբորբ (արթրիտ)</string>
+    <string name="heartDefect">սրտի արատ</string>
+    <string name="heartAttack">սրտամկանի ինֆարկտ</string>
+    <string name="heartSurgery">սրտի վիրահատություն</string>
+    <string name="stenocardia">ցավ կրծքավանդակի շրջանում(ստենոկարդիա)</string>
+    <string name="kidneyDisease">երիկամների հիվանդություններ</string>
+    <string name="bloodDisease">սակավարյունություն կամ արյան այլ հիվ-ներ</string>
+    <string name="gastrointestinalTractDisease">ստամոքս-աղիքային համակարգի հիվ-ներ</string>
+    <string name="respiratoryTractDisease">շնչառական համակարգի հիվանդություններ</string>
+    <string name="hypertension">արյան գերճնշում (հիպերտենզիա)</string>
+    <string name="hypotension">արյան թերճնշում (հիպոտոնիա)</string>
+    <string name="thyroidGladDisease">վահանաձև գեղձի հիվանդություններ</string>
+    <string name="nervousMentalDisorders">նյարդային և հոգեկան խանգարումներ</string>
+    <string name="epilepsy">ընկնավորություն (էպիլեպսիա)</string>
+    <string name="diabetes">շաքարային դիաբետ</string>
+    <string name="infectionsDiseases">վարակիչ հիվանդություններ</string>
+    <string name="neoplasm">նորագոյացություններ</string>
+    <string name="hepatitis">լյարդաբորբ (հեպատիտ)</string>
+    <string name="otherLiverDiseases">լյարդի այլ հիվանդություններ</string>
+    <string name="sexuallyTransmittedDiseases">վեներական հիվանդություններ</string>
+    <string name="skinDiseases">մաշկային հիվանդություններ</string>
+
 
     <string-array name="days">
         <item>01</item>

@@ -83,7 +83,7 @@ class RegisterFragment : Fragment() {
             val placeOfResidence = address.text.toString()
             val phone = phone.text.toString()
             val patientDate = "${spinnerDaysTreatment.selectedItem}" +
-                    " ${spinnerMonthsTreatment.selectedItem}"+
+                    " ${spinnerMonthsTreatment.selectedItem}" +
                     " ${spinnerYearsTreatment.selectedItem}"
             val gender = if (checkMale.isChecked) "արական" else "իգական"
 
@@ -94,73 +94,118 @@ class RegisterFragment : Fragment() {
             val bleeding =
                 if (checkBleedingTrue.isChecked) resources.getString(R.string.anemiaTrue)
                 else resources.getString(R.string.anemiaFalse)
-            val rheumatism = checkRheumatismTrue.isChecked
-            val arthritis = checkArthritisTrue.isChecked
-            val heartDefect = checkHeartDiseaseTrue.isChecked
-            val heartAttack = checkMyocardialInfarctionTrue.isChecked
-            val heartSurgery = checkHeartSurgeryTrue.isChecked
-            val stenocardia = checkStenocardiaTrue.isChecked
-            val kidneyDisease = checkKidneyDiseasesTrue.isChecked
-            val bloodDisease = checkAnemiaTrue.isChecked
-            val gastrointestinalTractDisease = checkGastrointestinalTrue.isChecked
-            val respiratoryTractDisease = checkRespiratoryTrue.isChecked
-            val hypertension = checkHypertensionTrue.isChecked
-            val hypotension = checkHypotensionTrue.isChecked
-            val thyroidGladDisease = checkThyroidTrue.isChecked
-            val nervousMentalDisorders = checkNervousMentalTrue.isChecked
-            val epilepsy = checkEpilepsyTrue.isSelected
-            val diabetes = checkDiabetesTrue.isSelected
-            val infectionsDiseases = checkInfectiousTrue.isSelected
-            val neoplasm = checkNeoplasmsTrue.isSelected
-            val hepatitis = checkHepatitisTrue.isSelected
-            val otherLiverDiseases = checkOtherLiverTrue.isChecked
-            val sexuallyTransmittedDiseases = checkVenerealTrue.isChecked
-            val skinDiseases = checkSkinTrue.isSelected
-            val otherDiseases = checkOtherTrue.isSelected
+            val rheumatism =
+                if (checkRheumatismTrue.isChecked) resources.getString(R.string.rheumatism)
+                else ""
+            val arthritis =
+                if (checkArthritisTrue.isChecked) resources.getString(R.string.arthritis)
+                else ""
+            val heartDefect =
+                if (checkHeartDiseaseTrue.isChecked) resources.getString(R.string.heartDefect)
+                else ""
+            val heartAttack =
+                if (checkMyocardialInfarctionTrue.isChecked) resources.getString(R.string.heartAttack)
+                else ""
+            val heartSurgery =
+                if (checkHeartSurgeryTrue.isChecked) resources.getString(R.string.heartSurgery)
+                else ""
+            val stenocardia =
+                if (checkStenocardiaTrue.isChecked) resources.getString(R.string.stenocardia)
+                else ""
+            val kidneyDisease =
+                if (checkKidneyDiseasesTrue.isChecked) resources.getString(R.string.kidneyDisease)
+                else ""
+            val bloodDisease =
+                if (checkAnemiaTrue.isChecked) resources.getString(R.string.bloodDisease)
+                else ""
+            val gastrointestinalTractDisease =
+                if (checkGastrointestinalTrue.isChecked) resources.getString(R.string.gastrointestinalTractDisease)
+                else ""
+            val respiratoryTractDisease =
+                if (checkRespiratoryTrue.isChecked) resources.getString(R.string.respiratoryTractDisease)
+                else ""
+            val hypertension =
+                if (checkHypertensionTrue.isChecked) resources.getString(R.string.hypertension)
+                else ""
+            val hypotension =
+                if (checkHypotensionTrue.isChecked) resources.getString(R.string.hypotension)
+                else ""
+            val thyroidGladDisease =
+                if (checkThyroidTrue.isChecked) resources.getString(R.string.thyroidGladDisease)
+                else ""
+            val nervousMentalDisorders =
+                if (checkNervousMentalTrue.isChecked) resources.getString(R.string.nervousMentalDisorders)
+                else ""
+            val epilepsy =
+                if (checkEpilepsyTrue.isChecked) resources.getString(R.string.epilepsy)
+                else ""
+            val diabetes =
+                if (checkDiabetesTrue.isChecked) resources.getString(R.string.diabetes)
+                else ""
+            val infectionsDiseases =
+                if (checkInfectiousTrue.isChecked) resources.getString(R.string.infectionsDiseases)
+                else ""
+            val neoplasm =
+                if (checkNeoplasmsTrue.isChecked) resources.getString(R.string.neoplasm)
+                else ""
+            val hepatitis =
+                if (checkHepatitisTrue.isChecked) resources.getString(R.string.hepatitis)
+                else ""
+            val otherLiverDiseases =
+                if (checkOtherLiverTrue.isChecked) resources.getString(R.string.otherLiverDiseases)
+                else ""
+            val sexuallyTransmittedDiseases =
+                if (checkVenerealTrue.isChecked) resources.getString(R.string.sexuallyTransmittedDiseases)
+                else ""
+            val skinDiseases =
+                if (checkSkinTrue.isChecked) resources.getString(R.string.skinDiseases)
+                else ""
+            val otherDiseases = checkOtherTrue.isChecked
             val otherDiseasesDescription = etQuestion4.text.toString()
-            val pregnancy = checkPregnancyTrue.isSelected
+            val pregnancy = checkPregnancyTrue.isChecked
             val duringPregnancy = etQuestion5.text.toString()
 
-            val patient = Patient(patientName,
-                                  patientDate,
-                                  gender,
-                                  placeOfResidence,
-                                  phone,
-                                  HealthInfo(
-                                      allergy,
-                                      allergicManifestation,
-                                      bleeding,
-                                      rheumatism,
-                                      arthritis,
-                                      heartDefect,
-                                      heartAttack,
-                                      heartSurgery,
-                                      stenocardia,
-                                      kidneyDisease,
-                                      bloodDisease,
-                                      gastrointestinalTractDisease,
-                                      respiratoryTractDisease,
-                                      hypertension,
-                                      hypotension,
-                                      thyroidGladDisease,
-                                      nervousMentalDisorders,
-                                      epilepsy,
-                                      diabetes,
-                                      infectionsDiseases,
-                                      neoplasm,
-                                      hepatitis,
-                                      otherLiverDiseases,
-                                      sexuallyTransmittedDiseases,
-                                      skinDiseases,
-                                      otherDiseases,
-                                      otherDiseasesDescription,
-                                      pregnancy,
-                                      duringPregnancy
+            val patient = Patient(
+                patientName,
+                patientDate,
+                gender,
+                placeOfResidence,
+                phone,
+                HealthInfo(
+                    allergy,
+                    allergicManifestation,
+                    bleeding,
+                    rheumatism,
+                    arthritis,
+                    heartDefect,
+                    heartAttack,
+                    heartSurgery,
+                    stenocardia,
+                    kidneyDisease,
+                    bloodDisease,
+                    gastrointestinalTractDisease,
+                    respiratoryTractDisease,
+                    hypertension,
+                    hypotension,
+                    thyroidGladDisease,
+                    nervousMentalDisorders,
+                    epilepsy,
+                    diabetes,
+                    infectionsDiseases,
+                    neoplasm,
+                    hepatitis,
+                    otherLiverDiseases,
+                    sexuallyTransmittedDiseases,
+                    skinDiseases,
+                    otherDiseases,
+                    otherDiseasesDescription,
+                    pregnancy,
+                    duringPregnancy
 
-                                  )
+                )
             )
 
-            Toast.makeText(context, "$patient",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "$patient", Toast.LENGTH_SHORT).show()
 
             //insert patient to database
             GlobalScope.launch(Dispatchers.Default) {

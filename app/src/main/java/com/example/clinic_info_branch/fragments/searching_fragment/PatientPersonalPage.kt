@@ -26,9 +26,48 @@ class PatientPersonalPage : Fragment() {
         // Inflate the layout for this fragment
 
         val view =  inflater.inflate(R.layout.fragment_patient_personal_page, container, false)
-        patient = arguments?.getParcelable("message")
+        patient = arguments?.getParcelable(PATIENT_INFO)
 
-        val healthInfo = "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
+        var healthInfo = ""
+
+        if (patient?.healthInfo?.allergicManifestation!!.isEmpty()){
+            healthInfo = "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
+        }else{
+            healthInfo = "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
+        }
+
+        val healthInfoList = mutableListOf<String>("${patient?.healthInfo?.rheumatism}","${patient?.healthInfo?.arthritis}",
+            "${patient?.healthInfo?.heartDefect}","${patient?.healthInfo?.heartAttack}","${patient?.healthInfo?.heartSurgery}",
+            "${patient?.healthInfo?.stenocardia}","${patient?.healthInfo?.kidneyDisease}","${patient?.healthInfo?.bloodDisease}",
+            "${patient?.healthInfo?.gastrointestinalTractDisease}","${patient?.healthInfo?.respiratoryTractDisease}",
+            "${patient?.healthInfo?.hypertension}","${patient?.healthInfo?.hypotension}","${patient?.healthInfo?.thyroidGladDisease}",
+            "${patient?.healthInfo?.nervousMentalDisorders}","${patient?.healthInfo?.epilepsy}","${patient?.healthInfo?.diabetes}",
+            "${patient?.healthInfo?.infectionsDiseases}","${patient?.healthInfo?.neoplasm}","${patient?.healthInfo?.hepatitis}",
+            "${patient?.healthInfo?.otherLiverDiseases}","${patient?.healthInfo?.sexuallyTransmittedDiseases}","${patient?.healthInfo?.skinDiseases}",
+            "${patient?.healthInfo?.otherDiseasesDescription}")
+
+
+        var healthInfoTxtInitial  = resources.getString(R.string.healthInfoTxtInitial)
+        var healthInfoTxt = healthInfoTxtInitial
+        var i = 0
+        while (i < healthInfoList.size){
+
+            if (healthInfoList[i].isNotEmpty()){
+                healthInfoTxt += healthInfoList[i] + ", "
+            }
+            i++
+        }
+
+        when{
+            healthInfoTxt.equals(healthInfoTxtInitial) -> healthInfoTxt = ""
+            patient?.healthInfo?.duringPregnancy!!.isNotEmpty()  -> healthInfoTxt +=  "${patient?.healthInfo?.duringPregnancy} շաբաթական հղիություն։"
+            else -> {
+                healthInfoTxt = healthInfoTxt.subSequence(0,healthInfoTxt.length-2) as String
+                healthInfoTxt += ":"
+            }
+        }
+
+        healthInfo += healthInfoTxt
 
         view.txtFullName.text = patient?.patientName
         view.txtDate.text = patient?.patientDate
