@@ -24,6 +24,7 @@
     <string name="healthQuestion5">5. Կրծքով կերակրու՞մ եք կամ ունե՞ք հղիություն.</string>
 
     <string name="healthInfo">ՏԵՂԵԿՈՒԹՅՈՒՆՆԵՐ ԱՌՈՂՋՈՒԹՅԱՆ ՎԵՐԱԲԵՐՅԱԼ</string>
+    <string name="oralHealthInfo">ԲԵՐԱՆԻ ԽՈՌՈՉԻ ՎԻՃԱԿԸ</string>
 
     <string name="allergyTrue">Հիվանդի անամնեզում նշվում է ալերգիկ դրսևորւմներ մասնաորապես ՝</string>
     <string name="allergyFalse">Հիվանդի անամնեզում չի նշվում ալերգիկ դրսևորւմներ</string>
@@ -53,6 +54,27 @@
     <string name="otherLiverDiseases">լյարդի այլ հիվանդություններ</string>
     <string name="sexuallyTransmittedDiseases">վեներական հիվանդություններ</string>
     <string name="skinDiseases">մաշկային հիվանդություններ</string>
+
+    <string name="O">ատամը բացակայում է</string>
+    <string name="C">ատամը ախտահարված է կարիեսով</string>
+    <string name="P">ատամը ախտահարված է պուլպիտով</string>
+    <string name="Pt">ատամը ախտահարված է պերիոդոնտիտով</string>
+    <string name="R">ատամից պահպանվել է միայն արմատը</string>
+    <string name="I">ատամի շրջանում տեղադռված է իմպլանտատ</string>
+    <string name="F">ատամը ենթարկվել է էնդոդոնտիկ բուժման, առկա է ատամնալիցք</string>
+    <string name="DP">ատամի վրա առկա է ատամնափառ</string>
+    <string name="DC">ատամի վրա առկա է ատամնաքար</string>
+    <string name="Cr">ատամը վերականգնվել է արեստական պսակի օգնությամբ</string>
+    <string name="mob1">ատամի մոտ հայտնաբերվել է առաջին աստիճանի շարժունակություն</string>
+    <string name="mob2">ատամի մոտ հայտնաբերվել է երկրորդ աստիճանի շարժունակություն</string>
+    <string name="mob3">ատամի մոտ հայտնաբերվել է երրորդ աստիճանի շարժունակություն</string>
+
+    <string name="hygieneGood">բերանի խոռոչի հիգիենիկ վիճակը լավ է</string>
+    <string name="hygieneEnough">բերանի խոռոչի հիգիենիկ վիճակը բավարար է</string>
+    <string name="hygieneBad">բերանի խոռոչի հիգիենիկ վիճակը վատ է</string>
+
+    <string name="biteNormally">, կծվածքի տեսակը ` բնականոն: </string>
+    <string name="bitePathological">, կծվածքի տեսակը ` ախտաբանական: </string>
 
 
     <string-array name="days">

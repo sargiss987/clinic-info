@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
-import com.example.clinic_info_branch.data_base.HealthInfo
-import com.example.clinic_info_branch.data_base.Patient
+import com.example.clinic_info_branch.data_base.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.android.synthetic.main.rec_patient_item.*
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,8 @@ class RegisterFragment : Fragment() {
 
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
+    private lateinit var stateOfTeethList: MutableList<StateOfTooth>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +53,21 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        val view = inflater.inflate(R.layout.fragment_register, container, false)
+
+        val json = arguments?.getString(STATE_OF_TOOTH)
+        if (json != null){
+            stateOfTeethList = Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //navigate to teeth diagram
         btnTeethDiagram.setOnClickListener {
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TeethDiagramFragment())
@@ -64,7 +76,7 @@ class RegisterFragment : Fragment() {
             }
 
         }
-
+        //navigate to treatment process editor
         btnTreatmentProcess.setOnClickListener {
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TreatmentProcessFragment())
@@ -79,6 +91,7 @@ class RegisterFragment : Fragment() {
         btnRegister.setOnClickListener {
 
             //Init patient fields
+            //Init personal data
             val patientName = fullName.text.toString()
             val placeOfResidence = address.text.toString()
             val phone = phone.text.toString()
@@ -87,6 +100,7 @@ class RegisterFragment : Fragment() {
                     " ${spinnerYearsTreatment.selectedItem}"
             val gender = if (checkMale.isChecked) "արական" else "իգական"
 
+            //Init health info data
             val allergy =
                 if (checkAllergyTrue.isChecked) resources.getString(R.string.allergyTrue)
                 else resources.getString(R.string.allergyFalse)
@@ -165,6 +179,19 @@ class RegisterFragment : Fragment() {
             val pregnancy = checkPregnancyTrue.isChecked
             val duringPregnancy = etQuestion5.text.toString()
 
+            //Init oral health data
+            val hygiene =
+                when{
+                   checkGood.isChecked -> resources.getString(R.string.hygieneGood)
+                   checkEnough.isChecked -> resources.getString(R.string.hygieneEnough)
+                   checkBad.isChecked -> resources.getString(R.string.hygieneBad)
+                    else -> ""
+                }
+            val typeOfBite =
+                if (checkNormally.isChecked) resources.getString(R.string.biteNormally)
+                else resources.getString(R.string.bitePathological)
+
+            //create patient
             val patient = Patient(
                 patientName,
                 patientDate,
@@ -200,8 +227,11 @@ class RegisterFragment : Fragment() {
                     otherDiseases,
                     otherDiseasesDescription,
                     pregnancy,
-                    duringPregnancy
-
+                    duringPregnancy),
+                    OralHealth(
+                    hygiene,
+                    typeOfBite,
+                    stateOfTeethList
                 )
             )
 

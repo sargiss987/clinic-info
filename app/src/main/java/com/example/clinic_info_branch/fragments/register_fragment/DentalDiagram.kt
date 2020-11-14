@@ -10,8 +10,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.widget.CheckBox
+import android.widget.Toast
 import com.example.clinic_info_branch.R
+import com.example.clinic_info_branch.data_base.StateOfTooth
 
+
+val stateOfTeethList : MutableList<StateOfTooth>  = mutableListOf()
 
 class DentalDiagram @JvmOverloads constructor(
     context: Context,
@@ -23,9 +28,12 @@ class DentalDiagram @JvmOverloads constructor(
     private var cellsDown = mutableListOf<RectF>()
     private val cellsUpData = MutableList(16) { _ -> 0 }
     private val cellsDownData = MutableList(16) { _ -> 0 }
+    private val cellsUpNum = mutableListOf(18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28)
+    private val cellsDownNum = mutableListOf(48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38)
+    private val jawUp = 1
+    private val jawDown = -1
 
-
-    private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         strokeWidth = 4f
     }
@@ -163,7 +171,7 @@ class DentalDiagram @JvmOverloads constructor(
                 if (cellsUp[i].contains(event.x, event.y)) {
                     if (cellsUpData[i] == 0) {
                         cellsUpData[i] = 1
-                        createBuilder()
+                        createBuilder(i,jawUp)
                         invalidate()
                     } else {
                         cellsUpData[i] = 0
@@ -174,7 +182,7 @@ class DentalDiagram @JvmOverloads constructor(
                 if (cellsDown[i].contains(event.x, event.y)) {
                     if (cellsDownData[i] == 0) {
                         cellsDownData[i] = 1
-                        createBuilder()
+                        createBuilder(i,jawDown)
                         invalidate()
                     } else {
                         cellsDownData[i] = 0
@@ -196,8 +204,21 @@ class DentalDiagram @JvmOverloads constructor(
     }
 
     //Receive teeth's state
-    private fun createBuilder(){
+    private fun createBuilder(num : Int,jaw : Int){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.teeth_state, null)
+        val checkBoxO  = mDialogView.findViewById<CheckBox>(R.id.checkBoxO)
+        val checkBoxC  = mDialogView.findViewById<CheckBox>(R.id.checkBoxC)
+        val checkBoxP = mDialogView.findViewById<CheckBox>(R.id.checkBoxP)
+        val checkBoxPt  = mDialogView.findViewById<CheckBox>(R.id.checkBoxPt)
+        val checkBoxR  = mDialogView.findViewById<CheckBox>(R.id.checkBoxR)
+        val checkBoxI  = mDialogView.findViewById<CheckBox>(R.id.checkBoxI)
+        val checkBoxF  = mDialogView.findViewById<CheckBox>(R.id.checkBoxF)
+        val checkBoxDP  = mDialogView.findViewById<CheckBox>(R.id.checkBoxDP)
+        val checkBoxDC  = mDialogView.findViewById<CheckBox>(R.id.checkBoxDC)
+        val checkBoxCr  = mDialogView.findViewById<CheckBox>(R.id.checkBoxCr)
+        val checkBoxMob1  = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob1)
+        val checkBoxMob2  = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob2)
+        val checkBoxMob3  = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob3)
         val mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
             .setTitle("ԲԵՐԱՆԻ ԽՈՌՈՉԻ ՎԻՃԱԿԸ")
@@ -205,6 +226,59 @@ class DentalDiagram @JvmOverloads constructor(
 
             }
             .setPositiveButton("Receive") { _, _ ->
+
+                val o =
+                    if (checkBoxO.isChecked) resources.getString(R.string.O)
+                else ""
+                val c =
+                    if (checkBoxC.isChecked) resources.getString(R.string.C)
+                    else ""
+                val p =
+                    if (checkBoxP.isChecked) resources.getString(R.string.P)
+                    else ""
+                val pt =
+                    if (checkBoxPt.isChecked) resources.getString(R.string.Pt)
+                    else ""
+                val r =
+                    if (checkBoxR.isChecked) resources.getString(R.string.R)
+                    else ""
+                val i =
+                    if (checkBoxI.isChecked) resources.getString(R.string.I)
+                    else ""
+                val f =
+                    if (checkBoxF.isChecked) resources.getString(R.string.F)
+                    else ""
+                val dp =
+                    if (checkBoxDP.isChecked) resources.getString(R.string.DP)
+                    else ""
+                val dc =
+                    if (checkBoxDC.isChecked) resources.getString(R.string.DC)
+                    else ""
+                val cr =
+                    if (checkBoxCr.isChecked) resources.getString(R.string.Cr)
+                    else ""
+                val mob1 =
+                    if (checkBoxMob1.isChecked) resources.getString(R.string.mob1)
+                    else ""
+                val mob2 =
+                    if (checkBoxMob2.isChecked) resources.getString(R.string.mob2)
+                    else ""
+                val mob3 =
+                    if (checkBoxMob3.isChecked) resources.getString(R.string.mob3)
+                    else ""
+
+                when(jaw){
+                    jawUp -> {
+                        val stateOfTeeth = StateOfTooth(cellsUpNum[num].toString(),o,c,p,pt,r,i,f,dp,dc,cr,mob1)
+                        stateOfTeethList.add(stateOfTeeth)
+                        Toast.makeText(context,"${cellsUpNum[num]} $o",Toast.LENGTH_LONG).show()
+                    }
+                    jawDown ->{
+                        val stateOfTeeth = StateOfTooth(cellsDownNum[num].toString(),o,c,p,pt,r,i,f,dp,dc,cr,mob1)
+                        stateOfTeethList.add(stateOfTeeth)
+                        Toast.makeText(context,"${cellsDownNum[num]}",Toast.LENGTH_LONG).show()
+                    }
+                }
 
             }
         mBuilder.show()

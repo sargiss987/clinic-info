@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Notes::class,Patient::class], version = 1)
+@TypeConverters(StateOfToothConverter::class)
 abstract class ClinicInfo : RoomDatabase() {
     abstract fun notesDao(): NotesDao
     abstract fun patientDao(): PatientDao

@@ -4,6 +4,9 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -57,27 +60,42 @@ data class HealthInfo(
 
 ): Parcelable
 
+class StateOfToothConverter{
+
+    @TypeConverter
+    fun convertJson(list : MutableList<StateOfTooth>): String? {
+
+        return Gson().toJson(list)
+
+    }
+
+    @TypeConverter
+    fun convertList(json : String) : MutableList<StateOfTooth>?{
+
+        return Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
+    }
+}
 @Parcelize
 data class OralHealth(
     val hygiene: String,
-    val typeOfBite: Boolean,
-    @Embedded
-    val stateOfTeeth: StateOfTeeth
+    val typeOfBite: String,
+    val stateOfTeeth: MutableList<StateOfTooth>
 ): Parcelable
 
 @Parcelize
-data class StateOfTeeth(
-    val missingTooth: Boolean,
-    val caries: Boolean,
-    val pulpitis: Boolean,
-    val periodontitis: Boolean,
-    val root: Boolean,
-    val implant: Boolean,
-    val rootFilling: Boolean,
-    val plaque: Boolean,
-    val tartar: Boolean,
-    val artCrown: Boolean,
-    val toothMobility: Int
+data class StateOfTooth(
+    val toothNumber: String,
+    val missingTooth: String,
+    val caries: String,
+    val pulpitis: String,
+    val periodontitis: String,
+    val root: String,
+    val implant: String,
+    val rootFilling: String,
+    val plaque: String,
+    val tartar: String,
+    val artCrown: String,
+    val toothMobility: String
 ): Parcelable
 
 @Parcelize

@@ -28,6 +28,7 @@ class PatientPersonalPage : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_patient_personal_page, container, false)
         patient = arguments?.getParcelable(PATIENT_INFO)
 
+        //health info
         var healthInfo = ""
 
         if (patient?.healthInfo?.allergicManifestation!!.isEmpty()){
@@ -36,7 +37,7 @@ class PatientPersonalPage : Fragment() {
             healthInfo = "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
         }
 
-        val healthInfoList = mutableListOf<String>("${patient?.healthInfo?.rheumatism}","${patient?.healthInfo?.arthritis}",
+        val healthInfoList = mutableListOf("${patient?.healthInfo?.rheumatism}","${patient?.healthInfo?.arthritis}",
             "${patient?.healthInfo?.heartDefect}","${patient?.healthInfo?.heartAttack}","${patient?.healthInfo?.heartSurgery}",
             "${patient?.healthInfo?.stenocardia}","${patient?.healthInfo?.kidneyDisease}","${patient?.healthInfo?.bloodDisease}",
             "${patient?.healthInfo?.gastrointestinalTractDisease}","${patient?.healthInfo?.respiratoryTractDisease}",
@@ -69,12 +70,40 @@ class PatientPersonalPage : Fragment() {
 
         healthInfo += healthInfoTxt
 
+        //oral info
+        var oralHealth = "${patient?.oralHealth?.hygiene} ${patient?.oralHealth?.typeOfBite}"
+        val oralHealthList = patient?.oralHealth?.stateOfTeeth
+        var oralHealthTxt = ""
+        i = 0
+        if (oralHealthList != null) {
+            while (i < oralHealthList.size){
+
+                oralHealthTxt += oralHealthList[i].toothNumber + " "
+                oralHealthTxt += oralHealthList[i].missingTooth
+                oralHealthTxt += oralHealthList[i].caries
+                oralHealthTxt += oralHealthList[i].pulpitis
+                oralHealthTxt += oralHealthList[i].periodontitis
+                oralHealthTxt += oralHealthList[i].root
+                oralHealthTxt += oralHealthList[i].implant
+                oralHealthTxt += oralHealthList[i].rootFilling
+                oralHealthTxt += oralHealthList[i].plaque
+                oralHealthTxt += oralHealthList[i].tartar
+                oralHealthTxt += oralHealthList[i].artCrown
+                oralHealthTxt += oralHealthList[i].toothMobility
+                oralHealthTxt += ", "
+                i++
+            }
+        }
+        oralHealthTxt = oralHealthTxt.substring(0,oralHealthTxt.length - 2) + ":"
+        oralHealth += oralHealthTxt
+
         view.txtFullName.text = patient?.patientName
         view.txtDate.text = patient?.patientDate
         view.txtGender.text = patient?.gender
         view.txtPlace.text = patient?.placeOfResidence
         view.txtPhone.text = patient?.phone
         view.txtHealthInfo.text = healthInfo
+        view.txtoralHealthInfo.text = oralHealth
 
         return view
 

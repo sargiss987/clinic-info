@@ -7,10 +7,19 @@
     android:layout_height="match_parent">
 
 
-
     <com.example.clinic_info_branch.fragments.register_fragment.DentalDiagram
+        android:id="@+id/dentalDiagram"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCommit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Commit"
+        app:layout_constraintBottom_toBottomOf="@+id/dentalDiagram"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

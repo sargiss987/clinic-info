@@ -1056,7 +1056,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:text="ԲԵՐԱՆԻ ԽՈՌՈՉԻ ՎԻՃԱԿԸ"
+                android:text="@string/oralHealthInfo"
                 android:textColor="@android:color/black"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"

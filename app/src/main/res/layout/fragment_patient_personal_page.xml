@@ -169,6 +169,27 @@
             android:textColor="@android:color/black"
             app:layout_constraintTop_toBottomOf="@+id/HealthInfo"/>
 
+        <TextView
+            android:id="@+id/oralHealthInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/oralHealthInfo"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtHealthInfo"/>
+
+        <TextView
+            android:id="@+id/txtoralHealthInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@+id/oralHealthInfo"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
