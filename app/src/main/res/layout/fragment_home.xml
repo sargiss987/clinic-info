@@ -55,7 +55,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="25dp"
-        android:background="@android:color/transparent"
         android:src="@drawable/add_button" />
 
 
