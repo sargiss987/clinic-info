@@ -92,6 +92,7 @@
 
 
             <ImageButton
+                android:background="@drawable/background_button"
                 android:id="@+id/btnCall"
                 android:layout_width="0dp"
                 android:layout_weight="5"
@@ -101,6 +102,7 @@
                 android:elevation="@dimen/cardview_compat_inset_shadow"/>
 
             <ImageButton
+                android:background="@drawable/background_button"
                 android:id="@+id/btnDelete"
                 android:layout_width="0dp"
                 android:layout_weight="5"
