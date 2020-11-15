@@ -57,7 +57,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                noteList = db!!.notesDao().getAllNotes().toMutableList()
+                noteList = db!!.notesDao().getAllNotes() as MutableList<Notes>
             }
         }
 
