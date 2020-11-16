@@ -15,8 +15,7 @@ import android.widget.Toast
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.StateOfTooth
 
-
-val stateOfTeethList : MutableList<StateOfTooth>  = mutableListOf()
+val stateOfTeethList: MutableList<StateOfTooth> = mutableListOf()
 
 class DentalDiagram @JvmOverloads constructor(
     context: Context,
@@ -28,12 +27,14 @@ class DentalDiagram @JvmOverloads constructor(
     private var cellsDown = mutableListOf<RectF>()
     private val cellsUpData = MutableList(16) { _ -> 0 }
     private val cellsDownData = MutableList(16) { _ -> 0 }
-    private val cellsUpNum = mutableListOf(18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28)
-    private val cellsDownNum = mutableListOf(48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38)
+    private val cellsUpNum =
+        mutableListOf(18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28)
+    private val cellsDownNum =
+        mutableListOf(48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38)
     private val jawUp = 1
     private val jawDown = -1
 
-        private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         strokeWidth = 4f
     }
@@ -54,7 +55,6 @@ class DentalDiagram @JvmOverloads constructor(
 
     }
 
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBoard(canvas)
@@ -66,8 +66,6 @@ class DentalDiagram @JvmOverloads constructor(
             drawCell(canvas, cellsDown[i], cellsDownData[i])
             i++
         }
-
-
     }
 
     private fun drawBoard(canvas: Canvas) {
@@ -89,7 +87,6 @@ class DentalDiagram @JvmOverloads constructor(
             canvas.drawLine(startX * i, startY, endX * i, endY, boardPaint)
             i++
         }
-
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -113,25 +110,45 @@ class DentalDiagram @JvmOverloads constructor(
                 i++
             }
         }
-
     }
+
     //draw teeth diagram numbers
-    private fun drawTeethNum(canvas: Canvas){
+    private fun drawTeethNum(canvas: Canvas) {
         var i = 0
         var num1 = 18
         var num2 = 21
         var num3 = 48
         var num4 = 31
-        while (i < 16){
+        while (i < 16) {
 
-            if (i < 8){
-                canvas.drawText("$num1",(width/16*i)+10.toFloat(),(height/2-height/16-20).toFloat(),txtPaint)
-                canvas.drawText("$num3",(width/16*i)+10.toFloat(),(height/2+height/16+45).toFloat(),txtPaint)
+            if (i < 8) {
+                canvas.drawText(
+                    "$num1",
+                    (width / 16 * i) + 10.toFloat(),
+                    (height / 2 - height / 16 - 20).toFloat(),
+                    txtPaint
+                )
+                canvas.drawText(
+                    "$num3",
+                    (width / 16 * i) + 10.toFloat(),
+                    (height / 2 + height / 16 + 45).toFloat(),
+                    txtPaint
+                )
                 num1--
                 num3--
-            }else{
-                canvas.drawText("$num2",(width/16*i)+10.toFloat(),(height/2-height/16-20).toFloat(),txtPaint)
-                canvas.drawText("$num4",(width/16*i)+10.toFloat(),(height/2+height/16+45).toFloat(),txtPaint)
+            } else {
+                canvas.drawText(
+                    "$num2",
+                    (width / 16 * i) + 10.toFloat(),
+                    (height / 2 - height / 16 - 20).toFloat(),
+                    txtPaint
+                )
+                canvas.drawText(
+                    "$num4",
+                    (width / 16 * i) + 10.toFloat(),
+                    (height / 2 + height / 16 + 45).toFloat(),
+                    txtPaint
+                )
                 num2++
                 num4++
             }
@@ -141,15 +158,15 @@ class DentalDiagram @JvmOverloads constructor(
     }
 
     //draw pathological abbreviation
-    private fun drawOptions(canvas: Canvas){
+    private fun drawOptions(canvas: Canvas) {
         val x = 10f
         val y = 50f
         val str = resources.getStringArray(R.array.dentalDiagram)
 
         var i = 0
         var j = 1
-        while (i < 11){
-            canvas.drawText(str[i],x,y*j,txtPaintOption)
+        while (i < 11) {
+            canvas.drawText(str[i], x, y * j, txtPaintOption)
             j++
             i++
         }
@@ -158,10 +175,21 @@ class DentalDiagram @JvmOverloads constructor(
     //Point damaged tooth
     private fun drawX(canvas: Canvas, rectF: RectF) {
 
-        canvas.drawLine(rectF.left+10f, rectF.top+10f, rectF.right-10f, rectF.bottom-10f, xPaint)
-        canvas.drawLine(rectF.left+10f, rectF.bottom-10f, rectF.right-10f, rectF.top+10f, xPaint)
+        canvas.drawLine(
+            rectF.left + 10f,
+            rectF.top + 10f,
+            rectF.right - 10f,
+            rectF.bottom - 10f,
+            xPaint
+        )
+        canvas.drawLine(
+            rectF.left + 10f,
+            rectF.bottom - 10f,
+            rectF.right - 10f,
+            rectF.top + 10f,
+            xPaint
+        )
     }
-
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_UP) {
@@ -171,7 +199,7 @@ class DentalDiagram @JvmOverloads constructor(
                 if (cellsUp[i].contains(event.x, event.y)) {
                     if (cellsUpData[i] == 0) {
                         cellsUpData[i] = 1
-                        createBuilder(i,jawUp)
+                        createBuilder(i, jawUp)
                         invalidate()
                     } else {
                         cellsUpData[i] = 0
@@ -182,7 +210,7 @@ class DentalDiagram @JvmOverloads constructor(
                 if (cellsDown[i].contains(event.x, event.y)) {
                     if (cellsDownData[i] == 0) {
                         cellsDownData[i] = 1
-                        createBuilder(i,jawDown)
+                        createBuilder(i, jawDown)
                         invalidate()
                     } else {
                         cellsDownData[i] = 0
@@ -204,21 +232,21 @@ class DentalDiagram @JvmOverloads constructor(
     }
 
     //Receive teeth's state
-    private fun createBuilder(num : Int,jaw : Int){
+    private fun createBuilder(num: Int, jaw: Int) {
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.teeth_state, null)
-        val checkBoxO  = mDialogView.findViewById<CheckBox>(R.id.checkBoxO)
-        val checkBoxC  = mDialogView.findViewById<CheckBox>(R.id.checkBoxC)
+        val checkBoxO = mDialogView.findViewById<CheckBox>(R.id.checkBoxO)
+        val checkBoxC = mDialogView.findViewById<CheckBox>(R.id.checkBoxC)
         val checkBoxP = mDialogView.findViewById<CheckBox>(R.id.checkBoxP)
-        val checkBoxPt  = mDialogView.findViewById<CheckBox>(R.id.checkBoxPt)
-        val checkBoxR  = mDialogView.findViewById<CheckBox>(R.id.checkBoxR)
-        val checkBoxI  = mDialogView.findViewById<CheckBox>(R.id.checkBoxI)
-        val checkBoxF  = mDialogView.findViewById<CheckBox>(R.id.checkBoxF)
-        val checkBoxDP  = mDialogView.findViewById<CheckBox>(R.id.checkBoxDP)
-        val checkBoxDC  = mDialogView.findViewById<CheckBox>(R.id.checkBoxDC)
-        val checkBoxCr  = mDialogView.findViewById<CheckBox>(R.id.checkBoxCr)
-        val checkBoxMob1  = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob1)
-        val checkBoxMob2  = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob2)
-        val checkBoxMob3  = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob3)
+        val checkBoxPt = mDialogView.findViewById<CheckBox>(R.id.checkBoxPt)
+        val checkBoxR = mDialogView.findViewById<CheckBox>(R.id.checkBoxR)
+        val checkBoxI = mDialogView.findViewById<CheckBox>(R.id.checkBoxI)
+        val checkBoxF = mDialogView.findViewById<CheckBox>(R.id.checkBoxF)
+        val checkBoxDP = mDialogView.findViewById<CheckBox>(R.id.checkBoxDP)
+        val checkBoxDC = mDialogView.findViewById<CheckBox>(R.id.checkBoxDC)
+        val checkBoxCr = mDialogView.findViewById<CheckBox>(R.id.checkBoxCr)
+        val checkBoxMob1 = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob1)
+        val checkBoxMob2 = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob2)
+        val checkBoxMob3 = mDialogView.findViewById<CheckBox>(R.id.checkBoxMob3)
         val mBuilder = AlertDialog.Builder(context)
             .setView(mDialogView)
             .setTitle("ԲԵՐԱՆԻ ԽՈՌՈՉԻ ՎԻՃԱԿԸ")
@@ -229,7 +257,7 @@ class DentalDiagram @JvmOverloads constructor(
 
                 val o =
                     if (checkBoxO.isChecked) resources.getString(R.string.O)
-                else ""
+                    else ""
                 val c =
                     if (checkBoxC.isChecked) resources.getString(R.string.C)
                     else ""
@@ -267,23 +295,46 @@ class DentalDiagram @JvmOverloads constructor(
                     if (checkBoxMob3.isChecked) resources.getString(R.string.mob3)
                     else ""
 
-                when(jaw){
+                when (jaw) {
                     jawUp -> {
-                        val stateOfTeeth = StateOfTooth(cellsUpNum[num].toString(),o,c,p,pt,r,i,f,dp,dc,cr,mob1)
+                        val stateOfTeeth = StateOfTooth(
+                            cellsUpNum[num].toString(),
+                            o,
+                            c,
+                            p,
+                            pt,
+                            r,
+                            i,
+                            f,
+                            dp,
+                            dc,
+                            cr,
+                            mob1
+                        )
                         stateOfTeethList.add(stateOfTeeth)
-                        Toast.makeText(context,"${cellsUpNum[num]} $o",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "${cellsUpNum[num]} $o", Toast.LENGTH_LONG).show()
                     }
-                    jawDown ->{
-                        val stateOfTeeth = StateOfTooth(cellsDownNum[num].toString(),o,c,p,pt,r,i,f,dp,dc,cr,mob1)
+                    jawDown -> {
+                        val stateOfTeeth = StateOfTooth(
+                            cellsDownNum[num].toString(),
+                            o,
+                            c,
+                            p,
+                            pt,
+                            r,
+                            i,
+                            f,
+                            dp,
+                            dc,
+                            cr,
+                            mob1
+                        )
                         stateOfTeethList.add(stateOfTeeth)
-                        Toast.makeText(context,"${cellsDownNum[num]}",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "${cellsDownNum[num]}", Toast.LENGTH_LONG).show()
                     }
                 }
 
             }
         mBuilder.show()
     }
-
-
-
 }

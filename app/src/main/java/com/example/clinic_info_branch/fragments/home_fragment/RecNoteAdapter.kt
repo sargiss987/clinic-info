@@ -9,15 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Notes
 
-
-
-
-class RecNoteAdapter(private val recViewClickListener : RecViewClickListener) : RecyclerView.Adapter<RecNoteAdapter.ViewHolder>() {
+class RecNoteAdapter(private val recViewClickListener: RecViewClickListener) :
+    RecyclerView.Adapter<RecNoteAdapter.ViewHolder>() {
 
     private lateinit var list: List<Notes>
 
-
-    interface RecViewClickListener{
+    interface RecViewClickListener {
         fun dialing(position: Int)
         fun delete(position: Int)
     }
@@ -35,8 +32,6 @@ class RecNoteAdapter(private val recViewClickListener : RecViewClickListener) : 
         val txtTime: TextView = itemView.findViewById(R.id.txtTime)
         val btnCall: ImageView = itemView.findViewById(R.id.btnCall)
         val btnDelete: ImageView = itemView.findViewById(R.id.btnDelete)
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -63,6 +58,4 @@ class RecNoteAdapter(private val recViewClickListener : RecViewClickListener) : 
     override fun getItemCount(): Int {
         return list.size
     }
-
-
 }

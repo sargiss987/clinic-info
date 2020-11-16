@@ -56,7 +56,8 @@ class RegisterFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
         val json = arguments?.getString(STATE_OF_TOOTH)
-        if (json != null){
+
+        if (json != null) {
             stateOfTeethList = Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
         }
 
@@ -181,10 +182,10 @@ class RegisterFragment : Fragment() {
 
             //Init oral health data
             val hygiene =
-                when{
-                   checkGood.isChecked -> resources.getString(R.string.hygieneGood)
-                   checkEnough.isChecked -> resources.getString(R.string.hygieneEnough)
-                   checkBad.isChecked -> resources.getString(R.string.hygieneBad)
+                when {
+                    checkGood.isChecked -> resources.getString(R.string.hygieneGood)
+                    checkEnough.isChecked -> resources.getString(R.string.hygieneEnough)
+                    checkBad.isChecked -> resources.getString(R.string.hygieneBad)
                     else -> ""
                 }
             val typeOfBite =
@@ -227,8 +228,9 @@ class RegisterFragment : Fragment() {
                     otherDiseases,
                     otherDiseasesDescription,
                     pregnancy,
-                    duringPregnancy),
-                    OralHealth(
+                    duringPregnancy
+                ),
+                OralHealth(
                     hygiene,
                     typeOfBite,
                     stateOfTeethList

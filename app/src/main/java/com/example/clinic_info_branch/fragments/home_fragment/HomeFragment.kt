@@ -34,12 +34,11 @@ const val REQUEST_CALL = 1
 
 class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
-
     private lateinit var noteList: MutableList<Notes>
     private var searchingList: MutableList<Notes> = mutableListOf()
     private var db: ClinicInfo? = null
     private lateinit var viewAdapter: RecNoteAdapter
-    private lateinit var phoneNumber : String
+    private lateinit var phoneNumber: String
 
 
     override fun onAttach(context: Context) {
@@ -51,17 +50,13 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         //get notes list from database
         GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                noteList = db!!.notesDao().getAllNotes() as MutableList<Notes>
+                noteList = db!!.notesDao().getAllNotes().toMutableList()
             }
         }
-
-
     }
 
     override fun onCreateView(
@@ -72,22 +67,17 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewAdapter = RecNoteAdapter(this)
         viewAdapter.setList(noteList)
-
-
 
         //show list of notes
         recViewNote.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewAdapter
-
         }
 
         //searching by patient name,recording time or phone
@@ -106,17 +96,13 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                             .contains(p0.toLowerCase(Locale.getDefault())) or
                                 it.phone.contains(p0) or
                                 it.time.toLowerCase(Locale.getDefault()).contains(p0)
-
-
-                    } as MutableList<Notes>
+                    }.toMutableList()
                     viewAdapter.setList(searchingList)
                 } else {
                     viewAdapter.setList(noteList)
                 }
                 return true
             }
-
-
         })
 
         //filter data by note's date
@@ -124,7 +110,6 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
             val filterMenu = PopupMenu(context, filter)
             filterMenu.inflate(R.menu.filter_menu)
             filterMenu.show()
-
 
             filterMenu.setOnMenuItemClickListener { item ->
 
@@ -134,9 +119,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
                         searchingList.clear()
                         viewAdapter.setList(noteList)
-
-
                     }
+
                     R.id.lastMonth -> {
 
                         searchingList.clear()
@@ -149,10 +133,9 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         }.toMutableList()
 
                         viewAdapter.setList(searchingList)
-
                     }
-                    R.id.lastWeek -> {
 
+                    R.id.lastWeek -> {
 
                         searchingList.clear()
                         var i = 0
@@ -172,9 +155,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 //                        }
 //
 //                        viewAdapter.setList(searchingList)
-
-
                     }
+
                     R.id.today -> {
 
                         searchingList.clear()
@@ -183,9 +165,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                             it.date.contains(dateText)
                         }.toMutableList()
                         viewAdapter.setList(searchingList)
-
-
                     }
+
                     R.id.custom -> {
 
                         searchingList.clear()
@@ -193,7 +174,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         val month = calendar.get(Calendar.MONTH)
                         val date = calendar.get(Calendar.DATE)
                         val datePickerDialog =
-                            context?.let {
+                            context?.let { it ->
                                 DatePickerDialog(
                                     it,
                                     { _, i, i2, i3 ->
@@ -207,9 +188,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
                                         searchingList = noteList.filter {
                                             it.date == dateText
-                                        }as MutableList<Notes>
+                                        }.toMutableList()
                                         viewAdapter.setList(searchingList)
-
                                     },
                                     year,
                                     month,
@@ -223,9 +203,6 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     }
                     else -> false
                 }
-
-
-
                 true
             }
         }
@@ -330,11 +307,11 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     }
 
     //dialing
-    override fun dialing(position : Int) {
-        if (searchingList.isNotEmpty()){
+    override fun dialing(position: Int) {
+        if (searchingList.isNotEmpty()) {
             this.phoneNumber = searchingList[position].phone
             makePhoneCall(phoneNumber)
-        }else{
+        } else {
             this.phoneNumber = noteList[position].phone
             makePhoneCall(phoneNumber)
         }
@@ -343,15 +320,15 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
     //delete entry
     override fun delete(position: Int) {
-        var  note: Notes? = null
-        if (searchingList.isNotEmpty()){
-            note  = searchingList[position]
-        }else{
+        var note: Notes? = null
+        if (searchingList.isNotEmpty()) {
+            note = searchingList[position]
+        } else {
             note = noteList[position]
         }
 
         //delete note from database
-         GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(Dispatchers.Default) {
 
             db?.notesDao()?.deleteNote(note)
         }
@@ -365,22 +342,24 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     //Request PHONE_CALL permission
     private fun makePhoneCall(phoneNumber: String) {
 
-        if (phoneNumber.isNotEmpty()){
+        if (phoneNumber.isNotEmpty()) {
 
             if (context?.let {
                     ContextCompat.checkSelfPermission(
                         it,
-                        android.Manifest.permission.CALL_PHONE)
-                } != PackageManager.PERMISSION_GRANTED){
-                 ActivityCompat.requestPermissions(context as Activity,arrayOf<String>(android.Manifest.permission.CALL_PHONE) ,
-                     REQUEST_CALL
-                 )
-            }else{
+                        android.Manifest.permission.CALL_PHONE
+                    )
+                } != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    context as Activity, arrayOf<String>(android.Manifest.permission.CALL_PHONE),
+                    REQUEST_CALL
+                )
+            } else {
                 val dial = "tel:$phoneNumber"
-                startActivity(Intent(Intent.ACTION_CALL,Uri.parse(dial)))
+                startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
             }
-        }else{
-            Toast.makeText(context,"Not Found Phone Number",Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(context, "Not Found Phone Number", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -390,11 +369,11 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CALL){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makePhoneCall(phoneNumber)
-            }else{
-                Toast.makeText(context,"Permission Denied",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
