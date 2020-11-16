@@ -1136,6 +1136,7 @@
 
               <com.google.android.material.button.MaterialButton
                   android:id="@+id/btnTeethDiagram"
+                  android:background="@drawable/button_background"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:text="Teeth Diagram"
@@ -1148,10 +1149,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTreatmentProcess"
+                android:background="@drawable/button_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TREATMENT PROCESS"
                 android:focusable="true"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 app:layout_constraintTop_toBottomOf="@+id/btnTeethDiagram"
@@ -1161,9 +1164,10 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegister"
+                android:background="@drawable/button_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginEnd="40dp"
                 app:layout_constraintTop_toBottomOf="@+id/btnTreatmentProcess"
