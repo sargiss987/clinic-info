@@ -15,7 +15,7 @@ interface NotesDao {
     fun deleteNote(note: Notes)
 
     @Query("SELECT * FROM notes")
-    fun getAllNotes() : List<Notes>
+    fun getAllNotes() : MutableList<Notes>
 
     @Query("SELECT * FROM notes WHERE date=:currentDate")
     fun getNotesByDate(currentDate : String) : List<Notes>

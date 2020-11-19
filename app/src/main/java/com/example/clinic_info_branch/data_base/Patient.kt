@@ -24,7 +24,7 @@ data class Patient(
     val oralHealth: OralHealth? = null,
     @Embedded
     val treatmentProcess: TreatmentProcess? = null
-) : Parcelable
+): Parcelable
 
 @Parcelize
 data class HealthInfo(
@@ -58,29 +58,29 @@ data class HealthInfo(
     val pregnancy: Boolean,
     val duringPregnancy: String
 
-) : Parcelable
+): Parcelable
 
-class StateOfToothConverter {
+class StateOfToothConverter{
 
     @TypeConverter
-    fun convertJson(list: MutableList<StateOfTooth>): String? {
+    fun convertJson(list : MutableList<StateOfTooth>): String? {
 
         return Gson().toJson(list)
 
     }
 
     @TypeConverter
-    fun convertList(json: String): MutableList<StateOfTooth>? {
+    fun convertList(json : String) : MutableList<StateOfTooth>?{
+
         return Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
     }
 }
-
 @Parcelize
 data class OralHealth(
     val hygiene: String,
     val typeOfBite: String,
     val stateOfTeeth: MutableList<StateOfTooth>
-) : Parcelable
+): Parcelable
 
 @Parcelize
 data class StateOfTooth(
@@ -96,14 +96,14 @@ data class StateOfTooth(
     val tartar: String,
     val artCrown: String,
     val toothMobility: String
-) : Parcelable
+): Parcelable
 
 @Parcelize
 data class TreatmentProcess(
-    val visitDate: String,
-    val subReasonVisit: String,
-    val objReasonVisit: String,
-    val diagnosis: String,
-    val treatmentPlan: String
-) : Parcelable
+   val visitDate: String,
+   val subReasonVisit: String,
+   val objReasonVisit: String,
+   val diagnosis: String,
+   val treatmentPlan: String
+): Parcelable
 

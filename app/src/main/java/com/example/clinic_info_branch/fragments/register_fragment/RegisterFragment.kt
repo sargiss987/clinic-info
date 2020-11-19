@@ -1,5 +1,6 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,16 +28,13 @@ class RegisterFragment : Fragment() {
     private lateinit var patientList: MutableList<Patient>
     private lateinit var stateOfTeethList: MutableList<StateOfTooth>
 
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        //get database
+        db = ClinicInfo.getDatabase(context)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //build database
-        db = context?.let {
-            Room.databaseBuilder(
-                it,
-                ClinicInfo::class.java, "clinic_info"
-            ).build()
-        }
 
         //get patient list from database
         GlobalScope.launch(Dispatchers.Default) {
@@ -59,6 +57,11 @@ class RegisterFragment : Fragment() {
 
         if (json != null) {
             stateOfTeethList = Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
+        }else{
+            stateOfTeethList = mutableListOf()
+            stateOfTeethList.add(StateOfTooth(resources.getString(R.string.stateOfTeethDefault),
+            "","","","","","","",
+            "","","",""))
         }
 
         return view
@@ -186,11 +189,11 @@ class RegisterFragment : Fragment() {
                     checkGood.isChecked -> resources.getString(R.string.hygieneGood)
                     checkEnough.isChecked -> resources.getString(R.string.hygieneEnough)
                     checkBad.isChecked -> resources.getString(R.string.hygieneBad)
-                    else -> ""
+                    else -> resources.getString(R.string.hygieneGood)
                 }
             val typeOfBite =
-                if (checkNormally.isChecked) resources.getString(R.string.biteNormally)
-                else resources.getString(R.string.bitePathological)
+                if (checkPathological.isChecked) resources.getString(R.string.bitePathological)
+                else resources.getString(R.string.biteNormally)
 
             //create patient
             val patient = Patient(

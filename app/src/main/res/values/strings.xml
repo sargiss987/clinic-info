@@ -69,12 +69,14 @@
     <string name="mob2">ատամի մոտ հայտնաբերվել է երկրորդ աստիճանի շարժունակություն</string>
     <string name="mob3">ատամի մոտ հայտնաբերվել է երրորդ աստիճանի շարժունակություն</string>
 
-    <string name="hygieneGood">բերանի խոռոչի հիգիենիկ վիճակը լավ է</string>
-    <string name="hygieneEnough">բերանի խոռոչի հիգիենիկ վիճակը բավարար է</string>
-    <string name="hygieneBad">բերանի խոռոչի հիգիենիկ վիճակը վատ է</string>
+    <string name="hygieneGood">Բերանի խոռոչի հիգիենիկ վիճակը լավ է</string>
+    <string name="hygieneEnough">Բերանի խոռոչի հիգիենիկ վիճակը բավարար է</string>
+    <string name="hygieneBad">Բերանի խոռոչի հիգիենիկ վիճակը վատ է</string>
 
     <string name="biteNormally">, կծվածքի տեսակը ` բնականոն: </string>
     <string name="bitePathological">, կծվածքի տեսակը ` ախտաբանական: </string>
+
+    <string name="stateOfTeethDefault">Բացակայող և ախտահարված ատամներ չի հայտնաբերվել</string>
 
 
     <string-array name="days">

@@ -1,5 +1,6 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,12 +16,11 @@ import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.fragments.home_fragment.RecNoteAdapter
 import com.example.clinic_info_branch.fragments.register_fragment.TREATMENT_PROCESS
 import com.example.clinic_info_branch.fragments.register_fragment.TreatmentProcessFragment
+import com.example.clinic_info_branch.job
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_patient_personal_page.*
 import kotlinx.android.synthetic.main.fragment_searching.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 const val PATIENT_PERSONAL_PAGE = "patient_personal_page"
 const val PATIENT_INFO = "patient_info"
@@ -30,22 +30,35 @@ class SearchingFragment : Fragment(),RecPatientAdapter.RecViewClickListener {
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
     private lateinit var viewAdapter: RecPatientAdapter
+    private lateinit var job: Job
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        //get database
+        db = ClinicInfo.getDatabase(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //build database
-        db = context?.let {
-            Room.databaseBuilder(
-                it,
-                ClinicInfo::class.java, "clinic_info"
-            ).build()
-        }
+
+        viewAdapter = RecPatientAdapter(this)
 
         //get patient list from database
-        GlobalScope.launch(Dispatchers.Default) {
+        job = GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                patientList = db!!.patientDao().getAllPatients() as MutableList<Patient>
+                patientList = db!!.patientDao().getAllPatients()
+                delay(3000)
+            }
+            withContext(Dispatchers.Main){
+                progressBarSearching.visibility = View.GONE
+                viewAdapter.setList(patientList)
+
+                //show list of patients
+                recViewPatient.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = viewAdapter
+                }
             }
         }
     }
@@ -59,20 +72,7 @@ class SearchingFragment : Fragment(),RecPatientAdapter.RecViewClickListener {
         return inflater.inflate(R.layout.fragment_searching, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        viewAdapter = RecPatientAdapter(this)
-        viewAdapter.setList(patientList)
-
-
-
-        //show list of patients
-      recViewPatient.apply {
-          layoutManager = LinearLayoutManager(context)
-          adapter = viewAdapter
-      }
-    }
 
     //delete patient from database
     override fun delete(position: Int) {
@@ -101,5 +101,10 @@ class SearchingFragment : Fragment(),RecPatientAdapter.RecViewClickListener {
             commit()
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        job.cancel()
     }
 }

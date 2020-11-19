@@ -24,10 +24,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.Notes
+import com.example.clinic_info_branch.job
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
 
 const val REQUEST_CALL = 1
@@ -39,22 +38,39 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private var db: ClinicInfo? = null
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
+    private lateinit var job: Job
+
+
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
+        //get database
         db = ClinicInfo.getDatabase(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewAdapter = RecNoteAdapter(this)
+
         //get notes list from database
-        GlobalScope.launch(Dispatchers.Default) {
+        //update display
+        job =  GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                noteList = db!!.notesDao().getAllNotes().toMutableList()
+                delay(5000)
+                noteList = db!!.notesDao().getAllNotes()
+            }
+            withContext(Dispatchers.Main){
+                progressBarHome.visibility = View.GONE
+                viewAdapter.setList(noteList)
+
+                //show list of notes
+                recViewNote.apply {
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = viewAdapter
+                }
             }
         }
     }
@@ -71,14 +87,6 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewAdapter = RecNoteAdapter(this)
-        viewAdapter.setList(noteList)
-
-        //show list of notes
-        recViewNote.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = viewAdapter
-        }
 
         //searching by patient name,recording time or phone
         searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
@@ -229,7 +237,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     )
 
                     //insert note to database
-                    val job = GlobalScope.launch(Dispatchers.Default) {
+                     GlobalScope.launch(Dispatchers.Default) {
 
                         db?.notesDao()?.insertNote(note)
                     }
@@ -376,5 +384,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                 Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        job.cancel()
     }
 }

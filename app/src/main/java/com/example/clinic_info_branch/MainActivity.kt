@@ -7,6 +7,9 @@ import com.example.clinic_info_branch.fragments.home_fragment.HomeFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.SearchingFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Job
+
+var job : Job? = null
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     //Navigate fragments
     private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
+
             replace(R.id.fragmentContainer, fragment)
             commit()
 

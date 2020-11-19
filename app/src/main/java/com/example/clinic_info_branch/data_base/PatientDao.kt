@@ -1,11 +1,9 @@
 package com.example.clinic_info_branch.data_base
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
+@TypeConverters(StateOfToothConverter::class)
 interface PatientDao {
     @Insert
     fun insertPatient(patient: Patient)
@@ -14,5 +12,5 @@ interface PatientDao {
     fun deletePatient(patient: Patient)
 
     @Query("SELECT * FROM patient")
-    fun getAllPatients() : List<Patient>
+    fun getAllPatients() : MutableList<Patient>
 }
