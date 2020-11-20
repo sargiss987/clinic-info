@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/logo"
-    tools:context=".fragments.searching_fragment.SearchingFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+         <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:context=".fragments.searching_fragment.SearchingFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                        <SearchView
+                            android:id="@+id/searchView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="85"
+                            android:iconifiedByDefault="false"
+                            android:queryHint="By Name, Phone or Rec.Time" />
+
+                        <ImageButton
+                            android:id="@+id/filter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/searchView"
+                            android:layout_weight="15"
+                            android:src="@drawable/filter_list" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recViewPatient"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/logo"
+                    android:layout_below="@+id/linearLayout"/>
 
                 <ProgressBar
                     android:id="@+id/progressBarSearching"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/recViewPatient"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/recViewPatient"
-                    app:layout_constraintTop_toTopOf="@+id/recViewPatient" />
+                    android:layout_centerInParent="true" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</FrameLayout>
+        </RelativeLayout>

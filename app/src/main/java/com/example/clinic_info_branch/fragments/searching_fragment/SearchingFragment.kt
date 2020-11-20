@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.ClinicInfo
+import com.example.clinic_info_branch.data_base.Notes
 import com.example.clinic_info_branch.data_base.Patient
 import kotlinx.android.synthetic.main.fragment_searching.*
+import kotlinx.android.synthetic.main.fragment_searching.searchView
 import kotlinx.coroutines.*
+import java.util.*
 
 const val PATIENT_PERSONAL_PAGE = "patient_personal_page"
 const val PATIENT_INFO = "patient_info"
@@ -20,6 +23,7 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
 
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
+    private var searchingList: MutableList<Patient> = mutableListOf()
     private lateinit var viewAdapter: RecPatientAdapter
     private lateinit var job: Job
 
@@ -65,6 +69,37 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
         return inflater.inflate(R.layout.fragment_searching, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //searching by patient name,place of residence or phone
+        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+
+                if (::patientList.isInitialized) {
+                    searchingList.clear()
+                    if (p0!!.isNotEmpty()) {
+                        searchingList = patientList.filter {
+                            it.patientName.toLowerCase(Locale.getDefault())
+                                .contains(p0.toLowerCase(Locale.getDefault())) or
+                                    it.phone.contains(p0) or
+                                    it.placeOfResidence.toLowerCase(Locale.getDefault()).contains(p0)
+                        }.toMutableList()
+                        viewAdapter.setList(searchingList)
+                    } else {
+                        viewAdapter.setList(patientList)
+                    }
+                }
+
+                return true
+            }
+        })
+    }
+
 
     //delete patient from database
     override fun delete(position: Int) {
@@ -81,6 +116,7 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
         viewAdapter.setList(patientList)
     }
 
+    //navigate patient personal page
     override fun onClick(position: Int) {
 
         val bundle = Bundle()
@@ -96,6 +132,7 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
 
     }
 
+    //job cancel
     override fun onStop() {
         super.onStop()
         job.cancel()
