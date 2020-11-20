@@ -26,6 +26,7 @@ class RegisterFragment : Fragment() {
     private lateinit var patientList: MutableList<Patient>
     private lateinit var stateOfTeethList: MutableList<StateOfTooth>
     private lateinit var job: Job
+    private var validationNum = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,7 +104,7 @@ class RegisterFragment : Fragment() {
             //Init personal data
             val patientName = fullName.text.toString()
             val placeOfResidence = address.text.toString()
-            val phone = phone.text.toString()
+            val phone = etPhoneValidation.text.toString()
             val patientDate = "${spinnerDaysTreatment.selectedItem}" +
                     " ${spinnerMonthsTreatment.selectedItem}" +
                     " ${spinnerYearsTreatment.selectedItem}"
@@ -245,13 +246,34 @@ class RegisterFragment : Fragment() {
                 )
             )
 
-            Toast.makeText(context, "$patient", Toast.LENGTH_SHORT).show()
 
-            //insert patient to database
-            GlobalScope.launch(Dispatchers.Default) {
 
-                db?.patientDao()?.insertPatient(patient)
+            //register validation via number
+            patientList.forEach {
+                if (it.phone == phone) validationNum = false
             }
+
+
+
+            when {
+                etPhoneValidation.text.toString().isEmpty() -> {
+                    etPhoneValidation.error = "Field cannot be empty"
+                    Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
+                }
+                validationNum -> {
+                    //insert patient to database
+                    GlobalScope.launch(Dispatchers.Default) {
+
+                        db?.patientDao()?.insertPatient(patient)
+                    }
+                }
+
+                else -> {
+                    etPhoneValidation.error = "The patient already exist"
+                    Toast.makeText(context, "The patient already exist" , Toast.LENGTH_LONG).show()
+                }
+            }
+
         }
     }
 

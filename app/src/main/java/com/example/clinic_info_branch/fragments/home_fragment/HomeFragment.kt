@@ -26,6 +26,7 @@ import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.Notes
 
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -39,6 +40,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
+    private var validationNumber = true
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -223,6 +225,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
         //Add new note
         addNote.setOnClickListener {
+            var name : String
+            var phone : String
+            var date : String
+            var time : String
             val mDialogView = LayoutInflater.from(context).inflate(R.layout.create_note, null)
             val btnPickDate: Button = mDialogView.findViewById(R.id.pickDate)
             val btnPickTime: Button = mDialogView.findViewById(R.id.pickTime)
@@ -236,21 +242,45 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                 .setTitle("Create Note")
                 .setPositiveButton("Create") { _, _ ->
 
+                    name = etName.text.toString()
+                    phone = etPhone.text.toString()
+                    date = txtDateDialog.text.toString()
+                    time = txtTimeDialog.text.toString()
                     //create note
                     val note = Notes(
-                        0, etName.text.toString(), etPhone.text.toString(),
-                        txtDateDialog.text.toString(), txtTimeDialog.text.toString()
+                        0, name, phone, date, time
                     )
 
-                    //insert note to database
-                    GlobalScope.launch(Dispatchers.Default) {
+                    //validation creating note via phone number
+                    if (::noteList.isInitialized){
+                        noteList.forEach {
+                            if (it.phone == phone){
+                                validationNumber = false
+                            }
+                        }
+                    }
+                    when {
+                        phone.isEmpty() -> {
+                            etPhone.error = "Field cannot be empty"
+                            Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
+                        }
+                        validationNumber -> {
+                            //insert note to database
+                            GlobalScope.launch(Dispatchers.Default) {
 
-                        db?.notesDao()?.insertNote(note)
+                                db?.notesDao()?.insertNote(note)
+                            }
+
+                            //update list
+                            noteList.add(note)
+                            viewAdapter.setList(noteList)
+                        }
+                        else -> {
+                            etPhone.error = "The patient already exist"
+                            Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG).show()
+                        }
                     }
 
-                    //update list
-                    noteList.add(note)
-                    viewAdapter.setList(noteList)
 
                 }
                 .setNegativeButton("Cancel") { _, _ ->
@@ -392,6 +422,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         }
     }
 
+    //job cancel
     override fun onStop() {
         super.onStop()
         job.cancel()
