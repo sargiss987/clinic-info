@@ -40,9 +40,6 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
 
-
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //get database
