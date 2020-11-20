@@ -5,18 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.room.Room
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.rec_patient_item.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 const val TEETH_DIAGRAM = "teeth_diagram"
@@ -27,17 +25,19 @@ class RegisterFragment : Fragment() {
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
     private lateinit var stateOfTeethList: MutableList<StateOfTooth>
+    private lateinit var job: Job
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //get database
         db = ClinicInfo.getDatabase(context)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //get patient list from database
-        GlobalScope.launch(Dispatchers.Default) {
+        job = GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
                 patientList = db!!.patientDao().getAllPatients().toMutableList()
@@ -56,12 +56,17 @@ class RegisterFragment : Fragment() {
         val json = arguments?.getString(STATE_OF_TOOTH)
 
         if (json != null) {
-            stateOfTeethList = Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
-        }else{
+            stateOfTeethList =
+                Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
+        } else {
             stateOfTeethList = mutableListOf()
-            stateOfTeethList.add(StateOfTooth(resources.getString(R.string.stateOfTeethDefault),
-            "","","","","","","",
-            "","","",""))
+            stateOfTeethList.add(
+                StateOfTooth(
+                    resources.getString(R.string.stateOfTeethDefault),
+                    "", "", "", "", "", "", "",
+                    "", "", "", ""
+                )
+            )
         }
 
         return view
@@ -248,5 +253,10 @@ class RegisterFragment : Fragment() {
                 db?.patientDao()?.insertPatient(patient)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }

@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.Notes
-import com.example.clinic_info_branch.job
+
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -53,13 +53,13 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
         //get notes list from database
         //update display
-        job =  GlobalScope.launch(Dispatchers.Default) {
+        job = GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
                 delay(5000)
                 noteList = db!!.notesDao().getAllNotes()
             }
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 progressBarHome.visibility = View.GONE
                 viewAdapter.setList(noteList)
 
@@ -68,6 +68,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     layoutManager = LinearLayoutManager(context)
                     adapter = viewAdapter
                 }
+
             }
         }
     }
@@ -92,23 +93,26 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                //var searchingList: List<Notes>? = null
 
-                searchingList.clear()
-                if (p0!!.isNotEmpty()) {
-                    searchingList = noteList.filter {
-                        it.name.toLowerCase(Locale.getDefault())
-                            .contains(p0.toLowerCase(Locale.getDefault())) or
-                                it.phone.contains(p0) or
-                                it.time.toLowerCase(Locale.getDefault()).contains(p0)
-                    }.toMutableList()
-                    viewAdapter.setList(searchingList)
-                } else {
-                    viewAdapter.setList(noteList)
+                if (::noteList.isInitialized) {
+                    searchingList.clear()
+                    if (p0!!.isNotEmpty()) {
+                        searchingList = noteList.filter {
+                            it.name.toLowerCase(Locale.getDefault())
+                                .contains(p0.toLowerCase(Locale.getDefault())) or
+                                    it.phone.contains(p0) or
+                                    it.time.toLowerCase(Locale.getDefault()).contains(p0)
+                        }.toMutableList()
+                        viewAdapter.setList(searchingList)
+                    } else {
+                        viewAdapter.setList(noteList)
+                    }
                 }
+
                 return true
             }
         })
+
 
         //filter data by note's date
         filter.setOnClickListener {
@@ -119,6 +123,9 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
             filterMenu.setOnMenuItemClickListener { item ->
 
                 val calendar = Calendar.getInstance()
+
+
+
                 when (item.itemId) {
                     R.id.allTimes -> {
 
@@ -165,7 +172,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     R.id.today -> {
 
                         searchingList.clear()
-                        val dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
+                        val dateText =
+                            DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
                         searchingList = noteList.filter {
                             it.date.contains(dateText)
                         }.toMutableList()
@@ -207,6 +215,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
                     }
                     else -> false
+
                 }
                 true
             }
@@ -234,7 +243,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     )
 
                     //insert note to database
-                     GlobalScope.launch(Dispatchers.Default) {
+                    GlobalScope.launch(Dispatchers.Default) {
 
                         db?.notesDao()?.insertNote(note)
                     }

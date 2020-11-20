@@ -7,9 +7,9 @@ import com.example.clinic_info_branch.fragments.home_fragment.HomeFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.SearchingFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Job
 
-var job : Job? = null
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,10 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         //button navigates fragments
         bottom_navigation.setOnNavigationItemSelectedListener {
+
             when (it.itemId) {
                 R.id.home -> makeCurrentFragment(homeFragment)
                 R.id.register -> makeCurrentFragment(registerFragment)
                 R.id.search -> makeCurrentFragment(searchFragment)
+
 
             }
             true
@@ -45,8 +47,8 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fragmentContainer, fragment)
             commit()
 
-        }
 
+        }
 
 
 }
