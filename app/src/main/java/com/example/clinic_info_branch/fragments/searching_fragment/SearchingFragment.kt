@@ -35,9 +35,8 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
         db = ClinicInfo.getDatabase(context)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onResume() {
+        super.onResume()
         viewAdapter = RecPatientAdapter(this)
 
         //get patient list from database
