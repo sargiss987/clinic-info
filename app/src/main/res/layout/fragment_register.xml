@@ -986,6 +986,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etQuestion4Layout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeColor="#FFF"
+            app:boxBackgroundColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -994,6 +998,7 @@
 
             <EditText
                 android:id="@+id/etQuestion4"
+                android:background="@drawable/edittext_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -1041,6 +1046,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etQuestion5Layout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeColor="#FFF"
+            app:boxBackgroundColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -1049,6 +1058,7 @@
 
             <EditText
                 android:id="@+id/etQuestion5"
+                android:background="@drawable/edittext_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -1145,7 +1155,7 @@
             app:layout_constraintStart_toEndOf="@+id/checkNormally"
             app:layout_constraintTop_toBottomOf="@+id/biteType" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btnTeethDiagram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -1158,7 +1168,7 @@
             app:layout_constraintStart_toStartOf="@+id/parent"
             app:layout_constraintTop_toBottomOf="@+id/checkPathological" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btnTreatmentProcess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -1173,7 +1183,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnTeethDiagram" />
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
