@@ -247,7 +247,6 @@ class RegisterFragment : Fragment() {
             )
 
 
-
             //register validation via number
             patientList.forEach {
                 if (it.phone == phone) validationNum = false
@@ -270,10 +269,9 @@ class RegisterFragment : Fragment() {
 
                 else -> {
                     etPhoneValidation.error = "The patient already exist"
-                    Toast.makeText(context, "The patient already exist" , Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG).show()
                 }
             }
-
         }
     }
 

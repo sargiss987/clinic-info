@@ -31,11 +31,11 @@ class TeethDiagramFragment : Fragment() {
             val bundle = Bundle()
             val gson = Gson()
             val message = gson.toJson(stateOfTeethList)
-            bundle.putString(STATE_OF_TOOTH,message)
+            bundle.putString(STATE_OF_TOOTH, message)
 
             fragmentManager?.beginTransaction()?.apply {
 
-                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle})
+                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle })
                 commit()
             }
         }

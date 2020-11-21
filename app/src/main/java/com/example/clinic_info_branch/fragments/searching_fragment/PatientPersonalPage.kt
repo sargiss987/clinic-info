@@ -18,7 +18,6 @@ class PatientPersonalPage : Fragment() {
 
     var patient: Patient? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

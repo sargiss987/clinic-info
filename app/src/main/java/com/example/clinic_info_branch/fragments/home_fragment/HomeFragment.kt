@@ -218,10 +218,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
                         datePickerDialog?.show()
 
-
                     }
                     else -> false
-
                 }
                 true
             }
@@ -229,10 +227,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
         //Add new note
         addNote.setOnClickListener {
-            var name : String
-            var phone : String
-            var date : String
-            var time : String
+            var name: String
+            var phone: String
+            var date: String
+            var time: String
             val mDialogView = LayoutInflater.from(context).inflate(R.layout.create_note, null)
             val btnPickDate: Button = mDialogView.findViewById(R.id.pickDate)
             val btnPickTime: Button = mDialogView.findViewById(R.id.pickTime)
@@ -256,9 +254,9 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     )
 
                     //validation creating note via phone number
-                    if (::noteList.isInitialized){
+                    if (::noteList.isInitialized) {
                         noteList.forEach {
-                            if (it.phone == phone){
+                            if (it.phone == phone) {
                                 validationNumber = false
                             }
                         }
@@ -266,7 +264,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     when {
                         phone.isEmpty() -> {
                             etPhone.error = "Field cannot be empty"
-                            Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG)
+                                .show()
                         }
                         validationNumber -> {
                             //insert note to database
@@ -281,7 +280,8 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         }
                         else -> {
                             etPhone.error = "The patient already exist"
-                            Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
 

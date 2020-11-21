@@ -27,6 +27,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fullNameLayout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeColor="#FFF"
+            app:boxBackgroundColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +40,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fullName"
+                android:background="@drawable/edittext_background"
+                app:hintTextAppearance="@style/MyHintStyle"
+                android:textColorHint="#E1DFDF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -122,6 +129,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addressLayout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeColor="#FFF"
+            app:boxBackgroundColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,6 +141,7 @@
 
             <EditText
                 android:id="@+id/address"
+                android:background="@drawable/edittext_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -144,6 +156,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phoneLayout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeColor="#FFF"
+            app:boxBackgroundColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,6 +169,7 @@
             <EditText
 
                 android:id="@+id/etPhoneValidation"
+                android:background="@drawable/edittext_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -163,9 +180,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/address" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <TextView
             android:id="@+id/txtHealthInfo"
@@ -213,6 +228,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etAllergyLayout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeColor="#FFF"
+            app:boxBackgroundColor="#FFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -221,6 +240,7 @@
 
             <EditText
                 android:id="@+id/etAllergy"
+                android:background="@drawable/edittext_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -230,7 +250,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkAllergyTrue" />
-
 
         </com.google.android.material.textfield.TextInputLayout>
 

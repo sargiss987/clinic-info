@@ -27,8 +27,6 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecPatientAdapter
     private lateinit var job: Job
 
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //get database
@@ -86,14 +84,14 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
                             it.patientName.toLowerCase(Locale.getDefault())
                                 .contains(p0.toLowerCase(Locale.getDefault())) or
                                     it.phone.contains(p0) or
-                                    it.placeOfResidence.toLowerCase(Locale.getDefault()).contains(p0)
+                                    it.placeOfResidence.toLowerCase(Locale.getDefault())
+                                        .contains(p0)
                         }.toMutableList()
                         viewAdapter.setList(searchingList)
                     } else {
                         viewAdapter.setList(patientList)
                     }
                 }
-
                 return true
             }
         })
@@ -122,13 +120,10 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
         bundle.putParcelable(PATIENT_INFO, patientList[position])
 
         fragmentManager?.beginTransaction()?.apply {
-
             replace(R.id.fragmentContainer, PatientPersonalPage().apply { arguments = bundle })
             addToBackStack(PATIENT_PERSONAL_PAGE)
-
             commit()
         }
-
     }
 
     //job cancel
