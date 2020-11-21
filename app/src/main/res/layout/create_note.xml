@@ -9,6 +9,7 @@
 
     <EditText
         android:id="@+id/etFullName"
+        android:drawableStart="@drawable/ic_baseline_account_circle_24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -87,6 +88,7 @@
 
     <EditText
         android:id="@+id/etPhone"
+        android:drawableStart="@drawable/ic_baseline_phone_iphone_24"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
