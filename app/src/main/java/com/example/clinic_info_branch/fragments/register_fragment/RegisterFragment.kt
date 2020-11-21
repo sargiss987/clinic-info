@@ -17,7 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-const val TEETH_DIAGRAM = "teeth_diagram"
+const val TEETH_DIAGRAM_FROM_REGISTER = "teeth_diagram_from_register"
 const val TREATMENT_PROCESS = "treatment_process"
 
 class RegisterFragment : Fragment() {
@@ -25,6 +25,8 @@ class RegisterFragment : Fragment() {
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
     private lateinit var stateOfTeethList: MutableList<StateOfTooth>
+    private lateinit var hygiene: String
+    private lateinit var typeOfBite: String
     private lateinit var job: Job
     private var validationNum = true
 
@@ -55,6 +57,15 @@ class RegisterFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
         val json = arguments?.getString(STATE_OF_TOOTH)
+        val hygiene = arguments?.getString(STATE_OF_HYGIENE).toString()
+        typeOfBite = arguments?.getString(STATE_OF_BITE).toString()
+
+        if (hygiene.length > 1){
+            this.hygiene = hygiene
+        }else{
+            this.hygiene = resources.getString(R.string.hygieneGood)
+        }
+        if (typeOfBite.isEmpty()) typeOfBite = resources.getString(R.string.biteNormally)
 
         if (json != null) {
             stateOfTeethList =
@@ -81,7 +92,7 @@ class RegisterFragment : Fragment() {
         btnTeethDiagram.setOnClickListener {
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TeethDiagramFragment())
-                addToBackStack(TEETH_DIAGRAM)
+                addToBackStack(TEETH_DIAGRAM_FROM_REGISTER)
                 commit()
             }
 
@@ -189,18 +200,6 @@ class RegisterFragment : Fragment() {
             val pregnancy = checkPregnancyTrue.isChecked
             val duringPregnancy = etQuestion5.text.toString()
 
-            //Init oral health data
-            val hygiene =
-                when {
-                    checkGood.isChecked -> resources.getString(R.string.hygieneGood)
-                    checkEnough.isChecked -> resources.getString(R.string.hygieneEnough)
-                    checkBad.isChecked -> resources.getString(R.string.hygieneBad)
-                    else -> resources.getString(R.string.hygieneGood)
-                }
-            val typeOfBite =
-                if (checkPathological.isChecked) resources.getString(R.string.bitePathological)
-                else resources.getString(R.string.biteNormally)
-
             //create patient
             val patient = Patient(
                 patientName,
@@ -249,10 +248,9 @@ class RegisterFragment : Fragment() {
 
             //register validation via number
             patientList.forEach {
-                if (it.phone == phone) validationNum = false
+                validationNum = it.phone != phone
+
             }
-
-
 
             when {
                 etPhoneValidation.text.toString().isEmpty() -> {
@@ -265,6 +263,7 @@ class RegisterFragment : Fragment() {
 
                         db?.patientDao()?.insertPatient(patient)
                     }
+                    Toast.makeText(context, "Registration is successful", Toast.LENGTH_LONG).show()
                 }
 
                 else -> {

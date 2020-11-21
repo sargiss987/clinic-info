@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity
+@Entity()
 data class Patient(
     val patientName: String,
     val patientDate: String,

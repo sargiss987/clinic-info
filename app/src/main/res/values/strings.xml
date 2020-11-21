@@ -24,7 +24,7 @@
     <string name="healthQuestion5">5. Կրծքով կերակրու՞մ եք կամ ունե՞ք հղիություն.</string>
 
     <string name="healthInfo">ՏԵՂԵԿՈՒԹՅՈՒՆՆԵՐ ԱՌՈՂՋՈՒԹՅԱՆ ՎԵՐԱԲԵՐՅԱԼ</string>
-    <string name="oralHealthInfo">ԲԵՐԱՆԻ ԽՈՌՈՉԻ ՎԻՃԱԿԸ</string>
+    <string name="oralHealthInfo">ԲԵՐԱՆԻ ԽՈՌՈՉԻ ՎԻՃԱԿԸ </string>
 
     <string name="allergyTrue">Հիվանդի անամնեզում նշվում է ալերգիկ դրսևորւմներ մասնաորապես ՝</string>
     <string name="allergyFalse">Հիվանդի անամնեզում չի նշվում ալերգիկ դրսևորւմներ</string>

@@ -1,5 +1,6 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
@@ -34,6 +35,7 @@ class DentalDiagram @JvmOverloads constructor(
     private val jawUp = 1
     private val jawDown = -1
 
+
     private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         strokeWidth = 4f
@@ -59,7 +61,7 @@ class DentalDiagram @JvmOverloads constructor(
         super.onDraw(canvas)
         drawBoard(canvas)
         drawTeethNum(canvas)
-        drawOptions(canvas)
+        //drawOptions(canvas)
         var i = 0
         while (i < 16) {
             drawCell(canvas, cellsUp[i], cellsUpData[i])
@@ -91,6 +93,9 @@ class DentalDiagram @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        stateOfTeethList.clear()
+        cellsUp.clear()
+        cellsDown.clear()
         if (w > 0 && h > 0) {
             cellsDown.clear()
             cellsUp.clear()
@@ -193,6 +198,7 @@ class DentalDiagram @JvmOverloads constructor(
         )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_UP) {
 
@@ -313,6 +319,7 @@ class DentalDiagram @JvmOverloads constructor(
                             cr,
                             mob1
                         )
+
                         stateOfTeethList.add(stateOfTeeth)
                         Toast.makeText(context, "${cellsUpNum[num]} $o", Toast.LENGTH_LONG).show()
                     }
@@ -332,7 +339,7 @@ class DentalDiagram @JvmOverloads constructor(
                             mob1
                         )
                         stateOfTeethList.add(stateOfTeeth)
-                        Toast.makeText(context, "${cellsDownNum[num]}", Toast.LENGTH_LONG).show()
+
                     }
                 }
 

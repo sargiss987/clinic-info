@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
-
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
+import com.example.clinic_info_branch.fragments.register_fragment.TeethDiagramFragment
 import kotlinx.android.synthetic.main.fragment_patient_personal_page.view.*
+import kotlinx.android.synthetic.main.fragment_register.*
+
+
+const val TEETH_DIAGRAM_FROM_PERSONAL = "teeth_diagram_from_personal"
 
 
 class PatientPersonalPage : Fragment() {
@@ -111,7 +113,7 @@ class PatientPersonalPage : Fragment() {
                 i++
             }
         }
-        oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
+        //oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
         oralHealth += oralHealthTxt
 
         view.txtFullName.text = patient?.patientName
@@ -120,10 +122,22 @@ class PatientPersonalPage : Fragment() {
         view.txtPlace.text = patient?.placeOfResidence
         view.txtPhone.text = patient?.phone
         view.txtHealthInfo.text = healthInfo
-        view.txtoralHealthInfo.text = oralHealth
+        view.txtOralHealthInfo.text = oralHealth
 
         return view
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btnTeethDiagram.setOnClickListener {
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, TeethDiagramFragment())
+                addToBackStack(TEETH_DIAGRAM_FROM_PERSONAL)
+                commit()
+            }
+        }
     }
 
 

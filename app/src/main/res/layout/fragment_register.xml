@@ -2,13 +2,12 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
-        android:background="@drawable/registrpage_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="7dp">
@@ -1080,88 +1079,88 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/txtMouthInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/oralHealthInfo"
-            android:textColor="@android:color/black"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etQuestion5Layout" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtMouthInfo"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="@string/oralHealthInfo"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:textStyle="bold|italic"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/etQuestion5Layout" />-->
 
 
-        <TextView
-            android:id="@+id/hygiene"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Բերանի խոռոչի հիգիենիկ վիճակը"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtMouthInfo" />
+<!--        <TextView-->
+<!--            android:id="@+id/hygiene"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="Բերանի խոռոչի հիգիենիկ վիճակը"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtMouthInfo" />-->
 
-        <CheckBox
-            android:id="@+id/checkGood"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="լավ"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hygiene" />
+<!--        <CheckBox-->
+<!--            android:id="@+id/checkGood"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="լավ"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/hygiene" />-->
 
-        <CheckBox
-            android:id="@+id/checkEnough"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="բավարար"
-            app:layout_constraintStart_toEndOf="@+id/checkGood"
-            app:layout_constraintTop_toBottomOf="@+id/hygiene" />
+<!--        <CheckBox-->
+<!--            android:id="@+id/checkEnough"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="բավարար"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/checkGood"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/hygiene" />-->
 
-        <CheckBox
-            android:id="@+id/checkBad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="վատ"
-            app:layout_constraintStart_toEndOf="@+id/checkEnough"
-            app:layout_constraintTop_toBottomOf="@+id/hygiene" />
+<!--        <CheckBox-->
+<!--            android:id="@+id/checkBad"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="վատ"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/checkEnough"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/hygiene" />-->
 
-        <TextView
-            android:id="@+id/biteType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Կծվածքի տեսակը"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkEnough" />
+<!--        <TextView-->
+<!--            android:id="@+id/biteType"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="Կծվածքի տեսակը"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/checkEnough" />-->
 
-        <CheckBox
-            android:id="@+id/checkNormally"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="Բնականոն"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/biteType" />
+<!--        <CheckBox-->
+<!--            android:id="@+id/checkNormally"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="Բնականոն"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/biteType" />-->
 
-        <CheckBox
-            android:id="@+id/checkPathological"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="Ախտաբանական"
-            app:layout_constraintStart_toEndOf="@+id/checkNormally"
-            app:layout_constraintTop_toBottomOf="@+id/biteType" />
+<!--        <CheckBox-->
+<!--            android:id="@+id/checkPathological"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="Ախտաբանական"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/checkNormally"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/biteType" />-->
 
         <Button
             android:id="@+id/btnTeethDiagram"
@@ -1171,10 +1170,10 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/button_background"
-            android:text="Teeth Diagram"
+            android:text="Oral Health"
             app:layout_constraintEnd_toEndOf="@+id/parent"
             app:layout_constraintStart_toStartOf="@+id/parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkPathological" />
+            app:layout_constraintTop_toBottomOf="@+id/etQuestion5Layout" />
 
         <Button
             android:id="@+id/btnTreatmentProcess"
