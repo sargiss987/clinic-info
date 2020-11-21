@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtHeader">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/checkMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
             app:layout_constraintStart_toEndOf="@+id/txtGender"
             app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/checkFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
