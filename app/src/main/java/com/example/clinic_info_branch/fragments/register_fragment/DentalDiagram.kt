@@ -92,6 +92,8 @@ class DentalDiagram @JvmOverloads constructor(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         if (w > 0 && h > 0) {
+            cellsDown.clear()
+            cellsUp.clear()
             var i = 0
             while (i < 16) {
                 var left = w / 16 * i.toFloat()

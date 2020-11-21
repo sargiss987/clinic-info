@@ -8,6 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
+        android:background="@drawable/registrpage_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="7dp">
@@ -99,7 +100,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
-        <CheckBox
+        <RadioButton
             android:id="@+id/checkMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +110,7 @@
             app:layout_constraintStart_toEndOf="@+id/txtGender"
             app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
-        <CheckBox
+        <RadioButton
             android:id="@+id/checkFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
