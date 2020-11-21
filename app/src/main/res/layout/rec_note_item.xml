@@ -19,7 +19,7 @@
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="John Doe "
+            android:text="@string/john_doe"
             android:layout_marginStart="10dp"
             android:textSize="30sp"
             android:textStyle="italic|bold"/>
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone: "
+            android:text="@string/phone"
             android:id="@+id/patientPhone"
             android:textSize="25sp"
             android:layout_below="@+id/txtName"

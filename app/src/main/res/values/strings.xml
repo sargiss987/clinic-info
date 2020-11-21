@@ -77,6 +77,16 @@
     <string name="bitePathological">, կծվածքի տեսակը ` ախտաբանական: </string>
 
     <string name="stateOfTeethDefault">Բացակայող և ախտահարված ատամներ չի հայտնաբերվել</string>
+    <string name="john_doe">John Doe</string>
+    <string name="phone">Phone:</string>
+    <string name="name">Ազգանունը, անունը</string>
+    <string name="pick_date">pick date</string>
+    <string name="pick_time">pick time</string>
+    <string name="data">07/09/03</string>
+    <string name="time">15:35</string>
+    <string name="date">date:</string>
+    <string name="timeText">Time:</string>
+    <string name="phoneN">Հեռախոսահամար</string>
 
 
     <string-array name="days">
