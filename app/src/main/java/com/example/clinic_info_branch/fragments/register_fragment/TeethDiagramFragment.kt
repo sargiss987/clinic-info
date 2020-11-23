@@ -6,9 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.fragments.searching_fragment.PATIENT_INFO
-import com.example.clinic_info_branch.fragments.searching_fragment.PATIENT_PERSONAL_PAGE
-import com.example.clinic_info_branch.fragments.searching_fragment.PatientPersonalPage
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_teeth_diagram.*
 
@@ -29,7 +26,7 @@ class TeethDiagramFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnCommit.setOnClickListener {
+        btnCommitTeeth.setOnClickListener {
                         val hygiene =
                 when {
                     checkGood.isChecked -> resources.getString(R.string.hygieneGood)

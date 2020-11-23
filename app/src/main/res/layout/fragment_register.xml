@@ -2,1209 +2,319 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="7dp">
+
+    <TextView
+        android:id="@+id/txtHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fullNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="7dp">
+        app:boxBackgroundColor="#FFF"
+        app:boxStrokeColor="#FFF"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtHeader">
 
-        <TextView
-            android:id="@+id/txtHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ"
-            android:textColor="@android:color/black"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fullNameLayout"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeColor="#FFF"
-            app:boxBackgroundColor="#FFF"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Ազգանունը, անունը, հայրանունը"
+            android:inputType="textPersonName"
+            android:textColorHint="#E1DFDF"
+            app:hintTextAppearance="@style/MyHintStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHeader">
+            app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fullName"
-                android:background="@drawable/edittext_background"
-                app:hintTextAppearance="@style/MyHintStyle"
-                android:textColorHint="#E1DFDF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Ազգանունը, անունը, հայրանունը"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.461"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtHeader" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:id="@+id/txtBirthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Ծննդյան օրը, ամիսը, տարեթիվը "
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fullNameLayout" />
+    <TextView
+        android:id="@+id/txtBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ծննդյան օրը, ամիսը, տարեթիվը "
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fullNameLayout" />
 
-        <Spinner
-            android:id="@+id/spinnerDaysTreatment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:entries="@array/days"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
+    <Spinner
+        android:id="@+id/spinnerDaysTreatment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:entries="@array/days"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
 
-        <Spinner
-            android:id="@+id/spinnerMonthsTreatment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:entries="@array/months"
-            app:layout_constraintStart_toEndOf="@+id/spinnerDaysTreatment"
-            app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
+    <Spinner
+        android:id="@+id/spinnerMonthsTreatment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:entries="@array/months"
+        app:layout_constraintStart_toEndOf="@+id/spinnerDaysTreatment"
+        app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
 
-        <Spinner
-            android:id="@+id/spinnerYearsTreatment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:entries="@array/Years"
-            app:layout_constraintStart_toEndOf="@+id/spinnerMonthsTreatment"
-            app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
+    <Spinner
+        android:id="@+id/spinnerYearsTreatment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:entries="@array/Years"
+        app:layout_constraintStart_toEndOf="@+id/spinnerMonthsTreatment"
+        app:layout_constraintTop_toBottomOf="@+id/txtBirthday" />
 
-        <TextView
-            android:id="@+id/txtGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Սեռը`"
-            android:textColor="@android:color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Սեռը`"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment" />
 
-        <RadioGroup
-            android:id="@+id/check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toEndOf="@+id/txtGender"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment">
+    <RadioGroup
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/txtGender"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMonthsTreatment">
 
-            <RadioButton
-                android:id="@+id/checkMale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:text="արական" />
-
-            <RadioButton
-                android:id="@+id/checkFemale"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:text="իգական" />
-        </RadioGroup>
-
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/addressLayout"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeColor="#FFF"
-            app:boxBackgroundColor="#FFF"
+        <RadioButton
+            android:id="@+id/checkMale"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/check">
-
-
-            <EditText
-                android:id="@+id/address"
-                android:background="@drawable/edittext_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Բնակության վայրը"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkMale" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phoneLayout"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeColor="#FFF"
-            app:boxBackgroundColor="#FFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addressLayout">
-
-            <EditText
-
-                android:id="@+id/etPhoneValidation"
-                android:background="@drawable/edittext_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Հեռախոսի համարը"
-                android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/address" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/txtHealthInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/healthInfo"
-            android:textColor="@android:color/black"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phoneLayout" />
-
-        <TextView
-            android:id="@+id/question1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/healthQuestion1"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHealthInfo" />
-
-        <CheckBox
-            android:id="@+id/checkAllergyTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question1" />
-
-        <CheckBox
-            android:id="@+id/checkAllergyFalse"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkAllergyTrue"
-            app:layout_constraintTop_toBottomOf="@+id/question1" />
+            android:text="արական" />
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etAllergyLayout"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeColor="#FFF"
-            app:boxBackgroundColor="#FFF"
+        <RadioButton
+            android:id="@+id/checkFemale"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkAllergyTrue">
-
-            <EditText
-                android:id="@+id/etAllergy"
-                android:background="@drawable/edittext_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="Ալերգիկ Դրսևորումներ"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkAllergyTrue" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:id="@+id/question2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/healthQuestion2"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAllergyLayout" />
-
-        <CheckBox
-            android:id="@+id/checkBleedingTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question2" />
-
-        <CheckBox
-            android:id="@+id/checkBleedingFalse"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkBleedingTrue"
-            app:layout_constraintTop_toBottomOf="@+id/question2" />
-
-        <TextView
-            android:id="@+id/question3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/healthQuestion3"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBleedingTrue" />
-
-        <TextView
-            android:id="@+id/txtRheumatism"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Ռևմատիզմ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question3" />
-
-        <CheckBox
-            android:id="@+id/checkRheumatismTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtRheumatism" />
-
-        <CheckBox
-            android:id="@+id/checkRheumatismFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkRheumatismTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtRheumatism" />
-
-        <TextView
-            android:id="@+id/txtArthritis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Բորբոքային հոդաբորբ (արթրիտ)"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkRheumatismTrue" />
-
-        <CheckBox
-            android:id="@+id/checkArthritisTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtArthritis" />
-
-        <CheckBox
-            android:id="@+id/checkArthritisFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkArthritisTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtArthritis" />
-
-        <TextView
-            android:id="@+id/txtHeartDisease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Սրտի արատ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkArthritisTrue" />
-
-        <CheckBox
-            android:id="@+id/checkHeartDiseaseTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHeartDisease" />
-
-        <CheckBox
-            android:id="@+id/checkHeartDiseaseFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkHeartDiseaseTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtHeartDisease" />
-
-        <TextView
-            android:id="@+id/txtMyocardialInfarction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Սրտամկանի ինֆարկտ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkHeartDiseaseTrue" />
-
-        <CheckBox
-            android:id="@+id/checkMyocardialInfarctionTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtMyocardialInfarction" />
-
-        <CheckBox
-            android:id="@+id/checkMyocardialInfarctionFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkMyocardialInfarctionTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtMyocardialInfarction" />
-
-        <TextView
-            android:id="@+id/txtHeartSurgery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Սրտի վիրահատություն"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkMyocardialInfarctionTrue" />
-
-        <CheckBox
-            android:id="@+id/checkHeartSurgeryTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHeartSurgery" />
-
-        <CheckBox
-            android:id="@+id/checkHeartSurgeryFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkHeartSurgeryTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtHeartSurgery" />
-
-        <TextView
-            android:id="@+id/txtStenocardia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Ցավ կրծքավանդակի շրջանում(ստենոկարդիա)"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkHeartSurgeryTrue" />
-
-        <CheckBox
-            android:id="@+id/checkStenocardiaTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtStenocardia" />
-
-        <CheckBox
-            android:id="@+id/checkStenocardiaFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkStenocardiaTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtStenocardia" />
-
-        <TextView
-            android:id="@+id/txtKidneyDiseases"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Երիկամների հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkStenocardiaTrue" />
-
-        <CheckBox
-            android:id="@+id/checkKidneyDiseasesTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtKidneyDiseases" />
-
-        <CheckBox
-            android:id="@+id/checkKidneyDiseasesFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkKidneyDiseasesTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtKidneyDiseases" />
-
-        <TextView
-            android:id="@+id/txtAnemia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Սակավարյունություն կամ արյան այլ հիվ-ներ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkKidneyDiseasesTrue" />
-
-        <CheckBox
-            android:id="@+id/checkAnemiaTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAnemia" />
-
-        <CheckBox
-            android:id="@+id/checkAnemiaFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkAnemiaTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtAnemia" />
-
-        <TextView
-            android:id="@+id/txtGastrointestinal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Ստամոքս-աղիքային համակարգի հիվ-ներ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkAnemiaTrue" />
-
-        <CheckBox
-            android:id="@+id/checkGastrointestinalTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtGastrointestinal" />
-
-        <CheckBox
-            android:id="@+id/checkGastrointestinalFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkGastrointestinalTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtGastrointestinal" />
-
-        <TextView
-            android:id="@+id/txtRespiratory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Շնչառական համակարգի հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkGastrointestinalTrue" />
-
-        <CheckBox
-            android:id="@+id/checkRespiratoryTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtRespiratory" />
-
-        <CheckBox
-            android:id="@+id/checkRespiratoryFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkRespiratoryTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtRespiratory" />
-
-        <TextView
-            android:id="@+id/txtHypertension"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Արյան գերճնշում (հիպերտենզիա)"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkRespiratoryTrue" />
-
-        <CheckBox
-            android:id="@+id/checkHypertensionTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHypertension" />
-
-        <CheckBox
-            android:id="@+id/checkHypertensionFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkHypertensionTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtHypertension" />
-
-        <TextView
-            android:id="@+id/txtHypotension"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Արյան թերճնշում (հիպոտոնիա)"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkHypertensionTrue" />
-
-        <CheckBox
-            android:id="@+id/checkHypotensionTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHypotension" />
-
-        <CheckBox
-            android:id="@+id/checkHypotensionFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkHypotensionTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtHypotension" />
-
-        <TextView
-            android:id="@+id/txtThyroid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Վահանաձև գեղձի հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkHypotensionTrue" />
-
-        <CheckBox
-            android:id="@+id/checkThyroidTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtThyroid" />
-
-        <CheckBox
-            android:id="@+id/checkThyroidFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkThyroidTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtThyroid" />
-
-        <TextView
-            android:id="@+id/txtNervousMental"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Նյարդային և հոգեկան խանգարումներ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkThyroidTrue" />
-
-        <CheckBox
-            android:id="@+id/checkNervousMentalTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNervousMental" />
-
-        <CheckBox
-            android:id="@+id/checkNervousMentalFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkNervousMentalTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtNervousMental" />
-
-        <TextView
-            android:id="@+id/txtEpilepsy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Ընկնավորություն (էպիլեպսիա)"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkNervousMentalTrue" />
-
-        <CheckBox
-            android:id="@+id/checkEpilepsyTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEpilepsy" />
-
-        <CheckBox
-            android:id="@+id/checkEpilepsyFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkEpilepsyTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtEpilepsy" />
-
-        <TextView
-            android:id="@+id/txtDiabetes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Շաքարային դիաբետ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkEpilepsyTrue" />
-
-        <CheckBox
-            android:id="@+id/checkDiabetesTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDiabetes" />
-
-        <CheckBox
-            android:id="@+id/checkDiabetesFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkDiabetesTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtDiabetes" />
-
-        <TextView
-            android:id="@+id/txtInfectious"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Վարակիչ հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkDiabetesTrue" />
-
-        <CheckBox
-            android:id="@+id/checkInfectiousTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfectious" />
-
-        <CheckBox
-            android:id="@+id/checkInfectiousFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkInfectiousTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtInfectious" />
-
-        <TextView
-            android:id="@+id/txtNeoplasms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Նորագոյացություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkInfectiousTrue" />
-
-        <CheckBox
-            android:id="@+id/checkNeoplasmsTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNeoplasms" />
-
-        <CheckBox
-            android:id="@+id/checkNeoplasmsFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkNeoplasmsTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtNeoplasms" />
-
-        <TextView
-            android:id="@+id/txtHepatitis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Լյարդաբորբ (հեպատիտ)"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkNeoplasmsTrue" />
-
-        <CheckBox
-            android:id="@+id/checkHepatitisTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHepatitis" />
-
-        <CheckBox
-            android:id="@+id/checkHepatitisFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkHepatitisTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtHepatitis" />
-
-        <TextView
-            android:id="@+id/txtOtherLiver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Լյարդի այլ հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkHepatitisTrue" />
-
-        <CheckBox
-            android:id="@+id/checkOtherLiverTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtOtherLiver" />
-
-        <CheckBox
-            android:id="@+id/checkOtherLiverFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkOtherLiverTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtOtherLiver" />
-
-        <TextView
-            android:id="@+id/txtVenereal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Վեներական հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkOtherLiverTrue" />
-
-        <CheckBox
-            android:id="@+id/checkVenerealTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtVenereal" />
-
-        <CheckBox
-            android:id="@+id/checkVenerealFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkVenerealTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtVenereal" />
-
-        <TextView
-            android:id="@+id/txtSkin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Մաշկային հիվանդություններ"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkVenerealTrue" />
-
-        <CheckBox
-            android:id="@+id/checkSkinTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSkin" />
-
-        <CheckBox
-            android:id="@+id/checkSkinFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkSkinTrue"
-            app:layout_constraintTop_toBottomOf="@+id/txtSkin" />
-
-        <TextView
-            android:id="@+id/question4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/healthQuestion4"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkSkinTrue" />
-
-        <CheckBox
-            android:id="@+id/checkOtherTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question4" />
-
-        <CheckBox
-            android:id="@+id/checkOtherFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkOtherTrue"
-            app:layout_constraintTop_toBottomOf="@+id/question4" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etQuestion4Layout"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeColor="#FFF"
-            app:boxBackgroundColor="#FFF"
+            android:text="իգական" />
+    </RadioGroup>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="#FFF"
+        app:boxStrokeColor="#FFF"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check">
+
+
+        <EditText
+            android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Բնակության վայրը"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkMale" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phoneLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="#FFF"
+        app:boxStrokeColor="#FFF"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressLayout">
+
+        <EditText
+
+            android:id="@+id/etPhoneValidation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Հեռախոսի համարը"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkOtherFalse">
+            app:layout_constraintTop_toBottomOf="@+id/address" />
 
-            <EditText
-                android:id="@+id/etQuestion4"
-                android:background="@drawable/edittext_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="Այլ Հիվանդություններ"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkOtherTrue" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/question5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/healthQuestion5"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etQuestion4Layout" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
+    <TextView
+        android:id="@+id/healthInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="HEALTH INFO "
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/oralHealth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="ORAL HEALTH "
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/treatmentProcess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="TREATMENT PROCESS "
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <ImageView
+        android:id="@+id/btnHealthInfo"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/add_button"
+        app:layout_constraintStart_toEndOf="@+id/healthInfo"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/btnOralHealth"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/add_button"
+        app:layout_constraintStart_toEndOf="@+id/oralHealth"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/btnTreatmentProcess"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/add_button"
+        app:layout_constraintStart_toEndOf="@+id/treatmentProcess"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="436dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="513dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="590dp" />
 
 
-        <RadioButton
-            android:id="@+id/checkPregnancyTrue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/yes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/question5" />
-
-        <RadioButton
-            android:id="@+id/checkPregnancyFalse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/no"
-            app:layout_constraintStart_toEndOf="@+id/checkPregnancyTrue"
-            app:layout_constraintTop_toBottomOf="@+id/question5" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etQuestion5Layout"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeColor="#FFF"
-            app:boxBackgroundColor="#FFF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkPregnancyFalse">
+    <!--        <Button-->
+    <!--            android:id="@+id/btnTeethDiagram"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="40dp"-->
+    <!--            android:layout_marginTop="30dp"-->
+    <!--            android:layout_marginEnd="40dp"-->
+    <!--            android:background="@drawable/button_background"-->
+    <!--            android:text="Oral Health"-->
+    <!--            app:layout_constraintEnd_toEndOf="@+id/parent"-->
+    <!--            app:layout_constraintStart_toStartOf="@+id/parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/etQuestion5Layout" />-->
 
-            <EditText
-                android:id="@+id/etQuestion5"
-                android:background="@drawable/edittext_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="Ժամկետները"
-                android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkPregnancyTrue" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-<!--        <TextView-->
-<!--            android:id="@+id/txtMouthInfo"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:text="@string/oralHealthInfo"-->
-<!--            android:textColor="@android:color/black"-->
-<!--            android:textStyle="bold|italic"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/etQuestion5Layout" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/btnTreatmentProcess"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="40dp"-->
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            android:layout_marginEnd="40dp"-->
+    <!--            android:background="@drawable/button_background"-->
+    <!--            android:focusable="true"-->
+    <!--            android:text="TREATMENT PROCESS"-->
+    <!--            app:layout_constraintEnd_toEndOf="@+id/parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/btnTeethDiagram" />-->
 
 
-<!--        <TextView-->
-<!--            android:id="@+id/hygiene"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:text="Բերանի խոռոչի հիգիենիկ վիճակը"-->
-<!--            android:textColor="@android:color/black"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/txtMouthInfo" />-->
-
-<!--        <CheckBox-->
-<!--            android:id="@+id/checkGood"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="լավ"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/hygiene" />-->
-
-<!--        <CheckBox-->
-<!--            android:id="@+id/checkEnough"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="բավարար"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/checkGood"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/hygiene" />-->
-
-<!--        <CheckBox-->
-<!--            android:id="@+id/checkBad"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="վատ"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/checkEnough"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/hygiene" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/biteType"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:text="Կծվածքի տեսակը"-->
-<!--            android:textColor="@android:color/black"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/checkEnough" />-->
-
-<!--        <CheckBox-->
-<!--            android:id="@+id/checkNormally"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="Բնականոն"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/biteType" />-->
-
-<!--        <CheckBox-->
-<!--            android:id="@+id/checkPathological"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:text="Ախտաբանական"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/checkNormally"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/biteType" />-->
-
-        <Button
-            android:id="@+id/btnTeethDiagram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/button_background"
-            android:text="Oral Health"
-            app:layout_constraintEnd_toEndOf="@+id/parent"
-            app:layout_constraintStart_toStartOf="@+id/parent"
-            app:layout_constraintTop_toBottomOf="@+id/etQuestion5Layout" />
-
-        <Button
-            android:id="@+id/btnTreatmentProcess"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/button_background"
-            android:focusable="true"
-            android:text="TREATMENT PROCESS"
-            app:layout_constraintEnd_toEndOf="@+id/parent"
-            app:layout_constraintStart_toEndOf="@+id/parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTeethDiagram" />
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_background"
+        android:text="Register"
+        app:layout_constraintEnd_toEndOf="@+id/parent"
+        app:layout_constraintStart_toStartOf="@+id/parent"
+        app:layout_constraintTop_toBottomOf="@+id/treatmentProcess" />
 
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:background="@drawable/button_background"
-            android:text="Register"
-            app:layout_constraintEnd_toEndOf="@+id/parent"
-            app:layout_constraintStart_toStartOf="@+id/parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTreatmentProcess" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </ScrollView>

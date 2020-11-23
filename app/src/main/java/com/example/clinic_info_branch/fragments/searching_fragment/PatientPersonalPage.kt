@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.fragments.register_fragment.TeethDiagramFragment
+import kotlinx.android.synthetic.main.fragment_patient_personal_page.*
 import kotlinx.android.synthetic.main.fragment_patient_personal_page.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
