@@ -904,6 +904,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCommitHealth"
+            android:background="@drawable/button_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="commit"
