@@ -80,7 +80,7 @@ class PatientPersonalPage : Fragment() {
         }
 
         when {
-            healthInfoTxt.equals(healthInfoTxtInitial) -> healthInfoTxt = ""
+            healthInfoTxt == healthInfoTxtInitial -> healthInfoTxt = ""
             patient?.healthInfo?.duringPregnancy!!.isNotEmpty() -> healthInfoTxt += "${patient?.healthInfo?.duringPregnancy} շաբաթական հղիություն։"
             else -> {
                 healthInfoTxt = healthInfoTxt.subSequence(0, healthInfoTxt.length - 2) as String
@@ -114,7 +114,7 @@ class PatientPersonalPage : Fragment() {
                 i++
             }
         }
-        //oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
+        oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
         oralHealth += oralHealthTxt
 
         view.txtFullName.text = patient?.patientName

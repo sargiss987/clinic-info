@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.clinic_info_branch.R
+import com.example.clinic_info_branch.data_base.OralHealth
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_teeth_diagram.*
 
-const val STATE_OF_TOOTH = "state_of_tooth"
-const val STATE_OF_HYGIENE = "state_of_hygiene"
-const val STATE_OF_BITE = "state_of_bite"
+
+const val ORAL_HEALTH = "oral_health"
 
 class TeethDiagramFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class TeethDiagramFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnCommitTeeth.setOnClickListener {
-                        val hygiene =
+            val hygiene =
                 when {
                     checkGood.isChecked -> resources.getString(R.string.hygieneGood)
                     checkEnough.isChecked -> resources.getString(R.string.hygieneEnough)
@@ -38,17 +38,16 @@ class TeethDiagramFragment : Fragment() {
                 if (checkPathological.isChecked) resources.getString(R.string.bitePathological)
                 else resources.getString(R.string.biteNormally)
 
-
+            val oralHealth = OralHealth(hygiene, typeOfBite, stateOfTeethList)
             val bundle = Bundle()
             val gson = Gson()
-            val message = gson.toJson(stateOfTeethList)
-            bundle.putString(STATE_OF_TOOTH,message)
-            bundle.putString(STATE_OF_HYGIENE,hygiene)
-            bundle.putString(STATE_OF_BITE,typeOfBite)
+            val message = gson.toJson(oralHealth)
+            bundle.putString(ORAL_HEALTH, message)
+
 
             fragmentManager?.beginTransaction()?.apply {
 
-                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle})
+                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle })
                 commit()
             }
         }
