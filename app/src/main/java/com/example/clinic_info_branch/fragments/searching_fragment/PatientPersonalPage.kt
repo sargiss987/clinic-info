@@ -8,18 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
+import com.example.clinic_info_branch.fragments.register_fragment.HealthInfoFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TeethDiagramFragment
 import kotlinx.android.synthetic.main.fragment_patient_personal_page.*
 import kotlinx.android.synthetic.main.fragment_patient_personal_page.view.*
-import kotlinx.android.synthetic.main.fragment_register.*
 
 
 const val TEETH_DIAGRAM_FROM_PERSONAL = "teeth_diagram_from_personal"
+const val REQUEST_UPDATE_ORAL_HEALTH = "request_update_oral_health"
+const val REQUEST_UPDATE_HEALTH = "request_from_register"
+const val updateRequestOralHealth = 123
+const val updateRequestHealth = 130
+const val PHONE_FROM_PERSONAL_PAGE = "phone_from_personal_page"
 
 
 class PatientPersonalPage : Fragment() {
 
     var patient: Patient? = null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,15 +37,11 @@ class PatientPersonalPage : Fragment() {
         val view = inflater.inflate(R.layout.fragment_patient_personal_page, container, false)
         patient = arguments?.getParcelable(PATIENT_INFO)
 
-        //health info
 
-        var healthInfo: String
-
-        if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
-            healthInfo = "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
+        var healthInfo: String = if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
+            "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
         } else {
-            healthInfo =
-                "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
+            "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
         }
 
         val healthInfoList = mutableListOf(
@@ -114,7 +117,10 @@ class PatientPersonalPage : Fragment() {
                 i++
             }
         }
-        oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
+        if (oralHealthTxt.length > 2){
+            oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
+        }
+
         oralHealth += oralHealthTxt
 
         view.txtFullName.text = patient?.patientName
@@ -132,14 +138,30 @@ class PatientPersonalPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //update oral health information
         btnTeethDiagram.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(REQUEST_UPDATE_ORAL_HEALTH, updateRequestOralHealth)
+            bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, TeethDiagramFragment())
-                addToBackStack(TEETH_DIAGRAM_FROM_PERSONAL)
+                replace(R.id.fragmentContainer, TeethDiagramFragment().apply { arguments = bundle })
+                commit()
+            }
+        }
+
+        //update health info information
+        btnHealthInfoPersonal.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(REQUEST_UPDATE_HEALTH, updateRequestHealth)
+            bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
+            fragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, HealthInfoFragment().apply { arguments = bundle })
                 commit()
             }
         }
     }
+
+
 
 
 }

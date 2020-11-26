@@ -20,18 +20,22 @@ import kotlinx.coroutines.launch
 
 const val TREATMENT_PROCESS = "treatment_process"
 const val HEALTH_INFO = "health_info"
+const val REQUEST_TO_TEETH_DIAGRAM = "request_to_teeth_diagram"
+const val REQUEST_TO_HEALTH_INFO = "request_to_health_info_information"
+const val registerRequestTeeth = 122
+const val registerRequestHealth = 119
+
 
 class RegisterFragment : Fragment() {
 
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
     private lateinit var stateOfTeethList: MutableList<StateOfTooth>
-    private lateinit var hygiene: String
     private lateinit var oralHealth: OralHealth
-    private lateinit var typeOfBite: String
     private lateinit var job: Job
     private lateinit var healthInfo: HealthInfo
     private var validationNum = true
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -81,6 +85,8 @@ class RegisterFragment : Fragment() {
             )
         }
 
+
+
         //get data from health info fragment
         val jsonFromHealthInfo = arguments?.getString(HEALTH_INFO_MESSAGE)
 
@@ -108,6 +114,8 @@ class RegisterFragment : Fragment() {
 
         //navigate to health info
         btnHealthInfo.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(REQUEST_TO_HEALTH_INFO, registerRequestHealth)
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, HealthInfoFragment())
                 addToBackStack(HEALTH_INFO)
@@ -118,8 +126,10 @@ class RegisterFragment : Fragment() {
 
         //navigate to teeth diagram
         btnOralHealth.setOnClickListener {
+           val bundle = Bundle()
+           bundle.putInt(REQUEST_TO_TEETH_DIAGRAM, registerRequestTeeth)
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, TeethDiagramFragment())
+                replace(R.id.fragmentContainer, TeethDiagramFragment().apply { arguments = bundle })
                 addToBackStack(TEETH_DIAGRAM_FROM_REGISTER)
                 commit()
             }

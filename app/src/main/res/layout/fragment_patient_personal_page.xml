@@ -8,23 +8,22 @@
     tools:context=".fragments.searching_fragment.PatientPersonalPage">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent"
-        android:background="@drawable/background_note"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_note"
         android:padding="7dp">
 
         <TextView
             android:id="@+id/txtHeader"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
@@ -154,26 +153,48 @@
 
         <TextView
             android:id="@+id/HealthInfo"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             android:text="@string/healthInfo"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPhone"/>
+            app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
 
         <TextView
             android:id="@+id/txtHealthInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
             android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@+id/HealthInfo"/>
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HealthInfo" />
+
+        <TextView
+            android:id="@+id/txtHealthInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Update"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtHealthInfo" />
+
+        <ImageView
+            android:id="@+id/btnHealthInfoPersonal"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/update"
+            app:layout_constraintStart_toEndOf="@id/txtHealthInfo2"
+            app:layout_constraintTop_toBottomOf="@+id/txtHealthInfo" />
 
         <TextView
             android:id="@+id/oralHealthInfo"
@@ -186,28 +207,42 @@
             android:textStyle="bold|italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtHealthInfo" />
+            app:layout_constraintTop_toBottomOf="@+id/txtHealthInfo2" />
 
         <TextView
             android:id="@+id/txtOralHealthInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
             android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@+id/oralHealthInfo"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTeethDiagram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Teeth Diagram"
-            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/oralHealthInfo" />
+
+        <TextView
+            android:id="@+id/txtTeethDiagram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Update"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            android:textStyle="italic|bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtOralHealthInfo" />
+
+        <ImageView
+            android:id="@+id/btnTeethDiagram"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/update"
+            app:layout_constraintStart_toEndOf="@id/txtTeethDiagram"
+            app:layout_constraintTop_toBottomOf="@+id/txtOralHealthInfo" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

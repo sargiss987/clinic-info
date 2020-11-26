@@ -40,11 +40,11 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
     private var validationNumber = true
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var notificationChannel: NotificationChannel
-    private lateinit var builder: Notification.Builder
-    private val channelId = "com.example.clinic_info_branch.fragments.home_fragment"
-    private val description = "Test notification"
+//    private lateinit var notificationManager: NotificationManager
+//    private lateinit var notificationChannel: NotificationChannel
+//    private lateinit var builder: Notification.Builder
+//    private val channelId = "com.example.clinic_info_branch.fragments.home_fragment"
+//    private val description = "Test notification"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -229,10 +229,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
         //Add new note
         addNote.setOnClickListener {
-            var name : String
-            var phone : String
-            var date : String
-            var time : String
+            var name: String
+            var phone: String
+            var date: String
+            var time: String
             val mDialogView = LayoutInflater.from(context).inflate(R.layout.create_note, null)
             val btnPickDate: Button = mDialogView.findViewById(R.id.pickDate)
             val btnPickTime: Button = mDialogView.findViewById(R.id.pickTime)
@@ -255,35 +255,15 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         0, name, phone, date, time
                     )
 
-                    //validation creating note via phone number
-                    if (::noteList.isInitialized){
-                        noteList.forEach {
-                            if (it.phone == phone){
-                                validationNumber = false
-                            }
-                        }
-                    }
-                    when {
-                        phone.isEmpty() -> {
-                            etPhone.error = "Field cannot be empty"
-                            Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
-                        }
-                        validationNumber -> {
-                            //insert note to database
-                            GlobalScope.launch(Dispatchers.Default) {
+                    //insert note to database
+                    GlobalScope.launch(Dispatchers.Default) {
 
-                                db?.notesDao()?.insertNote(note)
-                            }
-
-                            //update list
-                            noteList.add(note)
-                            viewAdapter.setList(noteList)
-                        }
-                        else -> {
-                            etPhone.error = "The patient already exist"
-                            Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG).show()
-                        }
+                        db?.notesDao()?.insertNote(note)
                     }
+
+                    //update list
+                    noteList.add(note)
+                    viewAdapter.setList(noteList)
 
 
                 }
