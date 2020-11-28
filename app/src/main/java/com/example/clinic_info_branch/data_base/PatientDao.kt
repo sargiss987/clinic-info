@@ -1,9 +1,10 @@
 package com.example.clinic_info_branch.data_base
 
 import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 
 @Dao
-@TypeConverters(StateOfToothConverter::class)
+@TypeConverters(StateOfToothConverter::class, TreatmentProcessConverter::class)
 interface PatientDao {
     @Insert
     fun insertPatient(patient: Patient)
@@ -29,4 +30,12 @@ interface PatientDao {
     p6: String,p7: String,p8: String,p9: String,p10: String,p11: String,p12: String,p13: String,
     p14: String,p15: String,p16: String,p17: String,p18: String,p19: String,p20: String,p21: String,
     p22: String,p23: String,p24: String,p25: Boolean,p26: String,p27: Boolean,p28: String)
+
+    @Query("UPDATE patient SET treatmentProcessList = :p0 WHERE phone = :p1")
+    fun addTreatmentProcess(p0: MutableList<TreatmentProcess>,p1: String)
+
+    @Query("SELECT * FROM patient WHERE phone = :p0")
+    fun getPatient(p0: String) : Patient
+
+
 }

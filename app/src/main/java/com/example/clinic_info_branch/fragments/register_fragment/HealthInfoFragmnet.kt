@@ -42,13 +42,15 @@ class HealthInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val requestRegister = arguments?.getInt(REQUEST_TO_HEALTH_INFO)
+        //val requestRegister = arguments?.getInt(REQUEST_TO_HEALTH_INFO)
         val requestUpdate = arguments?.getInt(REQUEST_UPDATE_HEALTH)
 
-        if (requestRegister == registerRequestHealth) {btnUpdateHealthInfo.isEnabled = false}
+        //if (requestRegister == registerRequestHealth) {btnUpdateHealthInfo.isEnabled = false}
         if (requestUpdate == updateRequestHealth) {
             btnCommitHealth.isEnabled = false
             patientPhone = arguments?.getString(PHONE_FROM_PERSONAL_PAGE).toString()
+        }else{
+            btnUpdateHealthInfo.isEnabled = false
         }
             btnCommitHealth.setOnClickListener {
 

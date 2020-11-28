@@ -24,6 +24,8 @@ const val REQUEST_TO_TEETH_DIAGRAM = "request_to_teeth_diagram"
 const val REQUEST_TO_HEALTH_INFO = "request_to_health_info_information"
 const val registerRequestTeeth = 122
 const val registerRequestHealth = 119
+const val REQUEST_TO_PROCESS_FROM_REGISTER = "request_to_process_from_register"
+const val registerRequestProcess = 156
 
 
 class RegisterFragment : Fragment() {
@@ -31,6 +33,7 @@ class RegisterFragment : Fragment() {
     private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
     private lateinit var stateOfTeethList: MutableList<StateOfTooth>
+    private lateinit var treatmentProcessList: MutableList<TreatmentProcess>
     private lateinit var oralHealth: OralHealth
     private lateinit var job: Job
     private lateinit var healthInfo: HealthInfo
@@ -85,6 +88,19 @@ class RegisterFragment : Fragment() {
             )
         }
 
+        //get data from treatment process fragment
+        val jsonFromTreatmentProcess = arguments?.getString(TREATMENT_INFO_MESSAGE)
+        treatmentProcessList = mutableListOf()
+        if (jsonFromTreatmentProcess != null){
+            val treatmentProcess: TreatmentProcess = Gson().fromJson(jsonFromTreatmentProcess, object : TypeToken<TreatmentProcess>() {}.type)
+            treatmentProcessList.add(treatmentProcess)
+        }else{
+            treatmentProcessList.add(TreatmentProcess("","","",
+                "",""))
+        }
+
+
+
 
 
         //get data from health info fragment
@@ -137,6 +153,8 @@ class RegisterFragment : Fragment() {
         }
         //navigate to treatment process editor
         btnTreatmentProcess.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(REQUEST_TO_PROCESS_FROM_REGISTER, registerRequestProcess)
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TreatmentProcessFragment())
                 addToBackStack(TREATMENT_PROCESS)
@@ -169,7 +187,8 @@ class RegisterFragment : Fragment() {
                 placeOfResidence,
                 phone,
                 healthInfo,
-                oralHealth
+                oralHealth,
+                treatmentProcessList
             )
 
 

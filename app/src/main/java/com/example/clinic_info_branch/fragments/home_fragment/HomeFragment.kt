@@ -39,7 +39,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
-    private var validationNumber = true
+
 //    private lateinit var notificationManager: NotificationManager
 //    private lateinit var notificationChannel: NotificationChannel
 //    private lateinit var builder: Notification.Builder

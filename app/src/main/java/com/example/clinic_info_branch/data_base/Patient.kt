@@ -1,10 +1,7 @@
 package com.example.clinic_info_branch.data_base
 
 import android.os.Parcelable
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
+import androidx.room.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.parcel.Parcelize
@@ -22,8 +19,7 @@ data class Patient(
     val healthInfo: HealthInfo? = null,
     @Embedded
     val oralHealth: OralHealth? = null,
-    @Embedded
-    val treatmentProcess: TreatmentProcess? = null
+    val treatmentProcessList: MutableList<TreatmentProcess>
 ): Parcelable
 
 @Parcelize
@@ -60,21 +56,6 @@ data class HealthInfo(
 
 ): Parcelable
 
-class StateOfToothConverter{
-
-    @TypeConverter
-    fun convertJson(list : MutableList<StateOfTooth>): String? {
-
-        return Gson().toJson(list)
-
-    }
-
-    @TypeConverter
-    fun convertList(json : String) : MutableList<StateOfTooth>?{
-
-        return Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
-    }
-}
 @Parcelize
 data class OralHealth(
     val hygiene: String,
@@ -100,10 +81,42 @@ data class StateOfTooth(
 
 @Parcelize
 data class TreatmentProcess(
-   val visitDate: String,
+    val visitDate: String,
    val subReasonVisit: String,
    val objReasonVisit: String,
    val diagnosis: String,
    val treatmentPlan: String
 ): Parcelable
+
+class StateOfToothConverter{
+
+    @TypeConverter
+    fun convertJson(list : MutableList<StateOfTooth>): String? {
+
+        return Gson().toJson(list)
+
+    }
+
+    @TypeConverter
+    fun convertList(json : String) : MutableList<StateOfTooth>?{
+
+        return Gson().fromJson(json, object : TypeToken<MutableList<StateOfTooth>>() {}.type)
+    }
+}
+
+class TreatmentProcessConverter{
+
+    @TypeConverter
+    fun convertJson(list : MutableList<TreatmentProcess>): String? {
+
+        return Gson().toJson(list)
+
+    }
+
+    @TypeConverter
+    fun convertList(json : String) : MutableList<TreatmentProcess>?{
+
+        return Gson().fromJson(json, object : TypeToken<MutableList<TreatmentProcess>>() {}.type)
+    }
+}
 

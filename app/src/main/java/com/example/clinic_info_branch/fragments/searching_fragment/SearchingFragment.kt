@@ -117,7 +117,7 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
     override fun onClick(position: Int) {
 
         val bundle = Bundle()
-        bundle.putParcelable(PATIENT_INFO, patientList[position])
+        bundle.putInt(PATIENT_INFO,position)
 
         fragmentManager?.beginTransaction()?.apply {
             replace(R.id.fragmentContainer, PatientPersonalPage().apply { arguments = bundle })

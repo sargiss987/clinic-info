@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [Notes::class, Patient::class], version = 1)
-@TypeConverters(StateOfToothConverter::class)
+@TypeConverters(StateOfToothConverter::class,TreatmentProcessConverter::class)
 abstract class ClinicInfo : RoomDatabase() {
     abstract fun notesDao(): NotesDao
     abstract fun patientDao(): PatientDao
