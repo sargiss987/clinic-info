@@ -19,8 +19,6 @@ import kotlinx.android.synthetic.main.fragment_patient_personal_page.*
 import kotlinx.android.synthetic.main.fragment_patient_personal_page.view.*
 import kotlinx.coroutines.*
 
-
-
 const val REQUEST_UPDATE_ORAL_HEALTH = "request_update_oral_health"
 const val REQUEST_UPDATE_HEALTH = "request_from_register"
 const val updateRequestOralHealth = 123
@@ -29,8 +27,6 @@ const val PHONE_FROM_PERSONAL_PAGE = "phone_from_personal_page"
 const val REQUEST_ADD_PROCESS = "request_add_process"
 const val addRequestProcess = 188
 const val TREATMENT_PROCESS_INFO = "treatment_process_info"
-
-
 
 class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickListener {
 
@@ -46,7 +42,6 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
         super.onAttach(context)
         //get database
         db = ClinicInfo.getDatabase(context)
-
     }
 
     override fun onCreateView(
@@ -74,18 +69,20 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
 
                 //show list of notes
                 recViewTreatmentProcess.apply {
-                    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     adapter = viewAdapter
                 }
 
 
                 patient = patientList[position]
 
-                var healthInfo: String = if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
-                    "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
-                } else {
-                    "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
-                }
+                var healthInfo: String =
+                    if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
+                        "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
+                    } else {
+                        "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
+                    }
 
                 val healthInfoList = mutableListOf(
                     "${patient?.healthInfo?.rheumatism}",
@@ -129,7 +126,8 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
                     healthInfoTxt == healthInfoTxtInitial -> healthInfoTxt = ""
                     patient?.healthInfo?.duringPregnancy!!.isNotEmpty() -> healthInfoTxt += "${patient?.healthInfo?.duringPregnancy} շաբաթական հղիություն։"
                     else -> {
-                        healthInfoTxt = healthInfoTxt.subSequence(0, healthInfoTxt.length - 2) as String
+                        healthInfoTxt =
+                            healthInfoTxt.subSequence(0, healthInfoTxt.length - 2) as String
                         healthInfoTxt += ":"
                     }
                 }
@@ -137,7 +135,8 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
                 healthInfo += healthInfoTxt
 
                 //oral info
-                var oralHealth = "${patient?.oralHealth?.hygiene} ${patient?.oralHealth?.typeOfBite}"
+                var oralHealth =
+                    "${patient?.oralHealth?.hygiene} ${patient?.oralHealth?.typeOfBite}"
                 val oralHealthList = patient?.oralHealth?.stateOfTeeth
                 var oralHealthTxt = ""
                 i = 0
@@ -213,7 +212,9 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
             bundle.putInt(REQUEST_ADD_PROCESS, addRequestProcess)
             bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, TreatmentProcessFragment().apply { arguments = bundle })
+                replace(
+                    R.id.fragmentContainer,
+                    TreatmentProcessFragment().apply { arguments = bundle })
                 commit()
             }
         }
@@ -223,10 +224,12 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
     override fun onClick(position: Int) {
         val bundle = Bundle()
 
-        bundle.putParcelable(TREATMENT_PROCESS_INFO,treatmentProcessList[position])
+        bundle.putParcelable(TREATMENT_PROCESS_INFO, treatmentProcessList[position])
 
         fragmentManager?.beginTransaction()?.apply {
-            replace(R.id.fragmentContainer, PatientTreatmentProcessFragment().apply { arguments = bundle })
+            replace(
+                R.id.fragmentContainer,
+                PatientTreatmentProcessFragment().apply { arguments = bundle })
             addToBackStack(PATIENT_PERSONAL_PAGE)
             commit()
         }

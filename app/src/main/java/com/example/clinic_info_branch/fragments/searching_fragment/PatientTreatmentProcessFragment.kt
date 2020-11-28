@@ -29,10 +29,6 @@ class PatientTreatmentProcessFragment : Fragment() {
                 view.diagnosis.text = treatmentProcess?.diagnosis
                 view.treatmentPlan.text = treatmentProcess?.treatmentPlan
 
-
         return view
-
     }
-
-
 }

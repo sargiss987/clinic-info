@@ -49,9 +49,7 @@ class TreatmentProcessFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val requestAdd = arguments?.getInt(REQUEST_ADD_PROCESS)
-
 
         if (requestAdd == addRequestProcess) {
             btnCommitProcess.isEnabled = false

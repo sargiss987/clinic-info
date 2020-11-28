@@ -69,7 +69,6 @@ class TeethDiagramFragment : Fragment() {
             val message = gson.toJson(oralHealth)
             bundle.putString(ORAL_HEALTH, message)
 
-
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle })
                 addToBackStack(TREATMENT_PROCESS)
@@ -92,10 +91,8 @@ class TeethDiagramFragment : Fragment() {
 
             //update patient to database
             GlobalScope.launch(Dispatchers.Default) {
-
                 db?.patientDao()?.updateOralHealth(hygiene,typeOfBite, stateOfTeethList,patientPhone)
             }
-
 
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, SearchingFragment())

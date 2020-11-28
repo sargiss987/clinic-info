@@ -24,17 +24,17 @@ class DentalDiagram @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
+    private val cellNumbers = (0..15)
     private var cellsUp = mutableListOf<RectF>()
     private var cellsDown = mutableListOf<RectF>()
-    private val cellsUpData = MutableList(16) { _ -> 0 }
-    private val cellsDownData = MutableList(16) { _ -> 0 }
+    private val cellsUpData = IntArray(16)
+    private val cellsDownData = IntArray(16)
     private val cellsUpNum =
         mutableListOf(18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28)
     private val cellsDownNum =
         mutableListOf(48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38)
     private val jawUp = 1
     private val jawDown = -1
-
 
     private val boardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
@@ -43,7 +43,6 @@ class DentalDiagram @JvmOverloads constructor(
     private val txtPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         textSize = 35f
-
     }
 
     private val xPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -54,25 +53,22 @@ class DentalDiagram @JvmOverloads constructor(
     private val txtPaintOption = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         textSize = 40f
-
     }
+
+    val testRect: RectF = RectF()
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBoard(canvas)
         drawTeethNum(canvas)
         //drawOptions(canvas)
-        var i = 0
-        while (i < 16) {
-            drawCell(canvas, cellsUp[i], cellsUpData[i])
-            drawCell(canvas, cellsDown[i], cellsDownData[i])
-            i++
+        cellNumbers.forEach {
+            drawCell(canvas, cellsUp[it], cellsUpData[it])
+            drawCell(canvas, cellsDown[it], cellsDownData[it])
         }
     }
 
     private fun drawBoard(canvas: Canvas) {
-        var startX = 0.0f
-        var endX = 0.0f
         var startY = height / 2f
         var endY = startY
 
@@ -80,14 +76,11 @@ class DentalDiagram @JvmOverloads constructor(
         canvas.drawLine(0f, startY, width.toFloat(), endY, boardPaint)
         canvas.drawLine(0f, startY + startY / 8, width.toFloat(), startY + startY / 8, boardPaint)
 
-        startX = width / 16.toFloat()
-        endX = startX
+        val startX = width / 16.toFloat()
         startY -= startY / 8
         endY += endY / 8
-        var i = 0
-        while (i < 16) {
-            canvas.drawLine(startX * i, startY, endX * i, endY, boardPaint)
-            i++
+        cellNumbers.forEach {
+            canvas.drawLine(startX * it, startY, startX * it, endY, boardPaint)
         }
     }
 
@@ -99,22 +92,21 @@ class DentalDiagram @JvmOverloads constructor(
         if (w > 0 && h > 0) {
             cellsDown.clear()
             cellsUp.clear()
-            var i = 0
-            while (i < 16) {
-                var left = w / 16 * i.toFloat()
+
+            cellNumbers.forEach {
+                var left = w / 16 * it.toFloat()
                 var right = left + w / 16
                 var top = h / 2.toFloat()
                 var bottom = (h / 2 + h / 16).toFloat()
                 var cell = RectF(left, top, right, bottom)
                 cellsDown.add(cell)
 
-                left = w / 16 * i.toFloat()
+                left = w / 16 * it.toFloat()
                 right = left + w / 16
                 top = (h / 2 - h / 16).toFloat()
                 bottom = h / 2.toFloat()
                 cell = RectF(left, top, right, bottom)
                 cellsUp.add(cell)
-                i++
             }
         }
     }

@@ -17,7 +17,6 @@ class RecTreatmentProcessAdapter(private val recViewClickListener : RecViewClick
 
     private lateinit var list: List<TreatmentProcess>
 
-
     interface RecViewClickListener{
 
         fun onClick(position: Int)
@@ -32,7 +31,6 @@ class RecTreatmentProcessAdapter(private val recViewClickListener : RecViewClick
 
         val txtDate: TextView = itemView.findViewById(R.id.txtDate)
 
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +38,6 @@ class RecTreatmentProcessAdapter(private val recViewClickListener : RecViewClick
             R.layout.rec_treatment_process_item,
             parent, false
         )
-
 
         return ViewHolder(view)
 
@@ -56,6 +53,5 @@ class RecTreatmentProcessAdapter(private val recViewClickListener : RecViewClick
     override fun getItemCount(): Int {
         return list.size
     }
-
 
 }
