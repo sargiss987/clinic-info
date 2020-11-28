@@ -850,9 +850,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etQuestion4Layout" />
 
-
-
-
         <RadioButton
             android:id="@+id/checkPregnancyTrue"
             android:layout_width="wrap_content"
@@ -872,7 +869,6 @@
             android:text="@string/no"
             app:layout_constraintStart_toEndOf="@+id/checkPregnancyTrue"
             app:layout_constraintTop_toBottomOf="@+id/question5" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etQuestion5Layout"
@@ -899,7 +895,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkPregnancyTrue" />
 
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -924,11 +919,6 @@
             app:layout_constraintStart_toEndOf="@id/btnCommitHealth"
             app:layout_constraintEnd_toEndOf="@+id/parent"/>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
 </ScrollView>

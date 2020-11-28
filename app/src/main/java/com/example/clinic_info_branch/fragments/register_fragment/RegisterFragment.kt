@@ -39,7 +39,6 @@ class RegisterFragment : Fragment() {
     private lateinit var healthInfo: HealthInfo
     private var validationNum = true
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         //get database
@@ -57,7 +56,6 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
