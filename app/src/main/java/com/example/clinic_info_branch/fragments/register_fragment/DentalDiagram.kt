@@ -118,18 +118,18 @@ class DentalDiagram @JvmOverloads constructor(
         var num2 = 21
         var num3 = 48
         var num4 = 31
-        while (i < 16) {
 
+        cellNumbers.forEach {
             if (i < 8) {
                 canvas.drawText(
                     "$num1",
-                    (width / 16 * i) + 10.toFloat(),
+                    (width / 16 * it) + 10.toFloat(),
                     (height / 2 - height / 16 - 20).toFloat(),
                     txtPaint
                 )
                 canvas.drawText(
                     "$num3",
-                    (width / 16 * i) + 10.toFloat(),
+                    (width / 16 * it) + 10.toFloat(),
                     (height / 2 + height / 16 + 45).toFloat(),
                     txtPaint
                 )
@@ -138,13 +138,13 @@ class DentalDiagram @JvmOverloads constructor(
             } else {
                 canvas.drawText(
                     "$num2",
-                    (width / 16 * i) + 10.toFloat(),
+                    (width / 16 * it) + 10.toFloat(),
                     (height / 2 - height / 16 - 20).toFloat(),
                     txtPaint
                 )
                 canvas.drawText(
                     "$num4",
-                    (width / 16 * i) + 10.toFloat(),
+                    (width / 16 * it) + 10.toFloat(),
                     (height / 2 + height / 16 + 45).toFloat(),
                     txtPaint
                 )
@@ -153,7 +153,6 @@ class DentalDiagram @JvmOverloads constructor(
             }
             i++
         }
-
     }
 
     //draw pathological abbreviation
@@ -195,7 +194,8 @@ class DentalDiagram @JvmOverloads constructor(
         if (event?.action == MotionEvent.ACTION_UP) {
 
             var i = 0
-            while (i < 16) {
+
+            cellNumbers.forEach { _ ->
                 if (cellsUp[i].contains(event.x, event.y)) {
                     if (cellsUpData[i] == 0) {
                         cellsUpData[i] = 1
@@ -218,9 +218,7 @@ class DentalDiagram @JvmOverloads constructor(
                     }
                 }
                 i++
-
             }
-
         }
         return true
     }

@@ -87,6 +87,23 @@
     <string name="date">date:</string>
     <string name="timeText">Time:</string>
     <string name="phoneN">Հեռախոսահամար</string>
+    <string name="health_info">HEALTH INFO</string>
+    <string name="oral_health">ORAL HEALTH</string>
+    <string name="treatment_process">TREATMENT PROCESS</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="register">Register</string>
+    <string name="telephone_number">Հեռախոսի համարը</string>
+    <string name="address">Բնակության վայրը</string>
+    <string name="female">իգական</string>
+    <string name="male">արական</string>
+    <string name="gender">Սեռը`</string>
+    <string name="birthday">Ծննդյան օրը, ամիսը, տարեթիվը</string>
+    <string name="name_surname">Ազգանունը, անունը, հայրանունը</string>
+    <string name="card">ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ</string>
+    <string name="allergic_anifestations">Ալերգիկ Դրսևորումներ</string>
+    <string name="Rheumatism">Ռևմատիզմ</string>
 
 
     <string-array name="days">

@@ -54,7 +54,6 @@
             app:layout_constraintStart_toEndOf="@+id/checkAllergyTrue"
             app:layout_constraintTop_toBottomOf="@+id/question1" />
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etAllergyLayout"
             app:boxStrokeWidth="0dp"
@@ -67,14 +66,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkAllergyTrue">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAllergy"
                 android:background="@drawable/edittext_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:ems="10"
-                android:hint="Ալերգիկ Դրսևորումներ"
+                android:hint="@string/allergic_anifestations"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Ռևմատիզմ"
+            android:text="@string/Rheumatism"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/question3" />

@@ -2,6 +2,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ"
+        android:text="@string/card"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +44,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="Ազգանունը, անունը, հայրանունը"
+            android:hint="@string/name_surname"
             android:inputType="textPersonName"
             android:textColorHint="#E1DFDF"
             app:hintTextAppearance="@style/MyHintStyle"
@@ -60,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Ծննդյան օրը, ամիսը, տարեթիվը "
+        android:text="@string/birthday"
         android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullNameLayout" />
@@ -99,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Սեռը`"
+        android:text="@string/gender"
         android:textColor="@android:color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:text="արական" />
+            android:text="@string/male" />
 
         <RadioButton
             android:id="@+id/checkFemale"
@@ -127,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
-            android:text="իգական" />
+            android:text="@string/female" />
     </RadioGroup>
 
 
@@ -142,15 +143,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check">
 
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="Բնակության վայրը"
+            android:hint="@string/address"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkMale" />
@@ -170,19 +170,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressLayout">
 
-        <EditText
-
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPhoneValidation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint="Հեռախոսի համարը"
+            android:hint="@string/telephone_number"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/address" />
+            app:layout_constraintTop_toBottomOf="@+id/address"
+            tools:ignore="TextFields" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -192,7 +192,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="HEALTH INFO "
+        android:text="@string/health_info"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold|italic"
@@ -204,7 +204,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="ORAL HEALTH "
+        android:text="@string/oral_health"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold|italic"
@@ -216,7 +216,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="TREATMENT PROCESS "
+        android:text="@string/treatment_process"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold|italic"
@@ -229,7 +229,8 @@
         android:layout_height="40dp"
         android:background="@drawable/add_button"
         app:layout_constraintStart_toEndOf="@+id/healthInfo"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/btnOralHealth"
@@ -237,7 +238,8 @@
         android:layout_height="40dp"
         android:background="@drawable/add_button"
         app:layout_constraintStart_toEndOf="@+id/oralHealth"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        android:contentDescription="@string/todo" />
 
     <ImageView
         android:id="@+id/btnTreatmentProcess"
@@ -245,7 +247,8 @@
         android:layout_height="40dp"
         android:background="@drawable/add_button"
         app:layout_constraintStart_toEndOf="@+id/treatmentProcess"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        android:contentDescription="@string/todo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -267,9 +270,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="590dp" />
-
-
-
 
     <!--        <Button-->
     <!--            android:id="@+id/btnTeethDiagram"-->
@@ -307,7 +307,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/button_background"
-        android:text="Register"
+        android:text="@string/register"
         app:layout_constraintEnd_toEndOf="@+id/parent"
         app:layout_constraintStart_toStartOf="@+id/parent"
         app:layout_constraintTop_toBottomOf="@+id/treatmentProcess" />
