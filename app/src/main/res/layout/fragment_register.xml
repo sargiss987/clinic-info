@@ -229,8 +229,7 @@
         android:layout_height="40dp"
         android:background="@drawable/add_button"
         app:layout_constraintStart_toEndOf="@+id/healthInfo"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <ImageView
         android:id="@+id/btnOralHealth"
@@ -238,8 +237,7 @@
         android:layout_height="40dp"
         android:background="@drawable/add_button"
         app:layout_constraintStart_toEndOf="@+id/oralHealth"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <ImageView
         android:id="@+id/btnTreatmentProcess"
@@ -247,8 +245,7 @@
         android:layout_height="40dp"
         android:background="@drawable/add_button"
         app:layout_constraintStart_toEndOf="@+id/treatmentProcess"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
