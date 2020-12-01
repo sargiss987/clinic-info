@@ -101,6 +101,11 @@
     <string name="card">ՄԵԾԱՀԱՍԱԿԻ ՍՏՈՄԱՏՈԼՈԳԻԱԿԱՆ ՔԱՐՏ</string>
     <string name="allergic_anifestations">Ալերգիկ Դրսևորումներ</string>
     <string name="Rheumatism">Ռևմատիզմ</string>
+    <string name="number">+37493093740</string>
+    <string name="date_">Date:</string>
+    <string name="_19_07_2020">19/07/2020</string>
+    <string name="time_">Time:</string>
+    <string name="_15_30_pm">15 : 30 pm</string>
 
 
     <string-array name="days">
