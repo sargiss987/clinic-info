@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.clinic_info_branch.models.Notes
 
 @Dao
 interface NotesDao {

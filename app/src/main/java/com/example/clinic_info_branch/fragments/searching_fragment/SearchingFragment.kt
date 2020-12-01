@@ -1,6 +1,6 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
-import android.content.Context
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,30 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
-import com.example.clinic_info_branch.data_base.Notes
 import com.example.clinic_info_branch.data_base.Patient
+import com.example.clinic_info_branch.adapters.RecPatientAdapter
+import com.example.clinic_info_branch.db
 import kotlinx.android.synthetic.main.fragment_searching.*
 import kotlinx.android.synthetic.main.fragment_searching.searchView
 import kotlinx.coroutines.*
 import java.util.*
 
-const val PATIENT_PERSONAL_PAGE = "patient_personal_page"
+
 const val PATIENT_INFO = "patient_info"
 
 class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
 
-    private var db: ClinicInfo? = null
     private lateinit var patientList: MutableList<Patient>
     private var searchingList: MutableList<Patient> = mutableListOf()
     private lateinit var viewAdapter: RecPatientAdapter
     private lateinit var job: Job
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
 
     override fun onResume() {
         super.onResume()
@@ -120,8 +113,8 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
         bundle.putInt(PATIENT_INFO,position)
 
         fragmentManager?.beginTransaction()?.apply {
-            replace(R.id.fragmentContainer, PatientPersonalPage().apply { arguments = bundle })
-            addToBackStack(PATIENT_PERSONAL_PAGE)
+            replace(R.id.fragmentContainer, PatientPersonalPageFragment().apply { arguments = bundle })
+            addToBackStack(null)
             commit()
         }
     }

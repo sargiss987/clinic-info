@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.data_base
+package com.example.clinic_info_branch.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

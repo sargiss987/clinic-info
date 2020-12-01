@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.clinic_info_branch.models.Notes
 
 @Database(entities = [Notes::class, Patient::class], version = 1)
 @TypeConverters(StateOfToothConverter::class,TreatmentProcessConverter::class)

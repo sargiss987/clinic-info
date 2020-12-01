@@ -1,20 +1,17 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
-import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.data_base.TreatmentProcess
+import com.example.clinic_info_branch.db
 import com.example.clinic_info_branch.fragments.searching_fragment.*
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_patient_personal_page.*
-import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.fragment_teeth_diagram.*
+import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_treatment_process.*
 import kotlinx.android.synthetic.main.fragment_treatment_process.spinnerDaysTreatment
 import kotlinx.android.synthetic.main.fragment_treatment_process.spinnerMonthsTreatment
@@ -23,26 +20,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-const val TREATMENT_INFO_MESSAGE = "treatment_info_message"
+
 
 class TreatmentProcessFragment : Fragment() {
 
-    private var db: ClinicInfo? = null
-    private lateinit var treatmentProcessList : MutableList<TreatmentProcess>
-
     private lateinit var patientPhone: String
+    private lateinit var viewModel: ViewModel
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        //create view model instance
+        viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_treatment_process, container, false)
     }
 
@@ -75,16 +70,10 @@ class TreatmentProcessFragment : Fragment() {
                 diagnosis, treatmentPlan
             )
 
-            val bundle = Bundle()
-            val gson = Gson()
-            val message = gson.toJson(treatmentProcess)
-            bundle.putString(TREATMENT_INFO_MESSAGE, message)
+            viewModel.treatmentProcessList.clear()
+            viewModel.treatmentProcessList.add(treatmentProcess)
+            activity!!.supportFragmentManager.popBackStack()
 
-            fragmentManager?.beginTransaction()?.apply {
-
-                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle })
-                commit()
-            }
         }
 
         //add treatment process
@@ -109,18 +98,15 @@ class TreatmentProcessFragment : Fragment() {
             GlobalScope.launch(Dispatchers.Default) {
 
                 val patient = db!!.patientDao().getPatient(patientPhone)
-                treatmentProcessList = patient.treatmentProcessList
-                treatmentProcessList.add(treatmentProcess)
+                viewModel.treatmentProcessList = patient.treatmentProcessList
+                viewModel.treatmentProcessList.add(treatmentProcess)
 
-                db?.patientDao()?.addTreatmentProcess(treatmentProcessList,patientPhone)
+                db?.patientDao()?.addTreatmentProcess(viewModel.treatmentProcessList, patientPhone)
 
             }
 
+            activity!!.supportFragmentManager.popBackStack()
 
-            fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, SearchingFragment())
-                commit()
-            }
         }
 
 

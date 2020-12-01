@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.fragments.register_fragment
+package com.example.clinic_info_branch.models
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog

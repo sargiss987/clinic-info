@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.fragments.home_fragment
+package com.example.clinic_info_branch.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.Notes
+import com.example.clinic_info_branch.models.Notes
 
 class RecNoteAdapter(private val recViewClickListener: RecViewClickListener) :
     RecyclerView.Adapter<RecNoteAdapter.ViewHolder>() {

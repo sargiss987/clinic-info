@@ -1,16 +1,18 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.clinic_info_branch.db
+import com.example.clinic_info_branch.models.stateOfTeethList
+import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -18,33 +20,17 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-const val TREATMENT_PROCESS = "treatment_process"
-const val HEALTH_INFO = "health_info"
-const val REQUEST_TO_TEETH_DIAGRAM = "request_to_teeth_diagram"
-const val REQUEST_TO_HEALTH_INFO = "request_to_health_info_information"
-const val registerRequestTeeth = 122
-const val registerRequestHealth = 119
-const val REQUEST_TO_PROCESS_FROM_REGISTER = "request_to_process_from_register"
-const val registerRequestProcess = 156
-
 
 class RegisterFragment : Fragment() {
 
-    private var db: ClinicInfo? = null
+
     private lateinit var patientList: MutableList<Patient>
-    private lateinit var stateOfTeethList: MutableList<StateOfTooth>
-    private lateinit var treatmentProcessList: MutableList<TreatmentProcess>
-    private lateinit var oralHealth: OralHealth
     private lateinit var job: Job
-    private lateinit var healthInfo: HealthInfo
     private var validationNum = true
+    private lateinit var viewModel: ViewModel
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
 
+    //get patient list
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,84 +41,66 @@ class RegisterFragment : Fragment() {
                 patientList = db!!.patientDao().getAllPatients().toMutableList()
             }
         }
+        //create view model instance
+        viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
+
+
+        //init view model data
+        viewModel.stateOfTeethList = mutableListOf(
+            StateOfTooth(
+                resources.getString(R.string.stateOfTeethDefault),
+                "", "", "", "", "", "", "",
+                "", "", "", ""
+            )
+        )
+
+        viewModel.treatmentProcessList = mutableListOf(
+            TreatmentProcess(
+                "", "", "",
+                "", ""
+            )
+        )
+
+        viewModel.oralHealth = OralHealth(
+            resources.getString(R.string.hygieneGood),
+            resources.getString(R.string.biteNormally),
+            stateOfTeethList
+        )
+
+        viewModel.healthInfo = HealthInfo(
+            resources.getString(R.string.allergyFalse), "",
+            resources.getString(R.string.anemiaFalse), "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "", "",
+            "", "", false, "",
+            false, ""
+        )
+
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
 
-        //get data from teeth diagram fragment
-        val jsonFromTeethDiagram = arguments?.getString(ORAL_HEALTH)
-
-
-        if (jsonFromTeethDiagram != null) {
-            oralHealth =
-                Gson().fromJson(jsonFromTeethDiagram, object : TypeToken<OralHealth>() {}.type)
-        } else {
-            stateOfTeethList = mutableListOf()
-            stateOfTeethList.add(
-                StateOfTooth(
-                    resources.getString(R.string.stateOfTeethDefault),
-                    "", "", "", "", "", "", "",
-                    "", "", "", ""
-                )
-            )
-            oralHealth = OralHealth(
-                resources.getString(R.string.hygieneGood),
-                resources.getString(R.string.biteNormally), stateOfTeethList
-            )
-        }
-
-        //get data from treatment process fragment
-        val jsonFromTreatmentProcess = arguments?.getString(TREATMENT_INFO_MESSAGE)
-        treatmentProcessList = mutableListOf()
-        if (jsonFromTreatmentProcess != null){
-            val treatmentProcess: TreatmentProcess = Gson().fromJson(jsonFromTreatmentProcess, object : TypeToken<TreatmentProcess>() {}.type)
-            treatmentProcessList.add(treatmentProcess)
-        }else{
-            treatmentProcessList.add(TreatmentProcess("","","",
-                "",""))
-        }
-
-
-
-
-
-        //get data from health info fragment
-        val jsonFromHealthInfo = arguments?.getString(HEALTH_INFO_MESSAGE)
-
-        if (jsonFromHealthInfo != null) {
-            healthInfo =
-                Gson().fromJson(jsonFromHealthInfo, object : TypeToken<HealthInfo>() {}.type)
-        } else {
-            healthInfo = HealthInfo(
-                resources.getString(R.string.allergyFalse),
-                "", resources.getString(R.string.anemiaFalse),
-                "", "", "", "", "",
-                "", "", "", "",
-                "", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", false,
-                "", false, ""
-            )
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         //navigate to health info
         btnHealthInfo.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt(REQUEST_TO_HEALTH_INFO, registerRequestHealth)
+
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, HealthInfoFragment())
-                addToBackStack(HEALTH_INFO)
+                addToBackStack(null)
                 commit()
             }
         }
@@ -140,30 +108,27 @@ class RegisterFragment : Fragment() {
 
         //navigate to teeth diagram
         btnOralHealth.setOnClickListener {
-           val bundle = Bundle()
-           bundle.putInt(REQUEST_TO_TEETH_DIAGRAM, registerRequestTeeth)
+
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, TeethDiagramFragment().apply { arguments = bundle })
-                addToBackStack(TEETH_DIAGRAM_FROM_REGISTER)
+                replace(R.id.fragmentContainer, TeethDiagramFragment())
+                addToBackStack(null)
                 commit()
             }
 
         }
+
         //navigate to treatment process editor
         btnTreatmentProcess.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt(REQUEST_TO_PROCESS_FROM_REGISTER, registerRequestProcess)
+
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TreatmentProcessFragment())
-                addToBackStack(TREATMENT_PROCESS)
+                addToBackStack(null)
                 commit()
             }
 
         }
 
-
-
-
+        //register patient
         btnRegister.setOnClickListener {
 
             //Init patient fields
@@ -184,9 +149,10 @@ class RegisterFragment : Fragment() {
                 gender,
                 placeOfResidence,
                 phone,
-                healthInfo,
-                oralHealth,
-                treatmentProcessList
+                viewModel.healthInfo,
+                viewModel.oralHealth,
+                viewModel.treatmentProcessList
+
             )
 
 

@@ -1,56 +1,61 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.OralHealth
+import com.example.clinic_info_branch.db
 import com.example.clinic_info_branch.fragments.searching_fragment.*
-import com.google.gson.Gson
+import com.example.clinic_info_branch.models.stateOfTeethList
+import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_teeth_diagram.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-const val ORAL_HEALTH = "oral_health"
+
 
 class TeethDiagramFragment : Fragment() {
 
-    private var db: ClinicInfo? = null
-    private lateinit var patientPhone: String
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
+    private lateinit var patientPhone: String
+    private lateinit var viewModel: ViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        //create view model instance
+        viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_teeth_diagram, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val requestRegister = arguments?.getInt(REQUEST_TO_TEETH_DIAGRAM)
+        //val requestRegister = arguments?.getInt(REQUEST_TO_TEETH_DIAGRAM)
         val requestUpdate = arguments?.getInt(REQUEST_UPDATE_ORAL_HEALTH)
 
 
-        if (requestRegister == registerRequestTeeth) btnUpdate.isEnabled = false
+        //if (requestRegister == registerRequestTeeth) btnUpdate.isEnabled = false
         if (requestUpdate == updateRequestOralHealth) {
             btnCommitTeeth.isEnabled = false
             patientPhone = arguments?.getString(PHONE_FROM_PERSONAL_PAGE).toString()
+        }else{
+            btnUpdate.isEnabled = false
         }
 
+        //commit data
         btnCommitTeeth.setOnClickListener {
             val hygiene =
                 when {
@@ -63,19 +68,13 @@ class TeethDiagramFragment : Fragment() {
                 if (checkPathological.isChecked) resources.getString(R.string.bitePathological)
                 else resources.getString(R.string.biteNormally)
 
-            val oralHealth = OralHealth(hygiene, typeOfBite, stateOfTeethList)
-            val bundle = Bundle()
-            val gson = Gson()
-            val message = gson.toJson(oralHealth)
-            bundle.putString(ORAL_HEALTH, message)
+            viewModel.oralHealth = OralHealth(hygiene, typeOfBite, stateOfTeethList)
 
-            fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle })
-                addToBackStack(TREATMENT_PROCESS)
-                commit()
-            }
+            activity!!.supportFragmentManager.popBackStack()
+
         }
 
+        //update data
         btnUpdate.setOnClickListener() {
 
             val hygiene =
@@ -94,10 +93,8 @@ class TeethDiagramFragment : Fragment() {
                 db?.patientDao()?.updateOralHealth(hygiene,typeOfBite, stateOfTeethList,patientPhone)
             }
 
-            fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, SearchingFragment())
-                commit()
-            }
+            activity!!.supportFragmentManager.popBackStack()
+
         }
     }
 }

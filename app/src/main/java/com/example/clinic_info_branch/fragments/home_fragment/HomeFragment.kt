@@ -1,10 +1,8 @@
 package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -17,15 +15,13 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
-import com.example.clinic_info_branch.data_base.Notes
-
+import com.example.clinic_info_branch.models.Notes
+import com.example.clinic_info_branch.adapters.RecNoteAdapter
+import com.example.clinic_info_branch.db
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -35,22 +31,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
     private lateinit var noteList: MutableList<Notes>
     private var searchingList: MutableList<Notes> = mutableListOf()
-    private var db: ClinicInfo? = null
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
 
-//    private lateinit var notificationManager: NotificationManager
-//    private lateinit var notificationChannel: NotificationChannel
-//    private lateinit var builder: Notification.Builder
-//    private val channelId = "com.example.clinic_info_branch.fragments.home_fragment"
-//    private val description = "Test notification"
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

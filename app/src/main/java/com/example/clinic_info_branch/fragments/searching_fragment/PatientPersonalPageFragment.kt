@@ -1,7 +1,7 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
 
-import android.content.Context
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.data_base.TreatmentProcess
+import com.example.clinic_info_branch.adapters.RecTreatmentProcessAdapter
+import com.example.clinic_info_branch.db
 import com.example.clinic_info_branch.fragments.register_fragment.HealthInfoFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TeethDiagramFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TreatmentProcessFragment
@@ -20,29 +21,22 @@ import kotlinx.android.synthetic.main.fragment_patient_personal_page.view.*
 import kotlinx.coroutines.*
 
 const val REQUEST_UPDATE_ORAL_HEALTH = "request_update_oral_health"
-const val REQUEST_UPDATE_HEALTH = "request_from_register"
 const val updateRequestOralHealth = 123
-const val updateRequestHealth = 130
 const val PHONE_FROM_PERSONAL_PAGE = "phone_from_personal_page"
+const val TREATMENT_PROCESS_INFO = "treatment_process_info"
 const val REQUEST_ADD_PROCESS = "request_add_process"
 const val addRequestProcess = 188
-const val TREATMENT_PROCESS_INFO = "treatment_process_info"
+const val REQUEST_UPDATE_HEALTH = "request_from_register"
+const val updateRequestHealth = 130
 
-class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickListener {
+class PatientPersonalPageFragment : Fragment(), RecTreatmentProcessAdapter.RecViewClickListener {
 
     var patient: Patient? = null
-    private var db: ClinicInfo? = null
     private lateinit var viewAdapter: RecTreatmentProcessAdapter
     private lateinit var job: Job
     private lateinit var treatmentProcessList: MutableList<TreatmentProcess>
     private lateinit var patientList: MutableList<Patient>
     private var position: Int = 0
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -191,6 +185,7 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
             bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TeethDiagramFragment().apply { arguments = bundle })
+                addToBackStack(null)
                 commit()
             }
         }
@@ -202,6 +197,7 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
             bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, HealthInfoFragment().apply { arguments = bundle })
+                addToBackStack(null)
                 commit()
             }
         }
@@ -212,9 +208,8 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
             bundle.putInt(REQUEST_ADD_PROCESS, addRequestProcess)
             bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
-                replace(
-                    R.id.fragmentContainer,
-                    TreatmentProcessFragment().apply { arguments = bundle })
+                replace(R.id.fragmentContainer, TreatmentProcessFragment().apply { arguments = bundle })
+                addToBackStack(null)
                 commit()
             }
         }
@@ -230,7 +225,7 @@ class PatientPersonalPage : Fragment(), RecTreatmentProcessAdapter.RecViewClickL
             replace(
                 R.id.fragmentContainer,
                 PatientTreatmentProcessFragment().apply { arguments = bundle })
-            addToBackStack(PATIENT_PERSONAL_PAGE)
+            addToBackStack(null)
             commit()
         }
     }

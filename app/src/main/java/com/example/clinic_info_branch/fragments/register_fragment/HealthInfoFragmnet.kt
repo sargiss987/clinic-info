@@ -1,57 +1,58 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.data_base.HealthInfo
+import com.example.clinic_info_branch.db
 import com.example.clinic_info_branch.fragments.searching_fragment.*
-import com.google.gson.Gson
+import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_health_info.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-const val TEETH_DIAGRAM_FROM_REGISTER = "teeth_diagram_from_register"
-const val HEALTH_INFO_MESSAGE = "health_info_message"
+
 
 class HealthInfoFragment : Fragment() {
 
     private lateinit var patientPhone: String
-    private var db: ClinicInfo? = null
+    private lateinit var viewModel: ViewModel
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //get database
-        db = ClinicInfo.getDatabase(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        //create view model instance
+        viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
+
         return inflater.inflate(R.layout.fragment_health_info, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //val requestRegister = arguments?.getInt(REQUEST_TO_HEALTH_INFO)
+
         val requestUpdate = arguments?.getInt(REQUEST_UPDATE_HEALTH)
 
-        //if (requestRegister == registerRequestHealth) {btnUpdateHealthInfo.isEnabled = false}
+
         if (requestUpdate == updateRequestHealth) {
             btnCommitHealth.isEnabled = false
             patientPhone = arguments?.getString(PHONE_FROM_PERSONAL_PAGE).toString()
         } else {
             btnUpdateHealthInfo.isEnabled = false
         }
+
+        //commit data
         btnCommitHealth.setOnClickListener {
 
             //Init health info data
@@ -134,7 +135,7 @@ class HealthInfoFragment : Fragment() {
             val duringPregnancy = etQuestion5.text.toString()
 
             //create health info object
-            val healthInfo = HealthInfo(
+            viewModel.healthInfo = HealthInfo(
                 allergy,
                 allergicManifestation,
                 bleeding,
@@ -166,16 +167,8 @@ class HealthInfoFragment : Fragment() {
                 duringPregnancy
             )
 
-            val bundle = Bundle()
-            val gson = Gson()
-            val message = gson.toJson(healthInfo)
-            bundle.putString(HEALTH_INFO_MESSAGE, message)
+            activity!!.supportFragmentManager.popBackStack()
 
-            fragmentManager?.beginTransaction()?.apply {
-
-                replace(R.id.fragmentContainer, RegisterFragment().apply { arguments = bundle })
-                commit()
-            }
         }
 
         //update health info
@@ -296,11 +289,8 @@ class HealthInfoFragment : Fragment() {
                 )
             }
 
+            activity!!.supportFragmentManager.popBackStack()
 
-            fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, SearchingFragment())
-                commit()
-            }
         }
     }
 
