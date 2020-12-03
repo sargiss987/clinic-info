@@ -1,7 +1,6 @@
 package com.example.clinic_info_branch.data_base
 
 import android.os.Parcelable
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

@@ -3,21 +3,21 @@
 
     <item
         android:id="@+id/allTimes"
-        android:title="All Times"/>
+        android:title="@string/all_times"/>
 
     <item
-        android:id="@+id/lastMonth"
-        android:title="Last Month"/>
+        android:id="@+id/currentMonth"
+        android:title="@string/current_month"/>
 
     <item
-        android:id="@+id/lastWeek"
-        android:title="Last Week"/>
+        android:id="@+id/currentWeek"
+        android:title="@string/current_week"/>
 
     <item
         android:id="@+id/today"
-        android:title="Today"/>
+        android:title="@string/today"/>
     <item
         android:id="@+id/custom"
-        android:title="Custom"/>
+        android:title="@string/custom"/>
 
 </menu>

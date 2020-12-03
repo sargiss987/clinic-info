@@ -35,7 +35,7 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
 
             if (db != null) {
                 patientList = db!!.patientDao().getAllPatients()
-                delay(3000)
+                delay(2000)
             }
             withContext(Dispatchers.Main) {
                 progressBarSearching.visibility = View.GONE
@@ -88,6 +88,8 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
                 return true
             }
         })
+
+
     }
 
 
@@ -110,10 +112,12 @@ class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
     override fun onClick(position: Int) {
 
         val bundle = Bundle()
-        bundle.putInt(PATIENT_INFO,position)
+        bundle.putInt(PATIENT_INFO, position)
 
         fragmentManager?.beginTransaction()?.apply {
-            replace(R.id.fragmentContainer, PatientPersonalPageFragment().apply { arguments = bundle })
+            replace(
+                R.id.fragmentContainer,
+                PatientPersonalPageFragment().apply { arguments = bundle })
             addToBackStack(null)
             commit()
         }

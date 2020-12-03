@@ -35,7 +35,6 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,7 +45,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         job = GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                delay(5000)
+                delay(2000)
                 noteList = db!!.notesDao().getAllNotes()
             }
             withContext(Dispatchers.Main) {
@@ -77,7 +76,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
 
         //searching by patient name,recording time or phone
-        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
             }
@@ -123,7 +122,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         viewAdapter.setList(noteList)
                     }
 
-                    R.id.lastMonth -> {
+                    R.id.currentMonth -> {
 
                         searchingList.clear()
                         val month = DateFormat.format("MMM", calendar).toString()
@@ -137,7 +136,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         viewAdapter.setList(searchingList)
                     }
 
-                    R.id.lastWeek -> {
+                    R.id.currentWeek -> {
 
                         searchingList.clear()
                         var i = 0
@@ -147,7 +146,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                             searchingList.plusAssign(noteList.filter {
                                 it.date == dateText
                             }.toMutableList())
-                            calendar.add(Calendar.DAY_OF_YEAR, -1)
+                            calendar.add(Calendar.DAY_OF_YEAR, +1)
                             i++
                         }
                         viewAdapter.setList(searchingList)
@@ -204,7 +203,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
 
                     }
-                    else -> false
+                    else -> {
+                        searchingList.clear()
+                        viewAdapter.setList(noteList)
+                    }
 
                 }
                 true
@@ -275,12 +277,12 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun handelDateButton(view: TextView) {
         val calendar = Calendar.getInstance()
-        val YEAR = calendar.get(Calendar.YEAR)
-        val MONTH = calendar.get(Calendar.MONTH)
-        val DATE = calendar.get(Calendar.DATE)
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DATE)
         val datePickerDialog =
             context?.let {
-                DatePickerDialog(it, DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
+                DatePickerDialog(it, { _, i, i2, i3 ->
                     val calendar1 = Calendar.getInstance()
                     calendar1.set(Calendar.YEAR, i)
                     calendar1.set(Calendar.MONTH, i2)
@@ -288,8 +290,11 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     val dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString()
                     view.text = dateText
 
-                }, YEAR, MONTH, DATE)
+                }, year, month, dayOfMonth)
             }
+
+
+
 
         datePickerDialog?.show()
 
@@ -299,22 +304,23 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     //pick time
     private fun handleTimeButton(view: TextView) {
         val calendar = Calendar.getInstance()
-        val HOUR = calendar.get(Calendar.HOUR)
-        val MINUTE = calendar.get(Calendar.MINUTE)
+        val hourOfDay = calendar.get(Calendar.HOUR)
+        val minute = calendar.get(Calendar.MINUTE)
         val is24HourFormat: Boolean = is24HourFormat(context)
 
-        val timePickerDialog =
-            TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { timePicker, i, i2 ->
+         val timePickerDialog =
+            TimePickerDialog(context, { _, i, i2 ->
                 val calendar1 = Calendar.getInstance()
                 calendar1.set(Calendar.HOUR, i)
                 calendar1.set(Calendar.MINUTE, i2)
                 val dateText = DateFormat.format("h:mm a", calendar1).toString()
                 view.text = dateText
 
-            }, HOUR, MINUTE, is24HourFormat)
+            }, hourOfDay, minute, is24HourFormat)
+
+
 
         timePickerDialog.show()
-
 
     }
 
@@ -332,11 +338,10 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
     //delete entry
     override fun delete(position: Int) {
-        var note: Notes? = null
-        if (searchingList.isNotEmpty()) {
-            note = searchingList[position]
+        val note: Notes = if (searchingList.isNotEmpty()) {
+            searchingList[position]
         } else {
-            note = noteList[position]
+            noteList[position]
         }
 
         //delete note from database

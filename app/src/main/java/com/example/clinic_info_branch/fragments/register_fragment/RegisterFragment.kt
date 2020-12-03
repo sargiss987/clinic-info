@@ -14,10 +14,7 @@ import com.example.clinic_info_branch.db
 import com.example.clinic_info_branch.models.stateOfTeethList
 import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 
@@ -26,7 +23,6 @@ class RegisterFragment : Fragment() {
 
     private lateinit var patientList: MutableList<Patient>
     private lateinit var job: Job
-    private var validationNum = true
     private lateinit var viewModel: ViewModel
 
 
@@ -139,7 +135,11 @@ class RegisterFragment : Fragment() {
             val patientDate = "${spinnerDaysTreatment.selectedItem}" +
                     " ${spinnerMonthsTreatment.selectedItem}" +
                     " ${spinnerYearsTreatment.selectedItem}"
+
+
+
             val gender = if (checkMale.isChecked) "արական" else "իգական"
+            viewModel.validationNum = true
 
 
             //create patient
@@ -156,23 +156,43 @@ class RegisterFragment : Fragment() {
             )
 
 
-            //register validation via number
+            //register validation via number,name and place
             patientList.forEach {
-                validationNum = it.phone != phone
+                if (it.phone == phone) {
+                    viewModel.validationNum = false
 
+                }
             }
 
             when {
+                fullName.text.toString().isEmpty() -> {
+                    fullName.error = "Field cannot be empty"
+                    Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
+                }
+                address.text.toString().isEmpty() -> {
+                    address.error = "Field cannot be empty"
+                    Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
+                }
+
                 etPhoneValidation.text.toString().isEmpty() -> {
                     etPhoneValidation.error = "Field cannot be empty"
                     Toast.makeText(context, "Field cannot be empty", Toast.LENGTH_LONG).show()
                 }
-                validationNum -> {
+                viewModel.validationNum -> {
                     //insert patient to database
                     GlobalScope.launch(Dispatchers.Default) {
 
                         db?.patientDao()?.insertPatient(patient)
+
+                        withContext(Dispatchers.Main) {
+                            fragmentManager?.beginTransaction()?.apply {
+                                replace(R.id.fragmentContainer, RegisterFragment())
+                                commit()
+                            }
+
+                        }
                     }
+
                     Toast.makeText(context, "Registration is successful", Toast.LENGTH_LONG).show()
                 }
 
@@ -181,6 +201,7 @@ class RegisterFragment : Fragment() {
                     Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG).show()
                 }
             }
+
 
         }
     }
