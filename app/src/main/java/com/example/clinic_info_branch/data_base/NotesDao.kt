@@ -10,7 +10,7 @@ import com.example.clinic_info_branch.models.Notes
 interface NotesDao {
 
     @Insert
-    fun insertNote(note: Notes)
+    fun insertNote(note: Notes): Long
 
     @Delete
     fun deleteNote(note: Notes)

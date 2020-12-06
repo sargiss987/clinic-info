@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.OralHealth
-import com.example.clinic_info_branch.db
+import com.example.clinic_info_branch.fragments.BaseFragment
+
 import com.example.clinic_info_branch.fragments.searching_fragment.*
 import com.example.clinic_info_branch.models.stateOfTeethList
 import com.example.clinic_info_branch.view_model.ViewModel
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 
 
 
-class TeethDiagramFragment : Fragment() {
+class TeethDiagramFragment : BaseFragment() {
 
 
     private lateinit var patientPhone: String

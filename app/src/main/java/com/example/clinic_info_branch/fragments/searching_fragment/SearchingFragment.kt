@@ -1,6 +1,7 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.adapters.RecPatientAdapter
-import com.example.clinic_info_branch.db
+import com.example.clinic_info_branch.data_base.ClinicInfo
+import com.example.clinic_info_branch.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_searching.*
 import kotlinx.android.synthetic.main.fragment_searching.searchView
 import kotlinx.coroutines.*
@@ -19,12 +21,14 @@ import java.util.*
 
 const val PATIENT_INFO = "patient_info"
 
-class SearchingFragment : Fragment(), RecPatientAdapter.RecViewClickListener {
+class SearchingFragment : BaseFragment(), RecPatientAdapter.RecViewClickListener {
 
     private lateinit var patientList: MutableList<Patient>
     private var searchingList: MutableList<Patient> = mutableListOf()
     private lateinit var viewAdapter: RecPatientAdapter
     private lateinit var job: Job
+
+
 
     override fun onResume() {
         super.onResume()

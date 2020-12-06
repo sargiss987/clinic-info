@@ -24,15 +24,14 @@
             android:textSize="30sp"
             android:textStyle="italic|bold" />
 
-        <TextView
+        <ImageView
             android:id="@+id/patientPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtName"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/phone"
-            android:textSize="25sp" />
+            android:layout_marginTop="15dp"
+            android:src="@drawable/phone" />
 
         <TextView
             android:id="@+id/txtPhone"
@@ -45,15 +44,14 @@
             android:text="@string/number"
             android:textSize="25sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtPhone"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/date_"
-            android:textSize="25sp" />
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_baseline_date_range_24" />
 
         <TextView
             android:id="@+id/txtDate"
@@ -66,15 +64,14 @@
             android:text="@string/_19_07_2020"
             android:textSize="25sp" />
 
-        <TextView
+        <ImageView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/date"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/time_"
-            android:textSize="25sp" />
+            android:layout_marginTop="15dp"
+            android:src="@drawable/time" />
 
         <TextView
             android:id="@+id/txtTime"

@@ -10,7 +10,7 @@ import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragme
 import com.example.clinic_info_branch.fragments.searching_fragment.SearchingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
- var db: ClinicInfo? = null
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         val homeFragment = HomeFragment()
         val registerFragment = RegisterFragment()
         val searchFragment = SearchingFragment()
-
-        db = ClinicInfo.getDatabase(this)
 
 
         makeCurrentFragment(homeFragment)

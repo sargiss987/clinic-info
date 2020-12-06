@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.HealthInfo
-import com.example.clinic_info_branch.db
+
+import com.example.clinic_info_branch.fragments.BaseFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.*
 import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_health_info.*
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 
 
 
-class HealthInfoFragment : Fragment() {
+class HealthInfoFragment : BaseFragment() {
 
     private lateinit var patientPhone: String
     private lateinit var viewModel: ViewModel

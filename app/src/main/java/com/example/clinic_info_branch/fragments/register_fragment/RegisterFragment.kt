@@ -1,6 +1,7 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.*
-import com.example.clinic_info_branch.db
+import com.example.clinic_info_branch.fragments.BaseFragment
 import com.example.clinic_info_branch.models.stateOfTeethList
 import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -18,12 +19,14 @@ import kotlinx.coroutines.*
 
 
 
-class RegisterFragment : Fragment() {
+class RegisterFragment : BaseFragment() {
 
 
     private lateinit var patientList: MutableList<Patient>
     private lateinit var job: Job
     private lateinit var viewModel: ViewModel
+
+
 
 
     //get patient list
@@ -33,9 +36,9 @@ class RegisterFragment : Fragment() {
         //get patient list from database
         job = GlobalScope.launch(Dispatchers.Default) {
 
-            if (db != null) {
-                patientList = db!!.patientDao().getAllPatients().toMutableList()
-            }
+
+                patientList = db.patientDao().getAllPatients().toMutableList()
+
         }
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)

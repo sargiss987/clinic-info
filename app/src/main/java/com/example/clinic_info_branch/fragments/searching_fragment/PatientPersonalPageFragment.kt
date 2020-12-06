@@ -12,7 +12,7 @@ import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.data_base.TreatmentProcess
 import com.example.clinic_info_branch.adapters.RecTreatmentProcessAdapter
-import com.example.clinic_info_branch.db
+import com.example.clinic_info_branch.fragments.BaseFragment
 import com.example.clinic_info_branch.fragments.register_fragment.HealthInfoFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TeethDiagramFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TreatmentProcessFragment
@@ -29,7 +29,7 @@ const val addRequestProcess = 188
 const val REQUEST_UPDATE_HEALTH = "request_from_register"
 const val updateRequestHealth = 130
 
-class PatientPersonalPageFragment : Fragment(), RecTreatmentProcessAdapter.RecViewClickListener {
+class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.RecViewClickListener {
 
     var patient: Patient? = null
     private lateinit var viewAdapter: RecTreatmentProcessAdapter

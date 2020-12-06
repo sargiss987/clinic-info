@@ -1,13 +1,13 @@
 package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,19 +15,21 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.models.Notes
 import com.example.clinic_info_branch.adapters.RecNoteAdapter
-import com.example.clinic_info_branch.db
+import com.example.clinic_info_branch.data_base.ClinicInfo
+import com.example.clinic_info_branch.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 import java.util.*
 
 const val REQUEST_CALL = 1
 
-class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
+class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
     private lateinit var noteList: MutableList<Notes>
     private var searchingList: MutableList<Notes> = mutableListOf()
@@ -35,22 +37,34 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewAdapter = RecNoteAdapter(this)
 
+
         //get notes list from database
         //update display
-        job = GlobalScope.launch(Dispatchers.Default) {
+         job = GlobalScope.launch(Dispatchers.Default) {
 
-            if (db != null) {
+
                 delay(2000)
-                noteList = db!!.notesDao().getAllNotes()
-            }
+                noteList = db.notesDao().getAllNotes()
+
             withContext(Dispatchers.Main) {
                 progressBarHome.visibility = View.GONE
+                val calendar = Calendar.getInstance()
                 viewAdapter.setList(noteList)
+
+
+//                val dateText =
+//                    DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
+//                val todayList = noteList.filter {
+//                    it.date.contains(dateText)
+//                }.toMutableList()
+//
+//                viewAdapter.setList(todayList)
 
                 //show list of notes
                 recViewNote.apply {
@@ -113,9 +127,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
                 val calendar = Calendar.getInstance()
 
-
-
-                when (item.itemId) {
+                if (::noteList.isInitialized) when (item.itemId) {
                     R.id.allTimes -> {
 
                         searchingList.clear()
@@ -154,7 +166,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 //                        val searchingList  = noteList.filter{
 //                            it.getCalendar().after(calendarLastWeek)
 //                        }
-//
+//r
 //                        viewAdapter.setList(searchingList)
                     }
 
@@ -166,6 +178,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                         searchingList = noteList.filter {
                             it.date.contains(dateText)
                         }.toMutableList()
+
                         viewAdapter.setList(searchingList)
                     }
 
@@ -240,16 +253,22 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                     val note = Notes(
                         0, name, phone, date, time
                     )
+                    progressBarHome.visibility = View.VISIBLE
 
                     //insert note to database
                     GlobalScope.launch(Dispatchers.Default) {
-
-                        db?.notesDao()?.insertNote(note)
+                        val id = db.notesDao().insertNote(note)
+                        val newNote = Notes(id,name,phone,date,time)
+                        delay(1000)
+                        withContext(Dispatchers.Main){
+                            progressBarHome.visibility = View.GONE
+                            //update list
+                            noteList.add(newNote)
+                            viewAdapter.setList(noteList)
+                        }
                     }
 
-                    //update list
-                    noteList.add(note)
-                    viewAdapter.setList(noteList)
+
 
 
                 }
@@ -306,9 +325,9 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
         val calendar = Calendar.getInstance()
         val hourOfDay = calendar.get(Calendar.HOUR)
         val minute = calendar.get(Calendar.MINUTE)
-        val is24HourFormat: Boolean = is24HourFormat(context)
+        //val is24HourFormat: Boolean = is24HourFormat(context)
 
-         val timePickerDialog =
+        val timePickerDialog =
             TimePickerDialog(context, { _, i, i2 ->
                 val calendar1 = Calendar.getInstance()
                 calendar1.set(Calendar.HOUR, i)
@@ -316,7 +335,7 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
                 val dateText = DateFormat.format("h:mm a", calendar1).toString()
                 view.text = dateText
 
-            }, hourOfDay, minute, is24HourFormat)
+            }, hourOfDay, minute, true)
 
 
 
@@ -338,21 +357,43 @@ class HomeFragment : Fragment(), RecNoteAdapter.RecViewClickListener {
 
     //delete entry
     override fun delete(position: Int) {
-        val note: Notes = if (searchingList.isNotEmpty()) {
-            searchingList[position]
+        val note: Notes
+
+            if (searchingList.isNotEmpty()) {
+            note = searchingList[position]
+                //delete note from database
+                GlobalScope.launch(Dispatchers.Default) {
+
+                    db.notesDao().deleteNote(note)
+                    delay(1000)
+                    withContext(Dispatchers.Main){
+
+                        //update list
+                        searchingList.remove(note)
+                        viewAdapter.setList(searchingList)
+                    }
+                }
+
         } else {
-            noteList[position]
+            note = noteList[position]
+                //delete note from database
+                GlobalScope.launch(Dispatchers.Default) {
+
+                    db.notesDao().deleteNote(note)
+                    delay(1000)
+                    withContext(Dispatchers.Main){
+                        progressBarHome.visibility = View.GONE
+                        //update list
+                        noteList.remove(note)
+                        viewAdapter.setList(noteList)
+                    }
+                }
+
         }
 
-        //delete note from database
-        GlobalScope.launch(Dispatchers.Default) {
 
-            db?.notesDao()?.deleteNote(note)
-        }
 
-        //update list
-        noteList.remove(note)
-        viewAdapter.setList(noteList)
+
     }
 
     //make call
