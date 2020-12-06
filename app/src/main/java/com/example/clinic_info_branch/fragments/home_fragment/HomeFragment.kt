@@ -37,20 +37,17 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewAdapter = RecNoteAdapter(this)
 
-
         //get notes list from database
         //update display
-         job = GlobalScope.launch(Dispatchers.Default) {
+        job = GlobalScope.launch(Dispatchers.Default) {
 
-
-                delay(2000)
-                noteList = db.notesDao().getAllNotes()
+            delay(2000)
+            noteList = db.notesDao().getAllNotes()
 
             withContext(Dispatchers.Main) {
                 progressBarHome.visibility = View.GONE
@@ -258,17 +255,15 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     //insert note to database
                     GlobalScope.launch(Dispatchers.Default) {
                         val id = db.notesDao().insertNote(note)
-                        val newNote = Notes(id,name,phone,date,time)
+                        val newNote = Notes(id, name, phone, date, time)
                         delay(1000)
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             progressBarHome.visibility = View.GONE
                             //update list
                             noteList.add(newNote)
                             viewAdapter.setList(noteList)
                         }
                     }
-
-
 
 
                 }
@@ -359,39 +354,37 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     override fun delete(position: Int) {
         val note: Notes
 
-            if (searchingList.isNotEmpty()) {
+        if (searchingList.isNotEmpty()) {
             note = searchingList[position]
-                //delete note from database
-                GlobalScope.launch(Dispatchers.Default) {
+            //delete note from database
+            GlobalScope.launch(Dispatchers.Default) {
 
-                    db.notesDao().deleteNote(note)
-                    delay(1000)
-                    withContext(Dispatchers.Main){
+                db.notesDao().deleteNote(note)
+                delay(1000)
+                withContext(Dispatchers.Main) {
 
-                        //update list
-                        searchingList.remove(note)
-                        viewAdapter.setList(searchingList)
-                    }
+                    //update list
+                    searchingList.remove(note)
+                    viewAdapter.setList(searchingList)
                 }
+            }
 
         } else {
             note = noteList[position]
-                //delete note from database
-                GlobalScope.launch(Dispatchers.Default) {
+            //delete note from database
+            GlobalScope.launch(Dispatchers.Default) {
 
-                    db.notesDao().deleteNote(note)
-                    delay(1000)
-                    withContext(Dispatchers.Main){
-                        progressBarHome.visibility = View.GONE
-                        //update list
-                        noteList.remove(note)
-                        viewAdapter.setList(noteList)
-                    }
+                db.notesDao().deleteNote(note)
+                delay(1000)
+                withContext(Dispatchers.Main) {
+                    progressBarHome.visibility = View.GONE
+                    //update list
+                    noteList.remove(note)
+                    viewAdapter.setList(noteList)
                 }
+            }
 
         }
-
-
 
 
     }

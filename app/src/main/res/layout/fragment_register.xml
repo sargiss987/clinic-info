@@ -187,87 +187,76 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <TextView
         android:id="@+id/healthInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
         android:text="@string/health_info"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneLayout" />
 
     <TextView
         android:id="@+id/oralHealth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/oral_health"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toBottomOf="@+id/healthInfo" />
 
     <TextView
         android:id="@+id/treatmentProcess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/treatment_process"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toBottomOf="@+id/oralHealth" />
 
     <ImageView
         android:id="@+id/btnHealthInfo"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:background="@drawable/add_button"
+        app:layout_constraintBottom_toBottomOf="@+id/healthInfo"
         app:layout_constraintStart_toEndOf="@+id/healthInfo"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/healthInfo" />
 
     <ImageView
         android:id="@+id/btnOralHealth"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:background="@drawable/add_button"
+        app:layout_constraintBottom_toBottomOf="@+id/oralHealth"
         app:layout_constraintStart_toEndOf="@+id/oralHealth"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/oralHealth" />
 
     <ImageView
         android:id="@+id/btnTreatmentProcess"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:background="@drawable/add_button"
+        app:layout_constraintBottom_toBottomOf="@+id/treatmentProcess"
         app:layout_constraintStart_toEndOf="@+id/treatmentProcess"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toTopOf="@+id/treatmentProcess" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="436dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="513dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="590dp" />
 
     <!--        <Button-->
     <!--            android:id="@+id/btnTeethDiagram"-->
@@ -301,13 +290,13 @@
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="40dp"
         android:background="@drawable/button_background"
         android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="@+id/parent"
-        app:layout_constraintStart_toStartOf="@+id/parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/treatmentProcess" />
 
 
