@@ -1,13 +1,10 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
-
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.*
@@ -17,17 +14,11 @@ import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.*
 
-
-
 class RegisterFragment : BaseFragment() {
-
 
     private lateinit var patientList: MutableList<Patient>
     private lateinit var job: Job
     private lateinit var viewModel: ViewModel
-
-
-
 
     //get patient list
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,13 +27,11 @@ class RegisterFragment : BaseFragment() {
         //get patient list from database
         job = GlobalScope.launch(Dispatchers.Default) {
 
-
-                patientList = db.patientDao().getAllPatients().toMutableList()
+            patientList = db.patientDao().getAllPatients().toMutableList()
 
         }
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
-
 
         //init view model data
         viewModel.stateOfTeethList = mutableListOf(
@@ -75,10 +64,7 @@ class RegisterFragment : BaseFragment() {
             "", "", false, "",
             false, ""
         )
-
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,10 +75,8 @@ class RegisterFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         //navigate to health info
         btnHealthInfo.setOnClickListener {
@@ -104,27 +88,22 @@ class RegisterFragment : BaseFragment() {
             }
         }
 
-
         //navigate to teeth diagram
         btnOralHealth.setOnClickListener {
-
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TeethDiagramFragment())
                 addToBackStack(null)
                 commit()
             }
-
         }
 
         //navigate to treatment process editor
         btnTreatmentProcess.setOnClickListener {
-
             fragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, TreatmentProcessFragment())
                 addToBackStack(null)
                 commit()
             }
-
         }
 
         //register patient
@@ -139,11 +118,8 @@ class RegisterFragment : BaseFragment() {
                     " ${spinnerMonthsTreatment.selectedItem}" +
                     " ${spinnerYearsTreatment.selectedItem}"
 
-
-
             val gender = if (checkMale.isChecked) "արական" else "իգական"
             viewModel.validationNum = true
-
 
             //create patient
             val patient = Patient(
@@ -155,15 +131,12 @@ class RegisterFragment : BaseFragment() {
                 viewModel.healthInfo,
                 viewModel.oralHealth,
                 viewModel.treatmentProcessList
-
             )
-
 
             //register validation via number,name and place
             patientList.forEach {
                 if (it.phone == phone) {
                     viewModel.validationNum = false
-
                 }
             }
 
@@ -185,14 +158,13 @@ class RegisterFragment : BaseFragment() {
                     //insert patient to database
                     GlobalScope.launch(Dispatchers.Default) {
 
-                        db?.patientDao()?.insertPatient(patient)
+                        db.patientDao().insertPatient(patient)
 
                         withContext(Dispatchers.Main) {
                             fragmentManager?.beginTransaction()?.apply {
                                 replace(R.id.fragmentContainer, RegisterFragment())
                                 commit()
                             }
-
                         }
                     }
 
@@ -204,8 +176,6 @@ class RegisterFragment : BaseFragment() {
                     Toast.makeText(context, "The patient already exist", Toast.LENGTH_LONG).show()
                 }
             }
-
-
         }
     }
 
@@ -213,6 +183,5 @@ class RegisterFragment : BaseFragment() {
         super.onDestroy()
         job.cancel()
     }
-
 }
 

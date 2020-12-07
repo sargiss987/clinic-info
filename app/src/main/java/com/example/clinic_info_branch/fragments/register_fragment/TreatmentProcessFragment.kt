@@ -19,21 +19,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
-
 class TreatmentProcessFragment : BaseFragment() {
 
     private lateinit var patientPhone: String
     private lateinit var viewModel: ViewModel
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
 
@@ -81,33 +76,28 @@ class TreatmentProcessFragment : BaseFragment() {
             val visitDate = "${spinnerDaysTreatment.selectedItem}" +
                     " ${spinnerMonthsTreatment.selectedItem}" +
                     " ${spinnerYearsTreatment.selectedItem}"
-
             val subReasonVisit = etSubData.text.toString()
             val objReasonVisit = etObjData.text.toString()
             val diagnosis = etDiagnosis.text.toString()
             val treatmentPlan = etTreatmentPlan.text.toString()
-
             val treatmentProcess = TreatmentProcess(
                 visitDate, subReasonVisit, objReasonVisit,
                 diagnosis, treatmentPlan
             )
 
-
             //update patient to database
             GlobalScope.launch(Dispatchers.Default) {
 
-                val patient = db!!.patientDao().getPatient(patientPhone)
+                val patient = db.patientDao().getPatient(patientPhone)
                 viewModel.treatmentProcessList = patient.treatmentProcessList
                 viewModel.treatmentProcessList.add(treatmentProcess)
 
-                db?.patientDao()?.addTreatmentProcess(viewModel.treatmentProcessList, patientPhone)
+                db.patientDao().addTreatmentProcess(viewModel.treatmentProcessList, patientPhone)
 
             }
 
             activity!!.supportFragmentManager.popBackStack()
 
         }
-
-
     }
 }

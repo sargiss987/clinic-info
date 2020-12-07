@@ -18,21 +18,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
-
-
 class HealthInfoFragment : BaseFragment() {
 
     private lateinit var patientPhone: String
     private lateinit var viewModel: ViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
 
@@ -42,9 +37,7 @@ class HealthInfoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val requestUpdate = arguments?.getInt(REQUEST_UPDATE_HEALTH)
-
 
         if (requestUpdate == updateRequestHealth) {
             btnCommitHealth.isEnabled = false
@@ -294,5 +287,4 @@ class HealthInfoFragment : BaseFragment() {
 
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,7 +53,7 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
         job = GlobalScope.launch(Dispatchers.Default) {
 
             if (db != null) {
-                patientList = db!!.patientDao().getAllPatients()
+                patientList = db.patientDao().getAllPatients()
                 treatmentProcessList = patientList[position].treatmentProcessList
             }
             withContext(Dispatchers.Main) {
@@ -67,7 +66,6 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                     adapter = viewAdapter
                 }
-
 
                 patient = patientList[position]
 
@@ -170,7 +168,6 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
             }
         }
 
-
         return view
 
     }
@@ -208,7 +205,9 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
             bundle.putInt(REQUEST_ADD_PROCESS, addRequestProcess)
             bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, TreatmentProcessFragment().apply { arguments = bundle })
+                replace(
+                    R.id.fragmentContainer,
+                    TreatmentProcessFragment().apply { arguments = bundle })
                 addToBackStack(null)
                 commit()
             }
@@ -235,6 +234,4 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
         super.onDestroy()
         job.cancel()
     }
-
-
 }
