@@ -82,10 +82,10 @@ data class StateOfTooth(
 @Parcelize
 data class TreatmentProcess(
     val visitDate: String,
-   val subReasonVisit: String,
-   val objReasonVisit: String,
-   val diagnosis: String,
-   val treatmentPlan: String
+    val subReasonVisit: String,
+    val objReasonVisit: String,
+    val diagnosis: String,
+    val treatmentPlan: String
 ): Parcelable
 
 class StateOfToothConverter{
