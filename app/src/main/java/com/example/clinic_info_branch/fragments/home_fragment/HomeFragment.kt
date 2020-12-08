@@ -68,6 +68,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     layoutManager = LinearLayoutManager(context)
                     adapter = viewAdapter
                 }
+
             }
         }
     }
@@ -83,6 +84,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         //searching by patient name,recording time or phone
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -106,9 +108,11 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                         viewAdapter.setList(noteList)
                     }
                 }
+
                 return true
             }
         })
+
 
         //filter data by note's date
         filter.setOnClickListener {
@@ -206,6 +210,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                             }
 
                         datePickerDialog?.show()
+
+
                     }
                     else -> {
                         searchingList.clear()
@@ -258,6 +264,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                             viewAdapter.setList(noteList)
                         }
                     }
+
+
                 }
                 .setNegativeButton("Cancel") { _, _ ->
 
@@ -272,8 +280,11 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 handleTimeButton(txtTimeDialog)
             }
 
+
             mBuilder.show()
         }
+
+
     }
 
     //pick date
@@ -296,7 +307,11 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 }, year, month, dayOfMonth)
             }
 
+
+
+
         datePickerDialog?.show()
+
 
     }
 
@@ -317,6 +332,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
             }, hourOfDay, minute, true)
 
+
+
         timePickerDialog.show()
 
     }
@@ -330,6 +347,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             this.phoneNumber = noteList[position].phone
             makePhoneCall(phoneNumber)
         }
+
     }
 
     //delete entry
@@ -365,7 +383,10 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     viewAdapter.setList(noteList)
                 }
             }
+
         }
+
+
     }
 
     //make call

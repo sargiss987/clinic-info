@@ -5,7 +5,7 @@ import com.example.clinic_info_branch.data_base.HealthInfo
 import com.example.clinic_info_branch.data_base.OralHealth
 import com.example.clinic_info_branch.data_base.StateOfTooth
 import com.example.clinic_info_branch.data_base.TreatmentProcess
-import kotlin.properties.Delegates
+
 
 class ViewModel() : ViewModel() {
 

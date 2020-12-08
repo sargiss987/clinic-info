@@ -17,6 +17,7 @@ class RecNoteAdapter(private val recViewClickListener: RecViewClickListener) :
     interface RecViewClickListener {
         fun dialing(position: Int)
         fun delete(position: Int)
+        fun onClick(position: Int)
     }
 
     fun setList(list: List<Notes>) {
@@ -53,6 +54,7 @@ class RecNoteAdapter(private val recViewClickListener: RecViewClickListener) :
 
         holder.btnCall.setOnClickListener { recViewClickListener.dialing(position) }
         holder.btnDelete.setOnClickListener { recViewClickListener.delete(position) }
+        holder.itemView.setOnClickListener{recViewClickListener.onClick(position)}
     }
 
     override fun getItemCount(): Int {

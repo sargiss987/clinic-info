@@ -1,13 +1,16 @@
 package com.example.clinic_info_branch.fragments.register_fragment
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.OralHealth
 import com.example.clinic_info_branch.fragments.BaseFragment
+
 import com.example.clinic_info_branch.fragments.searching_fragment.*
 import com.example.clinic_info_branch.models.stateOfTeethList
 import com.example.clinic_info_branch.view_model.ViewModel
@@ -16,16 +19,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+
+
+
 class TeethDiagramFragment : BaseFragment() {
+
 
     private lateinit var patientPhone: String
     private lateinit var viewModel: ViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
 
@@ -38,11 +47,12 @@ class TeethDiagramFragment : BaseFragment() {
         //val requestRegister = arguments?.getInt(REQUEST_TO_TEETH_DIAGRAM)
         val requestUpdate = arguments?.getInt(REQUEST_UPDATE_ORAL_HEALTH)
 
+
         //if (requestRegister == registerRequestTeeth) btnUpdate.isEnabled = false
         if (requestUpdate == updateRequestOralHealth) {
             btnCommitTeeth.isEnabled = false
             patientPhone = arguments?.getString(PHONE_FROM_PERSONAL_PAGE).toString()
-        } else {
+        }else{
             btnUpdate.isEnabled = false
         }
 
@@ -81,7 +91,7 @@ class TeethDiagramFragment : BaseFragment() {
 
             //update patient to database
             GlobalScope.launch(Dispatchers.Default) {
-                db.patientDao().updateOralHealth(hygiene, typeOfBite, stateOfTeethList, patientPhone)
+                db?.patientDao()?.updateOralHealth(hygiene,typeOfBite, stateOfTeethList,patientPhone)
             }
 
             activity!!.supportFragmentManager.popBackStack()
