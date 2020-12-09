@@ -33,6 +33,7 @@
         app:boxStrokeColor="#FFF"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:startIconDrawable="@drawable/ic_baseline_people_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,6 +142,7 @@
         app:boxStrokeColor="#FFF"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:startIconDrawable="@drawable/ic_baseline_home_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check">
 
@@ -167,6 +169,7 @@
         app:boxStrokeColor="#FFF"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
+        app:startIconDrawable="@drawable/ic_baseline_mobile_friendly_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressLayout">
