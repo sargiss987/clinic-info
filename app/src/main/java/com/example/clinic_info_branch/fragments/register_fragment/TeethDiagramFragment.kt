@@ -91,7 +91,7 @@ class TeethDiagramFragment : BaseFragment() {
 
             //update patient to database
             GlobalScope.launch(Dispatchers.Default) {
-                db?.patientDao()?.updateOralHealth(hygiene,typeOfBite, stateOfTeethList,patientPhone)
+                db.patientDao().updateOralHealth(hygiene,typeOfBite, stateOfTeethList,patientPhone)
             }
 
             activity!!.supportFragmentManager.popBackStack()

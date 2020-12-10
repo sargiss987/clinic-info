@@ -3,7 +3,6 @@ package com.example.clinic_info_branch.fragments.searching_fragment
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,9 @@ import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.data_base.TreatmentProcess
 import com.example.clinic_info_branch.adapters.RecTreatmentProcessAdapter
 import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.home_fragment.HOME_REQUEST
+import com.example.clinic_info_branch.fragments.home_fragment.PATIENT_INFO_HOME
+import com.example.clinic_info_branch.fragments.home_fragment.REQUEST_FROM_HOME
 import com.example.clinic_info_branch.fragments.register_fragment.HealthInfoFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TeethDiagramFragment
 import com.example.clinic_info_branch.fragments.register_fragment.TreatmentProcessFragment
@@ -47,125 +49,61 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
         val view = inflater.inflate(R.layout.fragment_patient_personal_page, container, false)
 
         viewAdapter = RecTreatmentProcessAdapter(this)
-        position = arguments?.getInt(PATIENT_INFO)!!
 
-        //get treatment process list from database
-        //update display
-        job = GlobalScope.launch(Dispatchers.Default) {
+        val request = arguments?.getInt(REQUEST_FROM_HOME)
 
-            if (db != null) {
-                patientList = db!!.patientDao().getAllPatients()
-                treatmentProcessList = patientList[position].treatmentProcessList
+
+        if (request == HOME_REQUEST){
+            val phone = arguments?.getString(PATIENT_INFO_HOME)
+            job = GlobalScope.launch(Dispatchers.Default) {
+
+                patient = phone?.let { db.patientDao().getPatient(it) }
+                if (patient != null) {
+                    treatmentProcessList = patient!!.treatmentProcessList
+
+                    withContext(Dispatchers.Main) {
+                        viewAdapter.setList(treatmentProcessList)
+
+                        //show list of notes
+                        recViewTreatmentProcess.apply {
+                            layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            adapter = viewAdapter
+                        }
+
+                        initView(patient,view)
+                    }
+                }
+
             }
-            withContext(Dispatchers.Main) {
 
-                viewAdapter.setList(treatmentProcessList)
+        }else{
+            position = arguments?.getInt(PATIENT_INFO)!!
 
-                //show list of notes
-                recViewTreatmentProcess.apply {
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    adapter = viewAdapter
-                }
+            //get treatment process list from database
+            //update display
+            job = GlobalScope.launch(Dispatchers.Default) {
 
+                patientList = db.patientDao().getAllPatients()
+                treatmentProcessList = patientList[position].treatmentProcessList
+                withContext(Dispatchers.Main) {
 
-                patient = patientList[position]
+                    viewAdapter.setList(treatmentProcessList)
 
-                var healthInfo: String =
-                    if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
-                        "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
-                    } else {
-                        "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
+                    //show list of notes
+                    recViewTreatmentProcess.apply {
+                        layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        adapter = viewAdapter
                     }
 
-                val healthInfoList = mutableListOf(
-                    "${patient?.healthInfo?.rheumatism}",
-                    "${patient?.healthInfo?.arthritis}",
-                    "${patient?.healthInfo?.heartDefect}",
-                    "${patient?.healthInfo?.heartAttack}",
-                    "${patient?.healthInfo?.heartSurgery}",
-                    "${patient?.healthInfo?.stenocardia}",
-                    "${patient?.healthInfo?.kidneyDisease}",
-                    "${patient?.healthInfo?.bloodDisease}",
-                    "${patient?.healthInfo?.gastrointestinalTractDisease}",
-                    "${patient?.healthInfo?.respiratoryTractDisease}",
-                    "${patient?.healthInfo?.hypertension}",
-                    "${patient?.healthInfo?.hypotension}",
-                    "${patient?.healthInfo?.thyroidGladDisease}",
-                    "${patient?.healthInfo?.nervousMentalDisorders}",
-                    "${patient?.healthInfo?.epilepsy}",
-                    "${patient?.healthInfo?.diabetes}",
-                    "${patient?.healthInfo?.infectionsDiseases}",
-                    "${patient?.healthInfo?.neoplasm}",
-                    "${patient?.healthInfo?.hepatitis}",
-                    "${patient?.healthInfo?.otherLiverDiseases}",
-                    "${patient?.healthInfo?.sexuallyTransmittedDiseases}",
-                    "${patient?.healthInfo?.skinDiseases}",
-                    "${patient?.healthInfo?.otherDiseasesDescription}"
-                )
+
+                    patient = patientList[position]
+
+                    initView(patient,view)
+        }
 
 
-                val healthInfoTxtInitial = resources.getString(R.string.healthInfoTxtInitial)
-                var healthInfoTxt = healthInfoTxtInitial
-                var i = 0
-                while (i < healthInfoList.size) {
-
-                    if (healthInfoList[i].isNotEmpty()) {
-                        healthInfoTxt += healthInfoList[i] + ", "
-                    }
-                    i++
-                }
-
-                when {
-                    healthInfoTxt == healthInfoTxtInitial -> healthInfoTxt = ""
-                    patient?.healthInfo?.duringPregnancy!!.isNotEmpty() -> healthInfoTxt += "${patient?.healthInfo?.duringPregnancy} շաբաթական հղիություն։"
-                    else -> {
-                        healthInfoTxt =
-                            healthInfoTxt.subSequence(0, healthInfoTxt.length - 2) as String
-                        healthInfoTxt += ":"
-                    }
-                }
-
-                healthInfo += healthInfoTxt
-
-                //oral info
-                var oralHealth =
-                    "${patient?.oralHealth?.hygiene} ${patient?.oralHealth?.typeOfBite}"
-                val oralHealthList = patient?.oralHealth?.stateOfTeeth
-                var oralHealthTxt = ""
-                i = 0
-                if (oralHealthList != null) {
-                    while (i < oralHealthList.size) {
-
-                        oralHealthTxt += oralHealthList[i].toothNumber + " "
-                        oralHealthTxt += oralHealthList[i].missingTooth
-                        oralHealthTxt += oralHealthList[i].caries
-                        oralHealthTxt += oralHealthList[i].pulpitis
-                        oralHealthTxt += oralHealthList[i].periodontitis
-                        oralHealthTxt += oralHealthList[i].root
-                        oralHealthTxt += oralHealthList[i].implant
-                        oralHealthTxt += oralHealthList[i].rootFilling
-                        oralHealthTxt += oralHealthList[i].plaque
-                        oralHealthTxt += oralHealthList[i].tartar
-                        oralHealthTxt += oralHealthList[i].artCrown
-                        oralHealthTxt += oralHealthList[i].toothMobility
-                        oralHealthTxt += ", "
-                        i++
-                    }
-                }
-                if (oralHealthTxt.length > 2) {
-                    oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
-                }
-
-                oralHealth += oralHealthTxt
-
-                view.txtFullName.text = patient?.patientName
-                view.txtDate.text = patient?.patientDate
-                view.txtGender.text = patient?.gender
-                view.txtPlace.text = patient?.placeOfResidence
-                view.txtPhone.text = patient?.phone
-                view.txtHealthInfo.text = healthInfo
-                view.txtOralHealthInfo.text = oralHealth
 
             }
         }
@@ -228,6 +166,105 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
             addToBackStack(null)
             commit()
         }
+    }
+
+    //init view
+    private fun initView(patient: Patient?,view: View){
+        var healthInfo: String =
+            if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
+                "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
+            } else {
+                "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.allergicManifestation} ${patient?.healthInfo?.bleeding}"
+            }
+
+        val healthInfoList = mutableListOf(
+            "${patient?.healthInfo?.rheumatism}",
+            "${patient?.healthInfo?.arthritis}",
+            "${patient?.healthInfo?.heartDefect}",
+            "${patient?.healthInfo?.heartAttack}",
+            "${patient?.healthInfo?.heartSurgery}",
+            "${patient?.healthInfo?.stenocardia}",
+            "${patient?.healthInfo?.kidneyDisease}",
+            "${patient?.healthInfo?.bloodDisease}",
+            "${patient?.healthInfo?.gastrointestinalTractDisease}",
+            "${patient?.healthInfo?.respiratoryTractDisease}",
+            "${patient?.healthInfo?.hypertension}",
+            "${patient?.healthInfo?.hypotension}",
+            "${patient?.healthInfo?.thyroidGladDisease}",
+            "${patient?.healthInfo?.nervousMentalDisorders}",
+            "${patient?.healthInfo?.epilepsy}",
+            "${patient?.healthInfo?.diabetes}",
+            "${patient?.healthInfo?.infectionsDiseases}",
+            "${patient?.healthInfo?.neoplasm}",
+            "${patient?.healthInfo?.hepatitis}",
+            "${patient?.healthInfo?.otherLiverDiseases}",
+            "${patient?.healthInfo?.sexuallyTransmittedDiseases}",
+            "${patient?.healthInfo?.skinDiseases}",
+            "${patient?.healthInfo?.otherDiseasesDescription}"
+        )
+
+
+        val healthInfoTxtInitial = resources.getString(R.string.healthInfoTxtInitial)
+        var healthInfoTxt = healthInfoTxtInitial
+        var i = 0
+        while (i < healthInfoList.size) {
+
+            if (healthInfoList[i].isNotEmpty()) {
+                healthInfoTxt += healthInfoList[i] + ", "
+            }
+            i++
+        }
+
+        when {
+            healthInfoTxt == healthInfoTxtInitial -> healthInfoTxt = ""
+            patient?.healthInfo?.duringPregnancy!!.isNotEmpty() -> healthInfoTxt += "${patient?.healthInfo?.duringPregnancy} շաբաթական հղիություն։"
+            else -> {
+                healthInfoTxt =
+                    healthInfoTxt.subSequence(0, healthInfoTxt.length - 2) as String
+                healthInfoTxt += ":"
+            }
+        }
+
+        healthInfo += healthInfoTxt
+
+        //oral info
+        var oralHealth =
+            "${patient?.oralHealth?.hygiene} ${patient?.oralHealth?.typeOfBite}"
+        val oralHealthList = patient?.oralHealth?.stateOfTeeth
+        var oralHealthTxt = ""
+        i = 0
+        if (oralHealthList != null) {
+            while (i < oralHealthList.size) {
+
+                oralHealthTxt += oralHealthList[i].toothNumber + " "
+                oralHealthTxt += oralHealthList[i].missingTooth
+                oralHealthTxt += oralHealthList[i].caries
+                oralHealthTxt += oralHealthList[i].pulpitis
+                oralHealthTxt += oralHealthList[i].periodontitis
+                oralHealthTxt += oralHealthList[i].root
+                oralHealthTxt += oralHealthList[i].implant
+                oralHealthTxt += oralHealthList[i].rootFilling
+                oralHealthTxt += oralHealthList[i].plaque
+                oralHealthTxt += oralHealthList[i].tartar
+                oralHealthTxt += oralHealthList[i].artCrown
+                oralHealthTxt += oralHealthList[i].toothMobility
+                oralHealthTxt += ", "
+                i++
+            }
+        }
+        if (oralHealthTxt.length > 2) {
+            oralHealthTxt = oralHealthTxt.substring(0, oralHealthTxt.length - 2) + ":"
+        }
+
+        oralHealth += oralHealthTxt
+
+        view.txtFullName.text = patient?.patientName
+        view.txtDate.text = patient?.patientDate
+        view.txtGender.text = patient?.gender
+        view.txtPlace.text = patient?.placeOfResidence
+        view.txtPhone.text = patient?.phone
+        view.txtHealthInfo.text = healthInfo
+        view.txtOralHealthInfo.text = oralHealth
     }
 
     //job cancel

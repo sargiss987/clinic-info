@@ -250,7 +250,7 @@ class HealthInfoFragment : BaseFragment() {
             //update patient to database
             GlobalScope.launch(Dispatchers.Default) {
 
-                db?.patientDao()?.updateHealth(
+                db.patientDao().updateHealth(
                     allergy,
                     allergicManifestation,
                     bleeding,

@@ -18,6 +18,7 @@ class RecPatientAdapter(private val recViewClickListener : RecViewClickListener)
     interface RecViewClickListener{
         fun delete(position: Int)
         fun onClick(position: Int)
+
     }
 
     fun setList(list: List<Patient>) {

@@ -1,7 +1,7 @@
+
 package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,19 +15,22 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.models.Notes
 import com.example.clinic_info_branch.adapters.RecNoteAdapter
-import com.example.clinic_info_branch.data_base.ClinicInfo
+import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
+import com.example.clinic_info_branch.fragments.searching_fragment.PatientPersonalPageFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 import java.util.*
 
 const val REQUEST_CALL = 1
+const val PATIENT_INFO_HOME = "patient_info"
+const val REQUEST_FROM_HOME = "request_from_home"
+const val HOME_REQUEST = 45
 
 class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
@@ -37,9 +40,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onResume() {
+        super.onResume()
         viewAdapter = RecNoteAdapter(this)
 
         //get notes list from database
@@ -389,6 +391,51 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
     }
 
+    //on click
+    override fun onClick(position: Int) {
+        var patient : Patient? = null
+        GlobalScope.launch(Dispatchers.Default) {
+            patient  = db.patientDao().getPatient(noteList[position].phone)
+
+            withContext(Dispatchers.Main){
+                if(patient != null) {
+                    val bundle = Bundle()
+                    bundle.putString(PATIENT_INFO_HOME, patient!!.phone)
+                    bundle.putInt(REQUEST_FROM_HOME, HOME_REQUEST)
+                    fragmentManager?.beginTransaction()?.apply {
+                        replace(
+                            R.id.fragmentContainer,
+                            PatientPersonalPageFragment().apply { arguments = bundle })
+                        addToBackStack(null)
+                        commit()
+                    }
+                }else{
+
+                    AlertDialog.Builder(context)
+                        .setTitle("Create Patient")
+                        .setMessage("Do you want to create a patient")
+                        .setPositiveButton("Yes"){ _, _ ->
+
+                            fragmentManager?.beginTransaction()?.apply {
+                                replace(
+                                    R.id.fragmentContainer,
+                                    RegisterFragment())
+                                addToBackStack(null)
+                                commit()
+                            }
+
+                        }
+                        .setNegativeButton("Cancel"){ _, _ ->
+
+                        }
+                        .show()
+                }
+
+            }
+        }
+
+    }
+
     //make call
     //Request PHONE_CALL permission
     private fun makePhoneCall(phoneNumber: String) {
@@ -428,6 +475,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             }
         }
     }
+
+
 
     //job cancel
     override fun onStop() {
