@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
@@ -19,6 +21,8 @@ class RegisterFragment : BaseFragment() {
     private lateinit var patientList: MutableList<Patient>
     private lateinit var job: Job
     private lateinit var viewModel: ViewModel
+    private var fullNameList: MutableSet<String> = mutableSetOf()
+    private var countryList: MutableSet<String> = mutableSetOf()
 
     //get patient list
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +33,23 @@ class RegisterFragment : BaseFragment() {
 
             patientList = db.patientDao().getAllPatients().toMutableList()
 
+            //init fullNameList
+            //init countryList
+
+            fullNameList = mutableSetOf()
+            db.notesDao().getAllNotes().forEach {
+                fullNameList.add(it.name)
+            }
+            patientList.forEach {
+                fullNameList.add(it.patientName)
+                countryList.add(it.placeOfResidence)
+            }
+
+
+
         }
+
+
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)
 
@@ -77,6 +97,23 @@ class RegisterFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //set adapter to fullName
+        fullName.setAdapter(context?.let { it1 ->
+            ArrayAdapter(
+                it1,
+                android.R.layout.simple_list_item_1,
+                fullNameList.toList()
+            )
+        })
+        //set adapter to address
+        address.setAdapter(context?.let { it1 ->
+            ArrayAdapter(
+                it1,
+                android.R.layout.simple_list_item_1,
+                countryList.toList()
+            )
+        })
 
         //navigate to health info
         btnHealthInfo.setOnClickListener {

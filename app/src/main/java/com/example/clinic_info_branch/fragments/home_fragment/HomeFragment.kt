@@ -39,6 +39,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
+    private lateinit var fullNameList : MutableSet<String>
 
     override fun onResume() {
         super.onResume()
@@ -51,10 +52,20 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             delay(2000)
             noteList = db.notesDao().getAllNotes()
 
+            //init fullNameList
+            fullNameList = mutableSetOf()
+            db.patientDao().getAllPatients().forEach{
+                fullNameList.add(it.patientName)
+            }
+            noteList.forEach {
+                fullNameList.add(it.name)
+            }
+
             withContext(Dispatchers.Main) {
                 progressBarHome.visibility = View.GONE
                 val calendar = Calendar.getInstance()
                 viewAdapter.setList(noteList)
+
 
 
 //                val dateText =
@@ -227,6 +238,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
         //Add new note
         addNote.setOnClickListener {
+
             var name: String
             var phone: String
             var date: String
@@ -236,8 +248,19 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             val btnPickTime: Button = mDialogView.findViewById(R.id.pickTime)
             val txtDateDialog: TextView = mDialogView.findViewById(R.id.txtDateDialog)
             val txtTimeDialog: TextView = mDialogView.findViewById(R.id.txtTimeDialog)
-            val etName: EditText = mDialogView.findViewById(R.id.etFullName)
+            val etName: AutoCompleteTextView = mDialogView.findViewById(R.id.etFullName)
             val etPhone: EditText = mDialogView.findViewById(R.id.etPhone)
+
+            //create and set adapter to etName
+            val adapter = context?.let { it1 ->
+                    ArrayAdapter(
+                        it1,
+                        android.R.layout.simple_list_item_1,
+                        fullNameList.toList())
+                }
+            etName.setAdapter(adapter)
+
+
 
             val mBuilder = AlertDialog.Builder(context)
                 .setView(mDialogView)
