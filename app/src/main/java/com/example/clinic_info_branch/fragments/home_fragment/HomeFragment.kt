@@ -66,8 +66,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 val calendar = Calendar.getInstance()
                 viewAdapter.setList(noteList)
 
-
-
 //                val dateText =
 //                    DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
 //                val todayList = noteList.filter {
@@ -81,7 +79,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     layoutManager = LinearLayoutManager(context)
                     adapter = viewAdapter
                 }
-
             }
         }
     }
