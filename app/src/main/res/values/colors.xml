@@ -10,4 +10,9 @@
     <color name="blue">#395ECF</color>
     <color name="editTextColor">#E1DFDF</color>
 
+    <color name="pink">#CD45E4</color>
+    <color name="grey">#EDD927</color>
+    <color name="green">#51DF57</color>
+    <color name="calendar_number">#F44336</color>
+
 </resources>

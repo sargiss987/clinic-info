@@ -1,7 +1,5 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
-
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -97,17 +95,13 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
                         adapter = viewAdapter
                     }
 
-
                     patient = patientList[position]
 
                     initView(patient,view)
         }
 
-
-
             }
         }
-
 
         return view
 
@@ -202,7 +196,6 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
             "${patient?.healthInfo?.skinDiseases}",
             "${patient?.healthInfo?.otherDiseasesDescription}"
         )
-
 
         val healthInfoTxtInitial = resources.getString(R.string.healthInfoTxtInitial)
         var healthInfoTxt = healthInfoTxtInitial
