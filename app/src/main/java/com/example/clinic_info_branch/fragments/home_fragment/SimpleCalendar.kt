@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -14,8 +13,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import com.example.clinic_info_branch.R
+import com.example.clinic_info_branch.fragments.home_fragment.DayClickListener
 import java.util.*
 
 class SimpleCalendar : LinearLayout {

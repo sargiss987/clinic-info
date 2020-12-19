@@ -295,6 +295,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             //pick date
             btnPickDate.setOnClickListener {
                 handelDateButton(txtDateDialog)
+
             }
 
             //pick time
