@@ -311,7 +311,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     }
 
     //pick date
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun handelDateButton(view: TextView) {
       val calendar = Calendar.getInstance()
           val year = calendar.get(Calendar.YEAR)
