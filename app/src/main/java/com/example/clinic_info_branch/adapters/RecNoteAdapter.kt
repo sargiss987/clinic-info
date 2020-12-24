@@ -30,7 +30,7 @@ class RecNoteAdapter(private val recViewClickListener: RecViewClickListener) :
         val txtName: TextView = itemView.findViewById(R.id.txtName)
         val txtPhone: TextView = itemView.findViewById(R.id.txtPhone)
         val txtDate: TextView = itemView.findViewById(R.id.txtDate)
-        val txtTime: TextView = itemView.findViewById(R.id.txtTime)
+        val txtTime: TextView = itemView.findViewById(R.id.txtTimeStart)
         val btnCall: ImageView = itemView.findViewById(R.id.btnCall)
         val btnDelete: ImageView = itemView.findViewById(R.id.btnDelete)
     }

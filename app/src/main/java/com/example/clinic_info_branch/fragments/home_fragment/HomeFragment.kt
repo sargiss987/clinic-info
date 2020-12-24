@@ -1,3 +1,4 @@
+
 package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.*
@@ -16,13 +17,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
+import com.example.clinic_info_branch.Views.RAW
 import com.example.clinic_info_branch.models.Notes
 import com.example.clinic_info_branch.adapters.RecNoteAdapter
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.fragments.BaseFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.PatientPersonalPageFragment
-import com.insta.mycalendar.SimpleCalendar
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -39,7 +40,10 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
-    private lateinit var fullNameList: MutableSet<String>
+    private lateinit var fullNameList : MutableSet<String>
+
+
+
 
     override fun onResume() {
         super.onResume()
@@ -54,7 +58,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
             //init fullNameList
             fullNameList = mutableSetOf()
-            db.patientDao().getAllPatients().forEach {
+            db.patientDao().getAllPatients().forEach{
                 fullNameList.add(it.patientName)
             }
             noteList.forEach {
@@ -157,23 +161,29 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
                     R.id.currentWeek -> {
 
-                        searchingList.clear()
-                        var i = 0
-                        while (i < 7) {
-                            val dateText =
-                                DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
-                            searchingList.plusAssign(noteList.filter {
-                                it.date == dateText
-                            }.toMutableList())
-                            calendar.add(Calendar.DAY_OF_YEAR, +1)
-                            i++
+                        fragmentManager?.beginTransaction()?.apply {
+                            replace(R.id.fragmentContainer, WeeklyEventsFragment())
+                            addToBackStack(null)
+                            commit()
                         }
-                        viewAdapter.setList(searchingList)
+
+//                        searchingList.clear()
+//                        var i = 0
+//                        while (i < 7) {
+//                            val dateText =
+//                                DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
+//                            searchingList.plusAssign(noteList.filter {
+//                                it.date == dateText
+//                            }.toMutableList())
+//                            calendar.add(Calendar.DAY_OF_YEAR, +1)
+//                            i++
+//                        }
+//                        viewAdapter.setList(searchingList)
 //                        val calendarLastWeek = calendar.add(Calendar.DAY_OF_YEAR,-7)
 //                        val searchingList  = noteList.filter{
 //                            it.getCalendar().after(calendarLastWeek)
 //                        }
-//r
+//
 //                        viewAdapter.setList(searchingList)
                     }
 
@@ -233,6 +243,66 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             }
         }
 
+        //settings
+        settings.setOnClickListener {
+            val settingsMenu = PopupMenu(context,settings)
+            settingsMenu.inflate(R.menu.settings_menu)
+            settingsMenu.show()
+
+            settingsMenu.setOnMenuItemClickListener {
+
+                when(it.itemId){
+
+                    R.id.workingTimes -> {
+
+                        val mDialogView = LayoutInflater.from(context).inflate(R.layout.time_picker, null)
+                        val btnStartTime = mDialogView.findViewById<Button>(R.id.btnStartTime)
+                        val btnEndTime = mDialogView.findViewById<Button>(R.id.btnEndTime)
+                        val txtStartTime = mDialogView.findViewById<TextView>(R.id.txtTimeStart)
+                        val txtEndTime = mDialogView.findViewById<TextView>(R.id.txtTimeEnd)
+                        val etNotesCount = mDialogView.findViewById<EditText>(R.id.etNotesCount)
+
+                        val mBuilder = AlertDialog.Builder(context)
+                            .setView(mDialogView)
+                            .setTitle("Create Working Schedule")
+                            .setPositiveButton("Create"){ _, _ ->
+                                  RAW = etNotesCount.text.toString().toInt()
+                            }
+                            .setNegativeButton("Cancel"){ _, _ ->
+
+                            }
+
+                        btnStartTime.setOnClickListener {
+                            handleTimeButton(txtStartTime)
+
+                        }
+
+                        btnEndTime.setOnClickListener {
+                            handleTimeButton(txtEndTime)
+
+                        }
+
+                        mBuilder.show()
+
+                    }
+
+                    R.id.notesCount -> {
+
+                        RAW = 20
+
+                    }
+
+                }
+
+                true
+            }
+
+
+            }
+
+
+
+
         //Add new note
         addNote.setOnClickListener {
 
@@ -250,13 +320,13 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
             //create and set adapter to etName
             val adapter = context?.let { it1 ->
-                ArrayAdapter(
-                    it1,
-                    android.R.layout.simple_list_item_1,
-                    fullNameList.toList()
-                )
-            }
+                    ArrayAdapter(
+                        it1,
+                        android.R.layout.simple_list_item_1,
+                        fullNameList.toList())
+                }
             etName.setAdapter(adapter)
+
 
 
             val mBuilder = AlertDialog.Builder(context)
@@ -295,7 +365,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             //pick date
             btnPickDate.setOnClickListener {
                 handelDateButton(txtDateDialog)
-
             }
 
             //pick time
@@ -311,24 +380,31 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     }
 
     //pick date
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun handelDateButton(view: TextView) {
-      val calendar = Calendar.getInstance()
-          val year = calendar.get(Calendar.YEAR)
-          val month = calendar.get(Calendar.MONTH)
-          val dayOfMonth = calendar.get(Calendar.DATE)
-          val datePickerDialog =
-              context?.let {
-                  DatePickerDialog(it, { _, i, i2, i3 ->
-                      val calendar1 = Calendar.getInstance()
-                      calendar1.set(Calendar.YEAR, i)
-                      calendar1.set(Calendar.MONTH, i2)
-                      calendar1.set(Calendar.DATE, i3)
-                      val dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString()
-                      view.text = dateText
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DATE)
+        val datePickerDialog =
+            context?.let {
+                DatePickerDialog(it, { _, i, i2, i3 ->
+                    val calendar1 = Calendar.getInstance()
+                    calendar1.set(Calendar.YEAR, i)
+                    calendar1.set(Calendar.MONTH, i2)
+                    calendar1.set(Calendar.DATE, i3)
+                    val dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString()
+                    view.text = dateText
 
-                  }, year, month, dayOfMonth)
-              }
-          datePickerDialog?.show()
+                }, year, month, dayOfMonth)
+            }
+
+
+
+
+        datePickerDialog?.show()
+
+
     }
 
     //pick time
@@ -346,7 +422,11 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 val dateText = DateFormat.format("h:mm a", calendar1).toString()
                 view.text = dateText
 
+
+
             }, hourOfDay, minute, true)
+
+
 
         timePickerDialog.show()
 
@@ -374,7 +454,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             GlobalScope.launch(Dispatchers.Default) {
 
                 db.notesDao().deleteNote(note)
-                delay(1000)
                 withContext(Dispatchers.Main) {
 
                     //update list
@@ -389,7 +468,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             GlobalScope.launch(Dispatchers.Default) {
 
                 db.notesDao().deleteNote(note)
-                delay(1000)
                 withContext(Dispatchers.Main) {
                     progressBarHome.visibility = View.GONE
                     //update list
@@ -397,17 +475,20 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     viewAdapter.setList(noteList)
                 }
             }
+
         }
+
+
     }
 
     //on click
     override fun onClick(position: Int) {
-        var patient: Patient? = null
+        var patient : Patient? = null
         GlobalScope.launch(Dispatchers.Default) {
-            patient = db.patientDao().getPatient(noteList[position].phone)
+            patient  = db.patientDao().getPatient(noteList[position].phone)
 
-            withContext(Dispatchers.Main) {
-                if (patient != null) {
+            withContext(Dispatchers.Main){
+                if(patient != null) {
                     val bundle = Bundle()
                     bundle.putString(PATIENT_INFO_HOME, patient!!.phone)
                     bundle.putInt(REQUEST_FROM_HOME, HOME_REQUEST)
@@ -418,29 +499,31 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                         addToBackStack(null)
                         commit()
                     }
-                } else {
+                }else{
 
                     AlertDialog.Builder(context)
                         .setTitle("Create Patient")
                         .setMessage("Do you want to create a patient")
-                        .setPositiveButton("Yes") { _, _ ->
+                        .setPositiveButton("Yes"){ _, _ ->
 
                             fragmentManager?.beginTransaction()?.apply {
                                 replace(
                                     R.id.fragmentContainer,
-                                    RegisterFragment()
-                                )
+                                    RegisterFragment())
                                 addToBackStack(null)
                                 commit()
                             }
+
                         }
-                        .setNegativeButton("Cancel") { _, _ ->
+                        .setNegativeButton("Cancel"){ _, _ ->
 
                         }
                         .show()
                 }
+
             }
         }
+
     }
 
     //make call
@@ -482,6 +565,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             }
         }
     }
+
 
 
     //job cancel

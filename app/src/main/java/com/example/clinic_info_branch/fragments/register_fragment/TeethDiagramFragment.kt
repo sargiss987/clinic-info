@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
+import com.example.clinic_info_branch.Views.stateOfTeethList
 import com.example.clinic_info_branch.data_base.OralHealth
 import com.example.clinic_info_branch.fragments.BaseFragment
-
 import com.example.clinic_info_branch.fragments.searching_fragment.*
-import com.example.clinic_info_branch.models.stateOfTeethList
 import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_teeth_diagram.*
 import kotlinx.coroutines.Dispatchers

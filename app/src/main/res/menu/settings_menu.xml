@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Choose Working Times"
+        android:id="@+id/workingTimes"/>
+
+    <item
+        android:title="Choose Count of Notes"
+        android:id="@+id/notesCount"/>
+
+</menu>

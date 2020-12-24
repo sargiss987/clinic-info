@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.models
+package com.example.clinic_info_branch.Views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -155,20 +155,7 @@ class DentalDiagram @JvmOverloads constructor(
         }
     }
 
-    //draw pathological abbreviation
-    private fun drawOptions(canvas: Canvas) {
-        val x = 10f
-        val y = 50f
-        val str = resources.getStringArray(R.array.dentalDiagram)
 
-        var i = 0
-        var j = 1
-        while (i < 11) {
-            canvas.drawText(str[i], x, y * j, txtPaintOption)
-            j++
-            i++
-        }
-    }
 
     //Point damaged tooth
     private fun drawX(canvas: Canvas, rectF: RectF) {

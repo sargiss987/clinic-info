@@ -10,11 +10,16 @@ data class Notes(
     val name: String,
     val phone: String,
     val date: String,
-    //val timeInMillis: Long,
     val time: String
 
 
-)// {
+){
+    var uniqueData: String = ""
+
+
+
+}
+// {
 //
 //
 //    fun getCalendar(): Calendar =
