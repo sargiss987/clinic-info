@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Material">
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

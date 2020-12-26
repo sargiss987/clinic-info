@@ -1,8 +1,8 @@
 package com.example.clinic_info_branch
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.fragment.app.Fragment
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         makeCurrentFragment(homeFragment)
         setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setLogo(R.drawable.ic_baseline_medical_services_24)
         supportActionBar?.setDisplayUseLogoEnabled(true)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fragmentContainer, fragment)
             commit()
         }
-
+/*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -59,6 +60,12 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }*/
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
+
 
 }
