@@ -1,7 +1,9 @@
 package com.example.clinic_info_branch
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.fragment.app.Fragment
 import com.example.clinic_info_branch.fragments.home_fragment.HomeFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
@@ -42,4 +44,17 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fragmentContainer, fragment)
             commit()
         }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                NavUtils.navigateUpFromSameTask(this)
+                // overridePendingTransition(R.animator.anim_left, R.animator.anim_right);
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }
