@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:hint="@string/phoneN"
         android:inputType="number"
@@ -44,11 +46,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/ic_baseline_date_range_24"
+        android:paddingStart="16dp"
         app:layout_constraintTop_toBottomOf="@id/etPhone"
         app:layout_constraintStart_toStartOf="@+id/parent"
-        />
+        tools:ignore="RtlSymmetry" />
 
 
     <TextView
@@ -56,7 +59,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/etPhone"
@@ -67,11 +70,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/time"
+        android:paddingStart="16dp"
         app:layout_constraintTop_toBottomOf="@id/imgDate"
         app:layout_constraintStart_toStartOf="@+id/parent"
-        />
+        tools:ignore="RtlSymmetry,UnknownIdInLayout" />
 
 
     <TextView
@@ -79,7 +83,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/imgDate"
@@ -90,7 +94,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/imgDate"
@@ -101,7 +105,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" - "
