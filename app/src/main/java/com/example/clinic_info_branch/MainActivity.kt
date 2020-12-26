@@ -18,8 +18,11 @@ class MainActivity : AppCompatActivity() {
         val registerFragment = RegisterFragment()
         val searchFragment = SearchingFragment()
 
-
         makeCurrentFragment(homeFragment)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setLogo(R.drawable.ic_baseline_medical_services_24)
+        supportActionBar?.setDisplayUseLogoEnabled(true)
 
         //button navigates fragments
         bottom_navigation.setOnNavigationItemSelectedListener {
