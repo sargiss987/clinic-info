@@ -1,5 +1,6 @@
 package com.example.clinic_info_branch
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +51,11 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 NavUtils.navigateUpFromSameTask(this)
                 // overridePendingTransition(R.animator.anim_left, R.animator.anim_right);
-                true
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                return true
+
             }
             else -> super.onOptionsItemSelected(item)
         }
