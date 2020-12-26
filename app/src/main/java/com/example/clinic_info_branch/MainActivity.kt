@@ -51,15 +51,14 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 NavUtils.navigateUpFromSameTask(this)
                 // overridePendingTransition(R.animator.anim_left, R.animator.anim_right);
-                val intent = Intent(this, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
+                //val intent = Intent(this, MainActivity::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                //startActivity(intent)
                 return true
 
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 }
