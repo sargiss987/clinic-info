@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setLogo(R.drawable.ic_baseline_medical_services_24)
+        supportActionBar?.setTitle(R.string.app_name)
+        supportActionBar?.subtitle
         supportActionBar?.setDisplayUseLogoEnabled(true)
 
         //button navigates fragments
@@ -46,21 +48,6 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fragmentContainer, fragment)
             commit()
         }
-/*
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                NavUtils.navigateUpFromSameTask(this)
-                // overridePendingTransition(R.animator.anim_left, R.animator.anim_right);
-                //val intent = Intent(this, MainActivity::class.java)
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                //startActivity(intent)
-                return true
-
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }*/
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
