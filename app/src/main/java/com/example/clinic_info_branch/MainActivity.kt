@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         val homeFragment = HomeFragment()
         val registerFragment = RegisterFragment()
         val searchFragment = SearchingFragment()
+        val intent = intent
 
         makeCurrentFragment(homeFragment)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -61,7 +62,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.reset -> return true
+            R.id.reset -> {
+                finish()
+                startActivity(intent)
+            }
             R.id.about ->
                 Toast.makeText(this, R.string.about_toast, Toast.LENGTH_LONG).show();
             R.id.exit ->
