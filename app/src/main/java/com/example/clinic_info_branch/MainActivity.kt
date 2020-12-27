@@ -1,6 +1,7 @@
 package com.example.clinic_info_branch
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
@@ -54,5 +55,18 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu);
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.reset -> return true
+            R.id.about -> return true
+            R.id.exit -> return true
+        }
+        return (super.onOptionsItemSelected(item))
+    }
 
 }

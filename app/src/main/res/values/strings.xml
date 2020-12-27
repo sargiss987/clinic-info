@@ -112,6 +112,10 @@
     <string name="today">Today</string>
     <string name="custom">Custom</string>
     <string name="treatment_process_txt">Բուժման գործնթաց</string>
+    <string name="add">Add</string>
+    <string name="reset">Reset</string>
+    <string name="about">About</string>
+    <string name="exit">Exit</string>
 
 
     <string-array name="days">
