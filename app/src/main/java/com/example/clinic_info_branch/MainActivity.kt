@@ -25,9 +25,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setLogo(R.drawable.ic_baseline_medical_services_24)
         supportActionBar?.setTitle(R.string.app_name)
-        supportActionBar?.subtitle
+        supportActionBar?.subtitle = "Dental clinic"
         supportActionBar?.setDisplayUseLogoEnabled(true)
 
         //button navigates fragments
