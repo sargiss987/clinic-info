@@ -1,4 +1,3 @@
-
 package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.*
@@ -40,10 +39,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
-    private lateinit var fullNameList : MutableSet<String>
-
-
-
+    private lateinit var fullNameList: MutableSet<String>
 
     override fun onResume() {
         super.onResume()
@@ -58,7 +54,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
             //init fullNameList
             fullNameList = mutableSetOf()
-            db.patientDao().getAllPatients().forEach{
+            db.patientDao().getAllPatients().forEach {
                 fullNameList.add(it.patientName)
             }
             noteList.forEach {
@@ -228,10 +224,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                                     date
                                 )
                             }
-
                         datePickerDialog?.show()
-
-
                     }
                     else -> {
                         searchingList.clear()
@@ -245,17 +238,18 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
         //settings
         settings.setOnClickListener {
-            val settingsMenu = PopupMenu(context,settings)
+            val settingsMenu = PopupMenu(context, settings)
             settingsMenu.inflate(R.menu.settings_menu)
             settingsMenu.show()
 
             settingsMenu.setOnMenuItemClickListener {
 
-                when(it.itemId){
+                when (it.itemId) {
 
                     R.id.workingTimes -> {
 
-                        val mDialogView = LayoutInflater.from(context).inflate(R.layout.time_picker, null)
+                        val mDialogView =
+                            LayoutInflater.from(context).inflate(R.layout.time_picker, null)
                         val btnStartTime = mDialogView.findViewById<Button>(R.id.btnStartTime)
                         val btnEndTime = mDialogView.findViewById<Button>(R.id.btnEndTime)
                         val txtStartTime = mDialogView.findViewById<TextView>(R.id.txtTimeStart)
@@ -265,10 +259,10 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                         val mBuilder = AlertDialog.Builder(context)
                             .setView(mDialogView)
                             .setTitle("Create Working Schedule")
-                            .setPositiveButton("Create"){ _, _ ->
-                                  RAW = etNotesCount.text.toString().toInt()
+                            .setPositiveButton("Create") { _, _ ->
+                                RAW = etNotesCount.text.toString().toInt()
                             }
-                            .setNegativeButton("Cancel"){ _, _ ->
+                            .setNegativeButton("Cancel") { _, _ ->
 
                             }
 
@@ -287,21 +281,12 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     }
 
                     R.id.notesCount -> {
-
                         RAW = 20
-
                     }
-
                 }
-
                 true
             }
-
-
-            }
-
-
-
+        }
 
         //Add new note
         addNote.setOnClickListener {
@@ -320,14 +305,13 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
             //create and set adapter to etName
             val adapter = context?.let { it1 ->
-                    ArrayAdapter(
-                        it1,
-                        android.R.layout.simple_list_item_1,
-                        fullNameList.toList())
-                }
+                ArrayAdapter(
+                    it1,
+                    android.R.layout.simple_list_item_1,
+                    fullNameList.toList()
+                )
+            }
             etName.setAdapter(adapter)
-
-
 
             val mBuilder = AlertDialog.Builder(context)
                 .setView(mDialogView)
@@ -356,8 +340,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                             viewAdapter.setList(noteList)
                         }
                     }
-
-
                 }
                 .setNegativeButton("Cancel") { _, _ ->
 
@@ -372,11 +354,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 handleTimeButton(txtTimeDialog)
             }
 
-
             mBuilder.show()
         }
-
-
     }
 
     //pick date
@@ -398,13 +377,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
                 }, year, month, dayOfMonth)
             }
-
-
-
-
         datePickerDialog?.show()
-
-
     }
 
     //pick time
@@ -421,15 +394,9 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 calendar1.set(Calendar.MINUTE, i2)
                 val dateText = DateFormat.format("h:mm a", calendar1).toString()
                 view.text = dateText
-
-
-
             }, hourOfDay, minute, true)
 
-
-
         timePickerDialog.show()
-
     }
 
     //dialing
@@ -441,7 +408,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             this.phoneNumber = noteList[position].phone
             makePhoneCall(phoneNumber)
         }
-
     }
 
     //delete entry
@@ -461,7 +427,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     viewAdapter.setList(searchingList)
                 }
             }
-
         } else {
             note = noteList[position]
             //delete note from database
@@ -475,20 +440,17 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     viewAdapter.setList(noteList)
                 }
             }
-
         }
-
-
     }
 
     //on click
     override fun onClick(position: Int) {
-        var patient : Patient? = null
+        var patient: Patient? = null
         GlobalScope.launch(Dispatchers.Default) {
-            patient  = db.patientDao().getPatient(noteList[position].phone)
+            patient = db.patientDao().getPatient(noteList[position].phone)
 
-            withContext(Dispatchers.Main){
-                if(patient != null) {
+            withContext(Dispatchers.Main) {
+                if (patient != null) {
                     val bundle = Bundle()
                     bundle.putString(PATIENT_INFO_HOME, patient!!.phone)
                     bundle.putInt(REQUEST_FROM_HOME, HOME_REQUEST)
@@ -499,31 +461,29 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                         addToBackStack(null)
                         commit()
                     }
-                }else{
+                } else {
 
                     AlertDialog.Builder(context)
                         .setTitle("Create Patient")
                         .setMessage("Do you want to create a patient")
-                        .setPositiveButton("Yes"){ _, _ ->
+                        .setPositiveButton("Yes") { _, _ ->
 
                             fragmentManager?.beginTransaction()?.apply {
                                 replace(
                                     R.id.fragmentContainer,
-                                    RegisterFragment())
+                                    RegisterFragment()
+                                )
                                 addToBackStack(null)
                                 commit()
                             }
-
                         }
-                        .setNegativeButton("Cancel"){ _, _ ->
+                        .setNegativeButton("Cancel") { _, _ ->
 
                         }
                         .show()
                 }
-
             }
         }
-
     }
 
     //make call
@@ -565,8 +525,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             }
         }
     }
-
-
 
     //job cancel
     override fun onStop() {

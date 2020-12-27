@@ -26,15 +26,15 @@ var startTime = 10
 var endTime = 20
 
 class WeeklyEvents @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
     private val startHeight = 200f
     private val cellsCount = (0..RAW * 7)
     private val cells = mutableListOf<RectF>()
-    private var cellsData =  MutableList(RAW*7){ _ -> 0 }
+    private var cellsData = MutableList(RAW * 7) { _ -> 0 }
     private val cellsUniqueData = mutableListOf<String>()
     private val cellsStringData = mutableListOf<String>()
     private lateinit var cellNext: RectF
@@ -42,7 +42,6 @@ class WeeklyEvents @JvmOverloads constructor(
     val db = ClinicInfo.getDatabase(context)
     private lateinit var noteList: MutableList<Notes>
     private var millis: Long = 0
-
 
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.GRAY
@@ -52,26 +51,22 @@ class WeeklyEvents @JvmOverloads constructor(
     private val dateTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLUE
         textSize = 85f
-
     }
 
     private val dayOfWeekPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLUE
         textSize = 32f
-
     }
 
     private val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLUE
         style = Paint.Style.FILL
-
     }
 
     private val rectBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         style = Paint.Style.STROKE
         strokeWidth = 4f
-
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -82,7 +77,6 @@ class WeeklyEvents @JvmOverloads constructor(
             drawTime(canvas)
             fillCells(canvas)
             initCells()
-
         }
     }
 
@@ -93,10 +87,10 @@ class WeeklyEvents @JvmOverloads constructor(
         var j = 0f
         if (w > 0 && h > 0) {
             cellNext = RectF(width - width / 7f, 0f, width.toFloat(), startHeight / 2)
-            cellPrevious = RectF(0f,0f,width - width / 7f,startHeight / 2)
+            cellPrevious = RectF(0f, 0f, width - width / 7f, startHeight / 2)
             cellsCount.forEach { _ ->
-                val left = w/8 + w/8 * i
-                val right = left + w/8
+                val left = w / 8 + w / 8 * i
+                val right = left + w / 8
                 val top = startHeight + ((h - startHeight) / RAW) * j
                 val bottom = top + (h - startHeight) / RAW
                 val cell = RectF(left, top, right, bottom)
@@ -115,12 +109,12 @@ class WeeklyEvents @JvmOverloads constructor(
 
 
             if (cellNext.contains(event.x, event.y)) {
-                cellsData = MutableList(RAW*7){i -> 0 }
+                cellsData = MutableList(RAW * 7) { i -> 0 }
                 increase += 7
                 invalidate()
             }
-            if (cellPrevious.contains(event.x, event.y)){
-                cellsData = MutableList(RAW*7){i -> 0 }
+            if (cellPrevious.contains(event.x, event.y)) {
+                cellsData = MutableList(RAW * 7) { i -> 0 }
                 increase -= 7
                 invalidate()
             }
@@ -131,8 +125,6 @@ class WeeklyEvents @JvmOverloads constructor(
                     addNote(i)
                     invalidate()
                 }
-
-
                 i++
             }
         }
@@ -152,55 +144,53 @@ class WeeklyEvents @JvmOverloads constructor(
         }
     }
 
-    private fun checkCells(){
+    private fun checkCells() {
         var i = 0
         while (i < cellsUniqueData.size) {
             noteList.forEach {
                 if (it.uniqueData == cellsUniqueData[i]) {
                     cellsData[i] = 1
                 }
-
             }
-
             i++
         }
     }
 
     //init cells
-    private fun initCells(){
+    private fun initCells() {
 
         GlobalScope.launch(Dispatchers.IO) {
             //get notes
-            noteList  = db.notesDao().getAllNotes()
+            noteList = db.notesDao().getAllNotes()
             checkCells()
 
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
 
                 invalidate()
-
             }
         }
     }
 
     //draw time
-    private fun drawTime(canvas: Canvas){
+    private fun drawTime(canvas: Canvas) {
 
-        val count: Int = ((endTime - startTime)/ RAW)
+        val count: Int = ((endTime - startTime) / RAW)
         var currentTime = startTime
 
-        canvas.drawText("$startTime",50f,startHeight+40f,dayOfWeekPaint)
+        canvas.drawText("$startTime", 50f, startHeight + 40f, dayOfWeekPaint)
 
         var i = 1
-        while (i < RAW+1){
+        while (i < RAW + 1) {
             currentTime += count
             canvas.drawText(
-                "$currentTime",50f,
-                startHeight+((height-startHeight)/ RAW)*i-30f,dayOfWeekPaint)
-
+                "$currentTime", 50f,
+                startHeight + ((height - startHeight) / RAW) * i - 30f, dayOfWeekPaint
+            )
 
             canvas.drawText(
-                "$currentTime",50f,
-                startHeight+((height-startHeight)/ RAW)*i+ 40f,dayOfWeekPaint)
+                "$currentTime", 50f,
+                startHeight + ((height - startHeight) / RAW) * i + 40f, dayOfWeekPaint
+            )
             i++
         }
     }
@@ -211,24 +201,22 @@ class WeeklyEvents @JvmOverloads constructor(
         var i = 1
         while (i < 9) {
             canvas.drawLine(
-                    i * width / 8.toFloat(), startHeight, i * width / 8.toFloat(), height.toFloat(),
-                    linePaint)
-
+                i * width / 8.toFloat(), startHeight, i * width / 8.toFloat(), height.toFloat(),
+                linePaint
+            )
             i++
         }
 
         i = 0
         val currentHeight = height - startHeight
-        while (i < raw+1) {
+        while (i < raw + 1) {
             canvas.drawLine(
-                    width/8f, startHeight + (i * currentHeight / raw.toFloat()), width.toFloat(),
-                    startHeight + (i * currentHeight / raw.toFloat()),
-                    linePaint)
-
+                width / 8f, startHeight + (i * currentHeight / raw.toFloat()), width.toFloat(),
+                startHeight + (i * currentHeight / raw.toFloat()),
+                linePaint
+            )
             i++
         }
-
-
     }
 
     //draw date
@@ -244,45 +232,47 @@ class WeeklyEvents @JvmOverloads constructor(
             add(Calendar.DAY_OF_YEAR, increase)
         }
 
-
         val dateText = DateFormat.format("yyyy, MMM", calendar).toString()
         canvas.drawText(dateText, width / 3f, 70f, dateTextPaint)
-
 
         var i = 0
         var j = 0
         var k = 0
         while (i < 7) {
 
-            calendar.add(Calendar.DAY_OF_YEAR, +1*j)
+            calendar.add(Calendar.DAY_OF_YEAR, +1 * j)
             val dayOfWeek = DateFormat.format("EE d", calendar).toString()
-            val fullDate =  DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
+            val fullDate = DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
 
-
-            canvas.drawText(dayOfWeek, width/8 + width / 8f * i + 10, (startHeight - 20), dayOfWeekPaint)
+            canvas.drawText(
+                dayOfWeek,
+                width / 8 + width / 8f * i + 10,
+                (startHeight - 20),
+                dayOfWeekPaint
+            )
             cellsStringData.add(fullDate)
             cellsUniqueData.add(fullDate)
             i++
             j = 1
-
         }
 
         j = 0
-        while (j < RAW*7-7){
+        while (j < RAW * 7 - 7) {
 
             cellsStringData.add(cellsStringData[j])
             cellsUniqueData.add("${cellsUniqueData[j]}, $k")
             j++
 
-            if (j == j+6){
+            if (j == j + 6) {
                 k++
             }
         }
     }
 
     //add note
-    private fun addNote(position: Int){
-        val mDialogView = LayoutInflater.from(context).inflate(R.layout.create_note_from_weekly_events, null)
+    private fun addNote(position: Int) {
+        val mDialogView =
+            LayoutInflater.from(context).inflate(R.layout.create_note_from_weekly_events, null)
         val btnStartTime = mDialogView.findViewById<Button>(R.id.startTime)
         val btnEndTime = mDialogView.findViewById<Button>(R.id.endTime)
         val txtDate = mDialogView.findViewById<TextView>(R.id.txtDate)
@@ -295,59 +285,47 @@ class WeeklyEvents @JvmOverloads constructor(
         var date: String
         var time: String
 
-
-
-
         txtDate.text = cellsStringData[position]
 
-
         val mBuilder = AlertDialog.Builder(context)
-                .setView(mDialogView)
-                .setTitle("Create Note")
-                .setPositiveButton("Create") { _, _ ->
-                    name = txtName.text.toString()
-                    phone = txtPhone.text.toString()
-                    date = cellsStringData[position]
-                    time = "${txtStartTime.text} - ${txtEndTime.text}"
+            .setView(mDialogView)
+            .setTitle("Create Note")
+            .setPositiveButton("Create") { _, _ ->
+                name = txtName.text.toString()
+                phone = txtPhone.text.toString()
+                date = cellsStringData[position]
+                time = "${txtStartTime.text} - ${txtEndTime.text}"
 
-                    val note = Notes(
-                        0, name, phone, date, time
-                    )
+                val note = Notes(
+                    0, name, phone, date, time
+                )
 
+                note.uniqueData = cellsUniqueData[position]
+                invalidate()
 
-                    note.uniqueData  = cellsUniqueData[position]
-                    invalidate()
+                Toast.makeText(context, cellsUniqueData[position], Toast.LENGTH_SHORT).show()
 
-                    Toast.makeText(context, cellsUniqueData[position], Toast.LENGTH_SHORT).show()
-
-
-
-                    //insert note to database
-                    GlobalScope.launch(Dispatchers.Default) {
-                           db.notesDao().insertNote(note)
-
-                    }
-
+                //insert note to database
+                GlobalScope.launch(Dispatchers.Default) {
+                    db.notesDao().insertNote(note)
                 }
-                .setNegativeButton("Cancel") { _, _ ->
-        }
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+            }
 
         btnStartTime.setOnClickListener {
-             millis = handleTimeButton(txtStartTime)
-
+            millis = handleTimeButton(txtStartTime)
         }
 
         btnEndTime.setOnClickListener {
             handleTimeButton(txtEndTime)
         }
 
-
         mBuilder.show()
-
     }
 
     //pick time
-    private fun handleTimeButton(view: TextView) : Long {
+    private fun handleTimeButton(view: TextView): Long {
         //var millis: Long
         val calendar = Calendar.getInstance()
         val hourOfDay = calendar.get(Calendar.HOUR)
@@ -366,13 +344,8 @@ class WeeklyEvents @JvmOverloads constructor(
 
             }, hourOfDay, minute, true)
 
-
-
         timePickerDialog.show()
 
         return calendar.timeInMillis
-
     }
-
-
 }

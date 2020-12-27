@@ -44,10 +44,7 @@ class RegisterFragment : BaseFragment() {
                 fullNameList.add(it.patientName)
                 countryList.add(it.placeOfResidence)
             }
-
-
         }
-
 
         //create view model instance
         viewModel = ViewModelProvider(activity!!).get(ViewModel::class.java)

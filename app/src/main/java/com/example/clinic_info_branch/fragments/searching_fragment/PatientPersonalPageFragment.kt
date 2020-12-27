@@ -29,7 +29,8 @@ const val addRequestProcess = 188
 const val REQUEST_UPDATE_HEALTH = "request_from_register"
 const val updateRequestHealth = 130
 
-class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.RecViewClickListener {
+class PatientPersonalPageFragment : BaseFragment(),
+    RecTreatmentProcessAdapter.RecViewClickListener {
 
     var patient: Patient? = null
     private lateinit var viewAdapter: RecTreatmentProcessAdapter
@@ -51,7 +52,7 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
         val request = arguments?.getInt(REQUEST_FROM_HOME)
 
 
-        if (request == HOME_REQUEST){
+        if (request == HOME_REQUEST) {
             val phone = arguments?.getString(PATIENT_INFO_HOME)
             job = GlobalScope.launch(Dispatchers.Default) {
 
@@ -69,13 +70,12 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
                             adapter = viewAdapter
                         }
 
-                        initView(patient,view)
+                        initView(patient, view)
                     }
                 }
-
             }
 
-        }else{
+        } else {
             position = arguments?.getInt(PATIENT_INFO)!!
 
             //get treatment process list from database
@@ -97,14 +97,11 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
 
                     patient = patientList[position]
 
-                    initView(patient,view)
-        }
-
+                    initView(patient, view)
+                }
             }
         }
-
         return view
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -140,7 +137,9 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
             bundle.putInt(REQUEST_ADD_PROCESS, addRequestProcess)
             bundle.putString(PHONE_FROM_PERSONAL_PAGE, patient?.phone)
             fragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, TreatmentProcessFragment().apply { arguments = bundle })
+                replace(
+                    R.id.fragmentContainer,
+                    TreatmentProcessFragment().apply { arguments = bundle })
                 addToBackStack(null)
                 commit()
             }
@@ -163,7 +162,7 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
     }
 
     //init view
-    private fun initView(patient: Patient?,view: View){
+    private fun initView(patient: Patient?, view: View) {
         var healthInfo: String =
             if (patient?.healthInfo?.allergicManifestation!!.isEmpty()) {
                 "${patient?.healthInfo?.allergy} ${patient?.healthInfo?.bleeding}"
@@ -265,6 +264,4 @@ class PatientPersonalPageFragment : BaseFragment(), RecTreatmentProcessAdapter.R
         super.onDestroy()
         job.cancel()
     }
-
-
 }
