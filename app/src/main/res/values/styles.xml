@@ -9,7 +9,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blue</item>
 
     </style>
 
@@ -37,7 +37,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textColorHint">@android:color/tertiary_text_dark</item>
         <item name="android:textSize">20sp</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blue</item>
         <item name="colorControlNormal">@android:color/tertiary_text_dark</item>
         <item name="colorControlActivated">@android:color/holo_orange_light</item>
     </style>

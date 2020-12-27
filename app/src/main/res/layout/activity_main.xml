@@ -9,7 +9,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="@color/colorAccent"
+        android:theme="@style/AppThemeActionBar"
+        android:background="@color/blueWrite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -24,8 +25,9 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/AppThemeActionBar"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
+        android:background="@color/blueWrite"
         app:menu="@menu/navigation_menu" />
 
 
