@@ -3,9 +3,8 @@ package com.example.clinic_info_branch
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toolbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import androidx.fragment.app.Fragment
 import com.example.clinic_info_branch.fragments.home_fragment.HomeFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
@@ -63,8 +62,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.reset -> return true
-            R.id.about -> return true
-            R.id.exit -> return true
+            R.id.about ->
+                Toast.makeText(this, R.string.about_toast, Toast.LENGTH_LONG).show();
+            R.id.exit ->
+                finish()
         }
         return (super.onOptionsItemSelected(item))
     }
