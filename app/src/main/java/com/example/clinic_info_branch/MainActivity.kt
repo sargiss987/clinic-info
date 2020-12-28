@@ -62,6 +62,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.setting -> {
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+            }
             R.id.reset -> {
                 finish()
                 startActivity(intent)
