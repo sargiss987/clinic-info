@@ -5,6 +5,12 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never"
+        android:title="@string/settings"/>
+
+    <item
         android:id="@+id/reset"
         android:icon="@android:drawable/ic_menu_revert"
         app:showAsAction="ifRoom|withText"

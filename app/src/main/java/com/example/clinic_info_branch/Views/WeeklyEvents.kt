@@ -1,5 +1,6 @@
 package com.example.clinic_info_branch.Views
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -104,17 +105,18 @@ class WeeklyEvents @JvmOverloads constructor(
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_UP) {
 
 
             if (cellNext.contains(event.x, event.y)) {
-                cellsData = MutableList(RAW * 7) { i -> 0 }
+                cellsData = MutableList(RAW * 7) { 0 }
                 increase += 7
                 invalidate()
             }
             if (cellPrevious.contains(event.x, event.y)) {
-                cellsData = MutableList(RAW * 7) { i -> 0 }
+                cellsData = MutableList(RAW * 7) { 0 }
                 increase -= 7
                 invalidate()
             }

@@ -117,6 +117,7 @@
     <string name="about">About</string>
     <string name="exit">Exit</string>
     <string name="about_toast">Ատամնաբուժարանի համար նախատեսված բջջային հավելված</string>
+    <string name="settings">Settings</string>
 
 
     <string-array name="days">
