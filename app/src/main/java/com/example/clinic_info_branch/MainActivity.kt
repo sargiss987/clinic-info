@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.about_toast, Toast.LENGTH_LONG).show();
             R.id.exit ->
                 finish()
+
         }
         return (super.onOptionsItemSelected(item))
     }
