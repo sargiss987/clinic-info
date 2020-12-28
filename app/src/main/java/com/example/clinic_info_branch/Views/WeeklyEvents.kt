@@ -76,13 +76,14 @@ class WeeklyEvents @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.let {
-            drawBoard(it, RAW)
-            drawDate(it)
-            drawTime(it)
-            fillCells(it)
-            initCells() }
+        if (canvas != null) {
+            drawBoard(canvas, RAW)
+            drawDate(canvas)
+            drawTime(canvas)
+            fillCells(canvas)
+            initCells()
 
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
