@@ -20,4 +20,7 @@ interface NotesDao {
 
     @Query("SELECT * FROM notes WHERE date=:currentDate")
     fun getNotesByDate(currentDate : String) : List<Notes>
+
+    @Query("SELECT * FROM notes WHERE date = :p0")
+    fun getNotes(p0: String) : MutableList<Notes>
 }

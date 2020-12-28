@@ -17,7 +17,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.Views.RAW
 import com.example.clinic_info_branch.models.Notes
 import com.example.clinic_info_branch.adapters.RecNoteAdapter
 import com.example.clinic_info_branch.data_base.Patient
@@ -40,7 +39,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
-    private lateinit var fullNameList : MutableSet<String>
+    private var fullNameList : MutableSet<String> = mutableSetOf()
 
 
 
@@ -188,16 +187,23 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     }
 
                     R.id.today -> {
+                        fragmentManager?.beginTransaction()?.apply {
+                            replace(R.id.fragmentContainer, DailyEventsFragment())
+                            addToBackStack(null)
+                            commit()
+                        }
 
-                        searchingList.clear()
-                        val dateText =
-                            DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
-                        searchingList = noteList.filter {
-                            it.date.contains(dateText)
-                        }.toMutableList()
-
-                        viewAdapter.setList(searchingList)
                     }
+
+//                        searchingList.clear()
+//                        val dateText =
+//                            DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
+//                        searchingList = noteList.filter {
+//                            it.date.contains(dateText)
+//                        }.toMutableList()
+//
+//                        viewAdapter.setList(searchingList)
+//                    }
 
                     R.id.custom -> {
 
@@ -243,62 +249,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             }
         }
 
-        //settings
-        settings.setOnClickListener {
-            val settingsMenu = PopupMenu(context,settings)
-            settingsMenu.inflate(R.menu.settings_menu)
-            settingsMenu.show()
 
-            settingsMenu.setOnMenuItemClickListener {
-
-                when(it.itemId){
-
-                    R.id.workingTimes -> {
-
-                        val mDialogView = LayoutInflater.from(context).inflate(R.layout.time_picker, null)
-                        val btnStartTime = mDialogView.findViewById<Button>(R.id.btnStartTime)
-                        val btnEndTime = mDialogView.findViewById<Button>(R.id.btnEndTime)
-                        val txtStartTime = mDialogView.findViewById<TextView>(R.id.txtTimeStart)
-                        val txtEndTime = mDialogView.findViewById<TextView>(R.id.txtTimeEnd)
-                        val etNotesCount = mDialogView.findViewById<EditText>(R.id.etNotesCount)
-
-                        val mBuilder = AlertDialog.Builder(context)
-                            .setView(mDialogView)
-                            .setTitle("Create Working Schedule")
-                            .setPositiveButton("Create"){ _, _ ->
-                                  RAW = etNotesCount.text.toString().toInt()
-                            }
-                            .setNegativeButton("Cancel"){ _, _ ->
-
-                            }
-
-                        btnStartTime.setOnClickListener {
-                            handleTimeButton(txtStartTime)
-
-                        }
-
-                        btnEndTime.setOnClickListener {
-                            handleTimeButton(txtEndTime)
-
-                        }
-
-                        mBuilder.show()
-
-                    }
-
-                    R.id.notesCount -> {
-
-                        RAW = 20
-
-                    }
-
-                }
-
-                true
-            }
-
-
-            }
 
 
 

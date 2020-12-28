@@ -15,17 +15,4 @@ data class Notes(
 
 ){
     var uniqueData: String = ""
-
-
-
 }
-// {
-//
-//
-//    fun getCalendar(): Calendar =
-//
-//        Calendar.getInstance().apply {
-//            this.timeInMillis = timeInMillis
-//        }
-//
-//}

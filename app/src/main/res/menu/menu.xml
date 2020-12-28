@@ -5,6 +5,27 @@
     tools:context=".MainActivity">
 
     <item
+        android:title="settings"
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom|withText">
+
+        <menu >
+
+            <item
+                android:title="Choose Working Times"
+                android:id="@+id/workingTimes"/>
+
+            <item
+                android:title="Choose Count of Notes"
+                android:id="@+id/notesCount"/>
+
+        </menu>
+    </item>
+
+
+
+    <item
         android:id="@+id/reset"
         android:icon="@android:drawable/ic_menu_revert"
         app:showAsAction="ifRoom|withText"
@@ -15,6 +36,7 @@
         app:showAsAction="never"
         android:title="@string/about">
     </item>
+
     <item
         android:id="@+id/exit"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
