@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.fragments.BaseFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_daily_events.*
 
 class DailyEventsFragment :  BaseFragment() {
@@ -22,7 +23,7 @@ class DailyEventsFragment :  BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addNote.setOnClickListener {
-            Toast.makeText(context, "${dailyEvents.raw}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${dailyEvents.cells}", Toast.LENGTH_SHORT).show()
         }
     }
 }

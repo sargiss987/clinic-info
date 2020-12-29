@@ -24,12 +24,12 @@ class DailyEvents @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     val db = ClinicInfo.getDatabase(context)
-    private val cells = mutableListOf<RectF>()
+    val cells: MutableList<RectF> = mutableListOf()
     private val startHeight = 150f
     private var min = 50f
     private var max = min
     var raw = 1
-    private var searchingList: MutableList<Notes> = mutableListOf()
+    var searchingList: MutableList<Notes> = mutableListOf()
     private val calendar: Calendar = Calendar.getInstance().apply {
         Calendar.YEAR
         Calendar.MONTH
@@ -58,32 +58,32 @@ class DailyEvents @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
+            initCells()
             drawCell(it)
             drawDate(it)
-            initCells()
+
 
         }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        cells.clear()
         var i = 0
 
-            var bottom : Float
-            var top : Float
-            if (cells.size > 0){
-                top = cells[cells.size - 1].bottom - (h-startHeight)/raw + 20
-                bottom = top+ (h-startHeight)/raw
-            }else{
-                top = startHeight
-                bottom = top+ (h-startHeight)/raw
-            }
+        while (i < raw){
+            val top = startHeight + ((h - startHeight)/raw + 20f) * i
+            val bottom = top + (h - startHeight)/raw
             val left = 20f
             val right = w - 20f
+
+
 
             val cell = RectF(left,top,right,bottom)
             cells.add(cell)
 
+            i++
+        }
 
 
     }
@@ -91,7 +91,7 @@ class DailyEvents @JvmOverloads constructor(
     //draw cells
     private fun drawCell(canvas: Canvas){
         var i = 0
-        while (i< cells.size){
+        while (i < cells.size){
             canvas.drawRect(cells[i],linePaint)
             i++
         }
@@ -109,7 +109,10 @@ class DailyEvents @JvmOverloads constructor(
             raw = searchingList.size
 
             withContext(Dispatchers.Main){
+                onSizeChanged(width,height-150,width,height)
                 invalidate()
+
+
             }
 
         }

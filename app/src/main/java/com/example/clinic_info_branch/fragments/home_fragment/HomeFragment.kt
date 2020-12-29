@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var viewAdapter: RecNoteAdapter
     private lateinit var phoneNumber: String
     private lateinit var job: Job
-    private lateinit var fullNameList : MutableSet<String>
+    private var fullNameList : MutableSet<String> = mutableSetOf()
 
 
 
@@ -57,7 +57,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             noteList = db.notesDao().getAllNotes()
 
             //init fullNameList
-            fullNameList = mutableSetOf()
             db.patientDao().getAllPatients().forEach{
                 fullNameList.add(it.patientName)
             }
@@ -189,14 +188,20 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
                     R.id.today -> {
 
-                        searchingList.clear()
-                        val dateText =
-                            DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
-                        searchingList = noteList.filter {
-                            it.date.contains(dateText)
-                        }.toMutableList()
+                        fragmentManager?.beginTransaction()?.apply {
+                            replace(R.id.fragmentContainer, DailyEventsFragment())
+                            addToBackStack(null)
+                            commit()
+                        }
 
-                        viewAdapter.setList(searchingList)
+//                        searchingList.clear()
+//                        val dateText =
+//                            DateFormat.format("EEEE, MMM d, yyyy", calendar).toString()
+//                        searchingList = noteList.filter {
+//                            it.date.contains(dateText)
+//                        }.toMutableList()
+//
+//                        viewAdapter.setList(searchingList)
                     }
 
                     R.id.custom -> {
@@ -365,7 +370,9 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                 calendar1.set(Calendar.HOUR, i)
                 calendar1.set(Calendar.MINUTE, i2)
                 val dateText = DateFormat.format("h:mm a", calendar1).toString()
+
                 view.text = dateText
+
 
 
 
