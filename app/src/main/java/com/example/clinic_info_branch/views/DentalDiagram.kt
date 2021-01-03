@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.Views
+package com.example.clinic_info_branch.views
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog

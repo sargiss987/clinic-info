@@ -69,7 +69,7 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:id="@+id/time"
+            android:id="@+id/timeS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/date"
@@ -84,7 +84,7 @@
             android:layout_below="@+id/date"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/time"
+            android:layout_toEndOf="@+id/timeS"
             android:text="@string/_15_30_pm"
             android:textSize="25sp" />
 

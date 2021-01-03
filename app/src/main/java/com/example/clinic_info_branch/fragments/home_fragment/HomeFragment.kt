@@ -114,7 +114,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                             it.name.toLowerCase(Locale.getDefault())
                                 .contains(p0.toLowerCase(Locale.getDefault())) or
                                     it.phone.contains(p0) or
-                                    it.time.toLowerCase(Locale.getDefault()).contains(p0)
+                                    it.startTimeMinute.toString().toLowerCase(Locale.getDefault()).contains(p0)
                         }.toMutableList()
                         viewAdapter.setList(searchingList)
                     } else {
@@ -248,11 +248,6 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             }
         }
 
-
-
-
-
-
         //Add new note
         addNote.setOnClickListener {
 
@@ -261,12 +256,14 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
             var date: String
             var time: String
             val mDialogView = LayoutInflater.from(context).inflate(R.layout.create_note, null)
-            val btnPickDate: Button = mDialogView.findViewById(R.id.pickDate)
-            val btnPickTime: Button = mDialogView.findViewById(R.id.pickTime)
+            val txtTimeDialogS: TextView = mDialogView.findViewById(R.id.txtTimeDialogS)
+            val txtTimeDialogE: TextView = mDialogView.findViewById(R.id.txtTimeDialogE)
             val txtDateDialog: TextView = mDialogView.findViewById(R.id.txtDateDialog)
-            val txtTimeDialog: TextView = mDialogView.findViewById(R.id.txtTimeDialog)
             val etName: AutoCompleteTextView = mDialogView.findViewById(R.id.etFullName)
             val etPhone: EditText = mDialogView.findViewById(R.id.etPhone)
+            val datePicker : ImageView = mDialogView.findViewById(R.id.date)
+            val startTimePicker : ImageView = mDialogView.findViewById(R.id.timeS)
+            val endTimePicker : ImageView = mDialogView.findViewById(R.id.timeE)
 
             //create and set adapter to etName
             val adapter = context?.let { it1 ->
@@ -287,17 +284,17 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
                     name = etName.text.toString()
                     phone = etPhone.text.toString()
                     date = txtDateDialog.text.toString()
-                    time = txtTimeDialog.text.toString()
+                    time = txtTimeDialogS.text.toString()
                     //create note
                     val note = Notes(
-                        0, name, phone, date, time
+                        0, name, phone, date, 0,0,""
                     )
                     progressBarHome.visibility = View.VISIBLE
 
                     //insert note to database
                     GlobalScope.launch(Dispatchers.Default) {
                         val id = db.notesDao().insertNote(note)
-                        val newNote = Notes(id, name, phone, date, time)
+                        val newNote = Notes(id, name, phone, date, 0,0,"")
                         delay(1000)
                         withContext(Dispatchers.Main) {
                             progressBarHome.visibility = View.GONE
@@ -313,74 +310,24 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
                 }
             //pick date
-            btnPickDate.setOnClickListener {
+            datePicker.setOnClickListener {
                 handelDateButton(txtDateDialog)
             }
 
-            //pick time
-            btnPickTime.setOnClickListener {
-                handleTimeButton(txtTimeDialog)
+            //pick start time
+            startTimePicker.setOnClickListener {
+                handleTimeButton(txtTimeDialogS)
+            }
+
+            //pick end time
+            endTimePicker.setOnClickListener {
+                handleTimeButton(txtTimeDialogE)
             }
 
 
             mBuilder.show()
         }
 
-
-    }
-
-    //pick date
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun handelDateButton(view: TextView) {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val dayOfMonth = calendar.get(Calendar.DATE)
-        val datePickerDialog =
-            context?.let {
-                DatePickerDialog(it, { _, i, i2, i3 ->
-                    val calendar1 = Calendar.getInstance()
-                    calendar1.set(Calendar.YEAR, i)
-                    calendar1.set(Calendar.MONTH, i2)
-                    calendar1.set(Calendar.DATE, i3)
-                    val dateText = DateFormat.format("EEEE, MMM d, yyyy", calendar1).toString()
-                    view.text = dateText
-
-                }, year, month, dayOfMonth)
-            }
-
-
-
-
-        datePickerDialog?.show()
-
-
-    }
-
-    //pick time
-    private fun handleTimeButton(view: TextView) {
-        val calendar = Calendar.getInstance()
-        val hourOfDay = calendar.get(Calendar.HOUR)
-        val minute = calendar.get(Calendar.MINUTE)
-        //val is24HourFormat: Boolean = is24HourFormat(context)
-
-        val timePickerDialog =
-            TimePickerDialog(context, { _, i, i2 ->
-                val calendar1 = Calendar.getInstance()
-                calendar1.set(Calendar.HOUR, i)
-                calendar1.set(Calendar.MINUTE, i2)
-                val dateText = DateFormat.format("h:mm a", calendar1).toString()
-
-                view.text = dateText
-
-
-
-
-            }, hourOfDay, minute, true)
-
-
-
-        timePickerDialog.show()
 
     }
 

@@ -142,7 +142,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCr" />
 
-    <com.example.clinic_info_branch.Views.DentalDiagram
+    <com.example.clinic_info_branch.views.DentalDiagram
         android:id="@+id/dentalDiagram"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

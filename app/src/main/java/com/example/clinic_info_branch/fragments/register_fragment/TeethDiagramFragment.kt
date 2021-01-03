@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.Views.stateOfTeethList
+import com.example.clinic_info_branch.views.stateOfTeethList
 import com.example.clinic_info_branch.data_base.OralHealth
 import com.example.clinic_info_branch.fragments.BaseFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.*

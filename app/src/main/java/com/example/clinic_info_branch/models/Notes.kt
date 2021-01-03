@@ -10,7 +10,9 @@ data class Notes(
     val name: String,
     val phone: String,
     val date: String,
-    val time: String
+    val startTimeMinute: Int,
+    val endTimeMinute: Int,
+    val timeText: String,
 
 
 ){

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="15dp">
 
-    <com.example.clinic_info_branch.Views.WeeklyEvents
+    <com.example.clinic_info_branch.views.WeeklyEvents
         android:id="@+id/weeklyEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

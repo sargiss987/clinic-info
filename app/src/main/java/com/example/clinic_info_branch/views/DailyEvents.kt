@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.Views
+package com.example.clinic_info_branch.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,7 +8,6 @@ import android.graphics.RectF
 import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.view.View
-import android.widget.Toast
 import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.models.Notes
 import kotlinx.coroutines.Dispatchers

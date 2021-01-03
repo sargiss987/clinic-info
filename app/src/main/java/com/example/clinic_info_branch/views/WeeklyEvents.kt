@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.Views
+package com.example.clinic_info_branch.views
 
 import android.app.AlertDialog
 import android.app.TimePickerDialog
@@ -16,7 +16,6 @@ import android.widget.*
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.models.Notes
-import kotlinx.android.synthetic.main.fragment_weekly_events.view.*
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -297,7 +296,7 @@ class WeeklyEvents @JvmOverloads constructor(
                 time = "${txtStartTime.text} - ${txtEndTime.text}"
 
                 val note = Notes(
-                    0, name, phone, date, time
+                    0, name, phone, date, 0,0,""
                 )
 
                 note.uniqueData = cellsUniqueData[position]

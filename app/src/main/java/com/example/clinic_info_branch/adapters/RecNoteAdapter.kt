@@ -50,7 +50,7 @@ class RecNoteAdapter(private val recViewClickListener: RecViewClickListener) :
         holder.txtName.text = list[position].name
         holder.txtPhone.text = list[position].phone
         holder.txtDate.text = list[position].date
-        holder.txtTime.text = list[position].time
+        holder.txtTime.text = list[position].startTimeMinute.toString()
 
         holder.btnCall.setOnClickListener { recViewClickListener.dialing(position) }
         holder.btnDelete.setOnClickListener { recViewClickListener.delete(position) }
