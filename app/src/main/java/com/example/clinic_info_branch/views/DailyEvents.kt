@@ -103,10 +103,20 @@ class DailyEvents @JvmOverloads constructor(
     //draw cells
     private fun drawCell(canvas: Canvas){
         var i = 0
+        var j = 0
         while (i < cells.size){
             canvas.drawRect(cells[i],linePaint)
+            if (dailyList.isNotEmpty()){
+                timeTextPaint.textSize = 85f- cells.size*3f
+                val time  = "${(dailyList[j]-dailyList[j]%60)/60}:${dailyList[j]%60}-" +
+                        "${(dailyList[j+1]-dailyList[j+1]%60)/60}:${dailyList[j+1]%60}"
+                canvas.drawText(time,cells[i].centerX(),cells[i].centerY(),timeTextPaint)
+            }
             i++
+            j += 2
         }
+
+
     }
 
     //draw date
@@ -118,9 +128,9 @@ class DailyEvents @JvmOverloads constructor(
     private fun initCells(){
         GlobalScope.launch(Dispatchers.IO) {
             searchingList = db.notesDao().getNotes(dateText)
-            Log.i(TAG, "initCells: $searchingList")
+            dailyList.clear()
             createSchedule()
-            raw = searchingList.size
+            raw = dailyList.size/2
 
             withContext(Dispatchers.Main){
                 onSizeChanged(width,height-20,width,height)
@@ -132,6 +142,7 @@ class DailyEvents @JvmOverloads constructor(
         }
     }
 
+    //create daily schedule
     private fun createSchedule(){
 
         searchingList.sortBy {
@@ -148,23 +159,24 @@ class DailyEvents @JvmOverloads constructor(
         dailyList.add(endTime)
 
         var i = dailyList.size-3
-        while (i > 0){
+        while (i > 1){
             if (dailyList[i] != dailyList[i-1]){
                 dailyList.add(i-1,dailyList[i-1])
+                dailyList.add(i+1,dailyList[i+1])
             }
             i -= 2
         }
 
         if (dailyList.size > 2 && dailyList[0] != dailyList[1]){
 
-            dailyList.add(0,dailyList[0])
+            dailyList.add(1,dailyList[1])
         }else{
             dailyList.remove(startTime)
         }
 
         if (dailyList.size > 2 && dailyList[dailyList.size-1] != dailyList[dailyList.size-2]){
 
-            dailyList.add(0,dailyList[dailyList.size-2])
+            dailyList.add(dailyList.size-2,dailyList[dailyList.size-2])
         }else{
             dailyList.remove(endTime)
         }
