@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.text.format.DateFormat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.example.clinic_info_branch.data_base.ClinicInfo
 import com.example.clinic_info_branch.models.Notes
@@ -15,6 +16,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+
+const val TAG = "DailyEvent"
 
 class DailyEvents @JvmOverloads constructor(
     context: Context,
@@ -28,7 +31,10 @@ class DailyEvents @JvmOverloads constructor(
     private var min = 50f
     private var max = min
     var raw = 1
-    var searchingList: MutableList<Notes> = mutableListOf()
+    private var searchingList: MutableList<Notes> = mutableListOf()
+    var dailyList: MutableList<Int> = mutableListOf()
+    var startTime = 600
+    var endTime = 1200
     private val calendar: Calendar = Calendar.getInstance().apply {
         Calendar.YEAR
         Calendar.MONTH
@@ -52,6 +58,13 @@ class DailyEvents @JvmOverloads constructor(
 
     }
 
+    private val timeTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.BLUE
+        textSize = 85f
+
+    }
+
+
 
 
     override fun onDraw(canvas: Canvas?) {
@@ -71,7 +84,7 @@ class DailyEvents @JvmOverloads constructor(
         var i = 0
 
         while (i < raw){
-            val top = startHeight + ((h - startHeight)/raw + 20f) * i
+            val top = startHeight + ((h - startHeight)/raw) * i
             val bottom = top + (h - startHeight)/raw
             val left = 20f
             val right = w - 20f
@@ -105,16 +118,59 @@ class DailyEvents @JvmOverloads constructor(
     private fun initCells(){
         GlobalScope.launch(Dispatchers.IO) {
             searchingList = db.notesDao().getNotes(dateText)
+            Log.i(TAG, "initCells: $searchingList")
+            createSchedule()
             raw = searchingList.size
 
             withContext(Dispatchers.Main){
-                onSizeChanged(width,height-150,width,height)
+                onSizeChanged(width,height-20,width,height)
                 invalidate()
 
 
             }
 
         }
+    }
+
+    private fun createSchedule(){
+
+        searchingList.sortBy {
+            it.endTimeMinute
+        }
+
+        dailyList.add(startTime)
+
+        searchingList.forEach {
+            dailyList.add(it.startTimeMinute)
+            dailyList.add(it.endTimeMinute)
+        }
+
+        dailyList.add(endTime)
+
+        var i = dailyList.size-3
+        while (i > 0){
+            if (dailyList[i] != dailyList[i-1]){
+                dailyList.add(i-1,dailyList[i-1])
+            }
+            i -= 2
+        }
+
+        if (dailyList.size > 2 && dailyList[0] != dailyList[1]){
+
+            dailyList.add(0,dailyList[0])
+        }else{
+            dailyList.remove(startTime)
+        }
+
+        if (dailyList.size > 2 && dailyList[dailyList.size-1] != dailyList[dailyList.size-2]){
+
+            dailyList.add(0,dailyList[dailyList.size-2])
+        }else{
+            dailyList.remove(endTime)
+        }
+
+        Log.i(TAG, "createSchedule: $dailyList")
+
     }
 
 
