@@ -30,5 +30,4 @@
         android:background="@color/blueWrite"
         app:menu="@menu/navigation_menu" />
 
-
 </RelativeLayout>
