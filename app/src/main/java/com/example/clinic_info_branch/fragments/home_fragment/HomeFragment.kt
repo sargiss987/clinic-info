@@ -21,6 +21,7 @@ import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.models.Notes
 import com.example.clinic_info_branch.adapters.RecNoteAdapter
 import com.example.clinic_info_branch.data_base.Patient
+import com.example.clinic_info_branch.databinding.FragmentHomeBinding
 import com.example.clinic_info_branch.fragments.BaseFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.PatientPersonalPageFragment
@@ -41,9 +42,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
     private lateinit var phoneNumber: String
     private lateinit var job: Job
     private var fullNameList : MutableSet<String> = mutableSetOf()
-
-
-
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onResume() {
         super.onResume()
@@ -90,8 +89,8 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -100,7 +99,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
 
         //searching by patient name,recording time or phone
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
             }
@@ -128,7 +127,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
 
 
         //filter data by note's date
-        filter.setOnClickListener {
+        binding.filter.setOnClickListener {
             val filterMenu = PopupMenu(context, filter)
             filterMenu.inflate(R.menu.filter_menu)
             filterMenu.show()
@@ -249,7 +248,7 @@ class HomeFragment : BaseFragment(), RecNoteAdapter.RecViewClickListener {
         }
 
         //Add new note
-        addNote.setOnClickListener {
+        binding.addNote.setOnClickListener {
 
             var name: String
             var phone: String
