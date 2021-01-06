@@ -9,7 +9,7 @@ import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.data_base.TreatmentProcess
 import com.example.clinic_info_branch.adapters.RecTreatmentProcessAdapter
-import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.base.BaseFragment
 import com.example.clinic_info_branch.fragments.home_fragment.HOME_REQUEST
 import com.example.clinic_info_branch.fragments.home_fragment.PATIENT_INFO_HOME
 import com.example.clinic_info_branch.fragments.home_fragment.REQUEST_FROM_HOME

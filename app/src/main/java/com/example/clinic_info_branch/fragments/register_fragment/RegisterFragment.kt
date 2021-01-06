@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.views.stateOfTeethList
 import com.example.clinic_info_branch.data_base.*
-import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.base.BaseFragment
 import com.example.clinic_info_branch.view_model.ViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.*

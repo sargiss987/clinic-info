@@ -1,7 +1,6 @@
 package com.example.clinic_info_branch.fragments.home_fragment
 
 import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.base.BaseFragment
 import com.example.clinic_info_branch.models.Notes
 
 import kotlinx.android.synthetic.main.fragment_daily_events.addNote

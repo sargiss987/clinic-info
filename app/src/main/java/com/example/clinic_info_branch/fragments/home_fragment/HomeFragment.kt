@@ -22,7 +22,7 @@ import com.example.clinic_info_branch.models.Notes
 import com.example.clinic_info_branch.adapters.RecNoteAdapter
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.databinding.FragmentHomeBinding
-import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.base.BaseFragment
 import com.example.clinic_info_branch.fragments.register_fragment.RegisterFragment
 import com.example.clinic_info_branch.fragments.searching_fragment.PatientPersonalPageFragment
 import kotlinx.android.synthetic.main.fragment_home.*

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.clinic_info_branch.R
-import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.base.BaseFragment
 
 class WeeklyEventsFragment:  BaseFragment() {
 

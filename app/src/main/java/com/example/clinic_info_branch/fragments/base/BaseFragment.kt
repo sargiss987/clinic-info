@@ -1,4 +1,4 @@
-package com.example.clinic_info_branch.fragments
+package com.example.clinic_info_branch.fragments.base
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -7,7 +7,6 @@ import android.os.Build
 import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TextView
-import android.widget.TimePicker
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.clinic_info_branch.data_base.ClinicInfo

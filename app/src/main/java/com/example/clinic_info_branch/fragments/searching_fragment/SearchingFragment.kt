@@ -1,9 +1,7 @@
 package com.example.clinic_info_branch.fragments.searching_fragment
 
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.clinic_info_branch.R
 import com.example.clinic_info_branch.data_base.Patient
 import com.example.clinic_info_branch.adapters.RecPatientAdapter
-import com.example.clinic_info_branch.data_base.ClinicInfo
-import com.example.clinic_info_branch.fragments.BaseFragment
+import com.example.clinic_info_branch.fragments.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_searching.*
 import kotlinx.android.synthetic.main.fragment_searching.searchView
 import kotlinx.coroutines.*
